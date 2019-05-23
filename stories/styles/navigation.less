@@ -1,0 +1,44 @@
+@import "../../components/styles/vars.less";
+
+.example-dropdown-list {
+  border-radius: @border-radius;
+  width: 138px;
+  li {
+    border-bottom: 1px solid @border-color;
+    padding: 10px 30px;
+    background: @bg-color;
+    transition: all @default-transition;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+      color:@primary-color;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+
+    a {
+      color: @font-color;
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
+
+}
+
+.example-drapdown {
+  svg {
+    vertical-align: middle
+  }
+}
+
+.example-steps-page {
+  .cuke-steps {
+    margin-bottom: 40px;
+  }
+  .cuke-pagination {
+    text-align: center;
+  }
+}

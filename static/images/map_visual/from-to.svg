@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="36px" viewBox="0 0 26 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>from-to</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Screen-Copy-16" transform="translate(-1017.000000, -239.000000)">
+            <g id="Group-4" transform="translate(1017.000000, 235.000000)">
+                <g id="from-to">
+                    <text id="from-copy-2" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="0.08780486" fill="#939FBD">
+                        <tspan x="0.25039028" y="13">from</tspan>
+                    </text>
+                    <text id="to-copy" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="0.08780486" fill="#939FBD">
+                        <tspan x="15.2661951" y="39">to</tspan>
+                    </text>
+                    <g id="Group-4" stroke-width="1" fill-rule="evenodd" transform="translate(2.000000, 17.000000)">
+                        <path d="M0,0 L0,13 C4.05812251e-16,16.3137085 2.6862915,19 6,19 L9,19" id="Path-3" stroke="#939FBD"></path>
+                        <polygon id="subdirectory_arrow_right---material" fill="#939FBD" points="10.5080488 19 7.50804883 22 6.80004883 21.292 8.61204883 19.492 8.61204883 18.508 6.80004883 16.708 7.50804883 16"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

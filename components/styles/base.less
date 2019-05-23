@@ -1,0 +1,20 @@
+.hidden {
+  display: none;
+}
+
+.full_abs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.full_fixed {
+  &:extend(.full_abs);
+  position: fixed;
+}
+
+body {
+  box-sizing: border-box;
+}

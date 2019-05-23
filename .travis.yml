@@ -1,0 +1,45 @@
+language: node_js
+
+node_js:
+  - "10"
+
+sudo: false
+
+branches:
+   only:
+   - master
+
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
+cache:
+  yarn: true
+  directories:
+    - ".eslintcache"
+    - "node_modules"
+
+before_script : "yarn test -- -u"
+
+script: 
+  - yarn lint
+  - yarn test
+
+after_script: 
+  - yarn ci:coverage
+
+
+before_deploy: 
+  - yarn build:docs
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: .out
+  on:
+    branch: master
+
+#env:
+#  global:
+#    - GH_REF: github.com/cuke-ui/cuke-ui.git

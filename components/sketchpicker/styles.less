@@ -1,0 +1,51 @@
+.sketch_panel_btns {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 200;
+  height: 52px;
+  padding: 8px;
+  line-height: 36px;
+
+  .btn {
+    padding: 0 16px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #fff;
+
+    &:hover {
+      background: #192140;
+    }
+
+    &.cancel {
+      color: rgba(255, 255, 255, .6);
+      margin-right: 8px;
+    }
+  }
+
+}
+.sketch_draggable_top {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  cursor: move;
+  background: transparent;
+  z-index: 99999;
+  pointer-events: initial;
+}
+.poi_color_picker_inner_inner {
+  .sketch-picker {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 15px 0 0 0 !important;
+    .flexbox-fix > div > div > span {
+      color: #fff !important;
+      font-size: 12px !important;
+    }
+    .flexbox-fix:last-child {
+      border-top: none !important;
+    }
+  }
+}
