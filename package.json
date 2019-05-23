@@ -1,5 +1,5 @@
 {
-  "name": "maicedata-ui",
+  "name": "strength-ui",
   "version": "0.0.1",
   "description": "A React.js UI/Map components for Web",
   "repository": "https://",
@@ -62,7 +62,7 @@
     }
   },
   "storybook-deployer": {
-    "gitUsername": "maicedata-ui",
+    "gitUsername": "strength-ui",
     "gitEmail": "527409987@qq.com",
     "commitMessage": "docs: deploy docs"
   },

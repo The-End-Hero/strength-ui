@@ -1,4 +1,4 @@
-# MAICEDATA-UI
+# STRENGTH-UI
 
 1. 运行
    1. yarn install
