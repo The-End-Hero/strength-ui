@@ -44,10 +44,6 @@ function loadStories() {
   // require('../stories/allmapshow')
   // // 地图工具栏
   require("../stories/maptool");
-  // 地图topfilter
-  require("../stories/maptopfilter");
-  // mapbox
-  require("../stories/mapbox");
 }
 
 configureActions({
