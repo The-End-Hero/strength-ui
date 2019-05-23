@@ -5,5 +5,6 @@
 // export { default as Amap } from "./amap";
 // export { default as MapTalks } from "./maptalks";
 export { default as MapTool } from "./maptool";
+export { default as Button } from "./button";
 
 export { default as version } from "./version";
