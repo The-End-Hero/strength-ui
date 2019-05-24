@@ -1,12 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { name, repository, author } from "../package.json";
-import { FaGithub } from "react-icons/fa";
-import ReactMarkDown from "react-markdown";
-
-const LOGO = `
-                                      
-`;
 
 storiesOf("综述", module)
   .add("介绍", () => (

@@ -40,6 +40,6 @@ deploy:
   on:
     branch: master
 
-#env:
-#  global:
-#    - GH_REF: github.com/cuke-ui/cuke-ui.git
+env:
+  global:
+    - GH_REF: github.com/The-End-Hero/strength-ui.git

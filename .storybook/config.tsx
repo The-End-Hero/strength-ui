@@ -11,6 +11,8 @@ import "@storybook/addon-console";
 import "../stories/styles/code.less";
 
 function loadStories() {
+  // 首页
+  require("../stories/index");
   // 地图工具栏
   require("../stories/maptool");
   // 按钮
