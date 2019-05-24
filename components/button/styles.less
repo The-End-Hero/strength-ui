@@ -1,7 +1,7 @@
 @import "../styles/vars.less";
 @import "../styles/animate.less";
 @import "../styles/mixins.less";
-@prefixCls : cuke-button;
+@prefixCls : mc-button;
 .@{prefixCls} {
   display: inline-block;
   margin: 0;
@@ -24,11 +24,11 @@
   border-radius: @border-radius;
   outline: none;
   text-shadow: @default-text-shadow;
-  .cuke-button-hover(@default-color);
+  .mc-button-hover(@default-color);
   &.@{prefixCls}-primary {
-    .cuke-button-hover(@primary-color);
+    .mc-button-hover(@primary-color);
     &.@{prefixCls}-hollow {
-      .cuke-button-hollow(@primary-color)
+      .mc-button-hollow(@primary-color)
     }
   }
   &.@{prefixCls}-default {
@@ -44,31 +44,31 @@
       }
     }
     &.@{prefixCls}-hollow {
-      .cuke-button-hollow(@default-color)
+      .mc-button-hollow(@default-color)
     }
   }
   &.@{prefixCls}-warning {
-    .cuke-button-hover(@warning-color);
+    .mc-button-hover(@warning-color);
     &.@{prefixCls}-hollow {
-      .cuke-button-hollow(@warning-color)
+      .mc-button-hollow(@warning-color)
     }
   }
   &.@{prefixCls}-error {
-    .cuke-button-hover(@error-color);
+    .mc-button-hover(@error-color);
     &.@{prefixCls}-hollow {
-      .cuke-button-hollow(@error-color)
+      .mc-button-hollow(@error-color)
     }
   }
   &.@{prefixCls}-success {
-    .cuke-button-hover(@success-color);
+    .mc-button-hover(@success-color);
     &.@{prefixCls}-hollow {
-      .cuke-button-hollow(@success-color)
+      .mc-button-hollow(@success-color)
     }
   }
   &.@{prefixCls}-info {
-    .cuke-button-hover(@info-color);
+    .mc-button-hover(@info-color);
     &.@{prefixCls}-hollow {
-      .cuke-button-hollow(@info-color)
+      .mc-button-hollow(@info-color)
     }
   }
   &.@{prefixCls}-disabled {
@@ -78,7 +78,7 @@
       background-color: transparent !important;
     }
     &.@{prefixCls}-normal {
-      .cuke-button-hover(@disabled-color);
+      .mc-button-hover(@disabled-color);
       text-shadow: none;
       border: 1px solid @border-color;
       color: @disabled-font-color  !important;
@@ -95,11 +95,11 @@
   &.@{prefixCls}-loading {
     opacity: @loading-opacity;
     cursor: not-allowed;
-    >.cuke-loading {
+    >.mc-loading {
       display: inline-block;
       vertical-align: middle;
       margin: -3px 10px 0 0;
-      animation: cuke-spin @loading-time linear infinite;
+      animation: mc-spin @loading-time linear infinite;
     }
   }
   &.@{prefixCls}-size-large {
@@ -138,7 +138,7 @@
         border-left: none;
         border-right: none;
         border-bottom: none;
-        animation: cuke-spin @loading-time @animate-type-easy-in-out infinite;
+        animation: mc-spin @loading-time @animate-type-easy-in-out infinite;
         left: -5px;
         top: -5px;
       }

@@ -11,8 +11,10 @@ import "@storybook/addon-console";
 import "../stories/styles/code.less";
 
 function loadStories() {
-  // // 地图工具栏
+  // 地图工具栏
   require("../stories/maptool");
+  // 按钮
+  require("../stories/button");
 }
 
 configureActions({

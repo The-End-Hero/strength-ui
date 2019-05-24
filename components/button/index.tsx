@@ -21,7 +21,7 @@ const types = {
 
 export default class Button extends PureComponent <any,any>{
   static defaultProps = {
-    prefixCls: "cuke-button",
+    prefixCls: "mc-button",
     href: "",
     type: types.default,
     htmlType: "button",
@@ -89,25 +89,29 @@ export default class Button extends PureComponent <any,any>{
       })
     };
 
-    const content = (
+    const content:any = (
       <>
         {loading && !circle && <LoadingIcon className="cuke-loading" />}
         <span>{children}</span>
       </>
     );
+   
+    let button;
     if (href) {
-      return (
+      // a标签没有disabled属性
+      button = (
         <a href={disabled ? "javascript:void(0);" : href}
-          disabled={disabled}
-          className={cls(`${prefixCls}-link`, className, {
-            [`${prefixCls}-link-disabled`]: disabled
-          })}
-          {...attr}
+           className={cls(`${prefixCls}-link`, className, {
+             [`${prefixCls}-link-disabled`]: disabled
+           })}
+           {...attr}
         >
           {content}
         </a>
       );
+    } else {
+      button = <button {...baseProps}>{content}</button>;
     }
-    return <button {...baseProps}>{content}</button>;
+    return button;
   }
 }

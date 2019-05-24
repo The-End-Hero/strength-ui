@@ -11,11 +11,15 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import flashChecker from "../../utils/flashChecker";
 import coordtrans from "../../utils/coordtrans";
 
-const { gcj02tobd09, bd09togcj02 } = coordtrans;
 // import alertUtil from '../../utils/alertUtil'
 import { self_select, dis_select, geo_types } from "../../constants/constants";
 import swal from "@sweetalert/with-react";
 import $ from "jquery";
+
+const { gcj02tobd09, bd09togcj02 } = coordtrans;
+const  cursor_select = require("../../static/images/map_visual/cursor_select.svg")
+
+
 
 const iconStyle = {
   fontSize: 16,
