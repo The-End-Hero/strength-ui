@@ -91,7 +91,7 @@ export default class Button extends PureComponent <any,any>{
 
     const content:any = (
       <>
-        {loading && !circle && <LoadingIcon className="cuke-loading" />}
+        {loading && !circle && <LoadingIcon className="mc-loading" />}
         <span>{children}</span>
       </>
     );

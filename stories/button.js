@@ -8,6 +8,7 @@ import { action } from '@storybook/addon-actions';
 // import "../static/font/font-awesome/css/font-awesome.min.css";
 // import "../static/font/mdt_fonts/mdt_font.css";
 import "../components/styles/index.less";
+import "./style.less"
 
 import { SuccessIcon } from '../components/icon';
 
