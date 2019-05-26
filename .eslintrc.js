@@ -29,7 +29,7 @@ module.exports = {
     "generator-star-spacing": ["error", "after"],
     // camelcase: ["error", { properties: "never" }],
     eqeqeq: ["error", "smart"],
-    "linebreak-style": ["error", "unix"],
+    // "linebreak-style": ["error", "unix"],
     "new-cap": "error",
     "no-array-constructor": "error",
     // "no-lonely-if": "error",

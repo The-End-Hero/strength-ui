@@ -4,9 +4,9 @@ import "../components/button/styles.less";
 import Button from "../components/button/index";
 import { withInfo } from "@storybook/addon-info";
 import { action } from '@storybook/addon-actions';
-import "../static/font/material-icons.css";
-import "../static/font/font-awesome/css/font-awesome.min.css";
-import "../static/font/mdt_fonts/mdt_font.css";
+// import "../static/font/material-icons.css";
+// import "../static/font/font-awesome/css/font-awesome.min.css";
+// import "../static/font/mdt_fonts/mdt_font.css";
 import "../components/styles/index.less";
 
 import { SuccessIcon } from '../components/icon';
@@ -205,7 +205,7 @@ storiesOf('普通', module).add(
 
       <h2>链接</h2>
       <Button href="#">主页</Button>
-      <Button type="primary" href="https://github.com/cuke-ui/cuke-ui.git">GITHUB</Button>
+      <Button type="primary" href="https://jd.com">京東商城</Button>
       <Button href="#" disabled>禁用</Button>
     </div>
   )

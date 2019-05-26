@@ -1,0 +1,16 @@
+/// <reference types="react" />
+export declare const InfoIcon: (props: any) => JSX.Element;
+export declare const LoadingIcon: (props: any) => JSX.Element;
+export declare const SuccessIcon: (props: any) => JSX.Element;
+export declare const ErrorIcon: (props: any) => JSX.Element;
+export declare const WarningIcon: (props: any) => JSX.Element;
+export declare const CloseIcon: (props: any) => JSX.Element;
+export declare const UpIcon: (props: any) => JSX.Element;
+export declare const DownIcon: (props: any) => JSX.Element;
+export declare const ArrowRightIcon: (props: any) => JSX.Element;
+export declare const ArrowLeftIcon: (props: any) => JSX.Element;
+export declare const FileUploadIcon: (props: any) => JSX.Element;
+export declare const CalendarIcon: (props: any) => JSX.Element;
+export declare const CloseCircleIcon: (props: any) => JSX.Element;
+export declare const EmptyIcon: (props: any) => JSX.Element;
+export declare const UserIcon: (props: any) => JSX.Element;

@@ -17,7 +17,7 @@ import swal from "@sweetalert/with-react";
 import $ from "jquery";
 
 const { gcj02tobd09, bd09togcj02 } = coordtrans;
-const  cursor_select = require("../../static/images/map_visual/cursor_select.svg")
+// const  cursor_select = require("../../static/images/map_visual/cursor_select.svg")
 
 
 
@@ -47,23 +47,25 @@ const styles = {
   }
 };
 const theme = createMuiTheme({
-  overrides: {
-    // Name of the component ⚛️ / style sheet
-    MuiRadio: {
-      // Name of the rule
-      root: {
-        color: "white"
-      }
+    overrides: {
+        // Name of the component ⚛️ / style sheet
+        MuiRadio: {
+            // Name of the rule
+            root: {
+                color: "white"
+            }
+        }
     }
-  }
 });
 const STREET_COVERAGE_LAYER = "STREET_COVERAGE_LAYER";
+const BMap = (window as any).BMap;
+const AMap = (window as any).AMap;
 
 class MapTool extends Component <any, any> {
-  static defaultProps = {
-    is_server_render: false,
-    fullscreencenter: false,
-    getMap: () => {
+    static defaultProps = {
+        is_server_render: false,
+        fullscreencenter: false,
+        getMap: () => {
     }
   };
   static propTypes = {
@@ -195,7 +197,7 @@ class MapTool extends Component <any, any> {
       coordinate = { lng: coordinate.x, lat: coordinate.y };
     }
     if (this.panorama) {
-      this.panorama.setPosition(new window.BMap.Point(coordinate.lng, coordinate.lat));
+      this.panorama.setPosition(new BMap.Point(coordinate.lng, coordinate.lat));
     }
   };
 
@@ -210,8 +212,6 @@ class MapTool extends Component <any, any> {
   };
 
   addSecondMap = () => {
-    const AMap = window.AMap;
-    const BMap = window.BMap;
     let { is_server_render } = this.props;
     $("body").append("<div id=\"streetscapeView\" style=\"position:absolute;right:0px;top:0px;border:1px solid #ccc;top: 0px;bottom: 0px;width:50%;overflow: hidden;z-index: 999999;background: #444e61;color:#fff;\"><div id=\"streetscapeMap\" style=\"height:100%;width:100%;overflow: hidden;\"></div><div class=\"pano_close_ex\" title=\"退出全景\" style=\"z-index: 1201;\"></div></div>");
     let $close = $(".pano_close_ex");

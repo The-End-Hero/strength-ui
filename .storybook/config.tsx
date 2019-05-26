@@ -24,8 +24,8 @@ configureActions({
 });
 addParameters({
   options: {
-    // name: `${name} v${version}`,
-    // url: repository,
+    name: `${name} v${version}`,
+    url: repository,
     brandUrl: repository,
     brandTitle: `${name} v${version}`,
     sidebarAnimations: true
