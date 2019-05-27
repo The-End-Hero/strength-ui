@@ -63,7 +63,25 @@ class MapTool extends Component<any, any> {
   static defaultProps = {
     is_server_render: false,
     fullscreencenter: false,
-    getMap: () => {}
+    getMap: () => {
+    },
+    // TODO 配置化渲染顺序，是否需要等
+    renderOrder: [
+      { key: "search_map" }, //地图搜索
+      { key: "show_line" },
+      { key: "pause_select" }, // 点选状态
+      { key: self_select }, // 自助选择
+      { key: self_select }, // 距离选择
+      { key: "clear_custom_drow" }, // 清空地图
+      { key: "show_line" },
+      { key: "map_style" }, // 地图样式
+      { key: "full_screen" }, // 全屏
+
+      { key: "save_as_jpeg" },//截屏
+      { key: "street_view" },//街景
+      { key: "ranging" }, // 测距
+      { key: "reset_map" } // 还原地图
+    ]
   };
   static propTypes = {
     is_server_render: PropTypes.bool.isRequired,
@@ -373,125 +391,60 @@ class MapTool extends Component<any, any> {
         className={cls("mc_map_tool_wrap", { fullscreen: fullscreencenter })}
       >
         <div className="mc_map_tool_btn_wrap">
-          <Tooltip placement="right" overlay={<span>点选状态</span>}>
-            <div
-              className={cls("mc_map_left_btn cursor_select", {
-                cursor_on:
+          <Tooltip placement="right" overlay={<span>点选</span>}>
+            <div className="mc_map_tool_btn_container">
+              <div
+                className={cls("mc_map_left_btn cursor_select", {
+                  cursor_on:
                   pauseStyle ||
                   (mapState !== dis_select && mapState !== self_select)
-              })}
-              onClick={this.pauseState}
-            />
-          </Tooltip>
-          <Tooltip placement="right" overlay={<span>自助选择</span>}>
-            <div
-              className={cls("mc_map_left_btn polygon_select", {
-                polygon_select_s: !pauseStyle && mapState === self_select
-              })}
-              onClick={this.selfSelect}
-            />
-          </Tooltip>
-          <Tooltip placement="right" overlay={<span>距离选择</span>}>
-            <div
-              className={cls("mc_map_left_btn diameter_select", {
-                diameter_select_s: !pauseStyle && mapState === dis_select
-              })}
-              onClick={this.disSelect}
-            />
-          </Tooltip>
-          <Tooltip placement="right" overlay={<span>清空</span>}>
-            <div
-              className={cls("mc_map_left_btn delete_draw", {
-                no_lable: !(
-                  hasCustomDraw &&
-                  (mapState === dis_select || mapState === self_select)
-                )
-              })}
-              onClick={this.emptySelect}
-            />
-          </Tooltip>
-          <Tooltip placement="right" overlay={<span>隐藏围栏点位</span>}>
-            <div
-              className={cls("mc_map_left_btn hide_polygon_point", {
-                hidden: current_geo_filter
-                  ? !(
-                      current_geo_filter.geometry_type ===
-                      geo_types.point_to_polygon
-                    )
-                  : true
-              })}
-              onClick={async () => {
-                // console.log(current_geo_filter, 'current_geo_filter')
-                if (changeCurrentGeoFilter)
-                  await changeCurrentGeoFilter(
-                    !current_geo_filter.filters[0].hide
-                  );
-                if (addBgPoint)
-                  await addBgPoint(
-                    current_geo_filter.source,
-                    current_geo_filter.packageId,
-                    current_geo_filter.object_type,
-                    current_geo_filter.filters[0].data,
-                    current_geo_filter.filters[0].hide
-                  );
-              }}
-            />
-          </Tooltip>
-          {!moreMenu && (
-            <Tooltip
-              placement="right"
-              overlay={<span>更多</span>}
-              overlayClassName={moreMenu ? "hidden" : ""}
-            >
-              <div
-                className={cls("mc_map_left_btn more_select", {
-                  hidden: moreMenu
                 })}
-                onClick={() => {
-                  this.moreMenu(true);
-                }}
+                onClick={this.pauseState}
               />
-            </Tooltip>
-          )}
-          {moreMenu && (
-            <Tooltip
-              placement="right"
-              overlay={<span>收起</span>}
-              overlayClassName={!moreMenu ? "hidden" : ""}
-            >
-              <div
-                className={cls("mc_map_left_btn less_select", {
-                  hidden: !moreMenu
-                })}
-                onClick={() => {
-                  this.moreMenu(false);
-                }}
-              />
-            </Tooltip>
-          )}
-          <Tooltip placement="right" overlay={<span>截屏</span>}>
-            <div
-              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-              onClick={this.saveAsJpeg}
-            >
-              <i className="material-icons">crop</i>
             </div>
           </Tooltip>
-          <Tooltip placement="right" overlay={<span>测距</span>}>
-            <div
-              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-              onClick={this.turnOnRangingTool}
-            >
-              <i className="material-icons">straighten</i>
+          <Tooltip placement="right" overlay={<span>画多边形</span>}>
+            <div className="mc_map_tool_btn_container">
+              <div
+                className={cls("mc_map_left_btn polygon_select", {
+                  polygon_select_s: !pauseStyle && mapState === self_select
+                })}
+                onClick={this.selfSelect}
+              />
             </div>
           </Tooltip>
+          <Tooltip placement="right" overlay={<span>画圆</span>}>
+            <div className="mc_map_tool_btn_container">
+              <div
+                className={cls("mc_map_left_btn diameter_select", {
+                  diameter_select_s: !pauseStyle && mapState === dis_select
+                })}
+                onClick={this.disSelect}
+              />
+            </div>
+          </Tooltip>
+          <Tooltip placement="right" overlay={<span>清空围栏</span>}>
+            <div className="mc_map_tool_btn_container">
+              <div
+                className={cls("mc_map_left_btn delete_draw", {
+                  no_lable: false && !(
+                    hasCustomDraw &&
+                    (mapState === dis_select || mapState === self_select)
+                  )
+                })}
+                onClick={this.emptySelect}
+              />
+            </div>
+          </Tooltip>
+          
           <div style={{ position: "relative" }}>
-            <Tooltip placement="right" overlay={<span>切换地图</span>}>
-              <div
-                className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-                onClick={this.showPop}
-              >
-                <i className="material-icons">map</i>
+            <Tooltip placement="right" overlay={<span>地图样式</span>}>
+              <div className="mc_map_tool_btn_container">
+                <div
+                  className={cls("mc_map_left_btn map_style", {})}
+                  onClick={this.showPop}
+                >
+                </div>
               </div>
             </Tooltip>
             {show && (
@@ -610,28 +563,84 @@ class MapTool extends Component<any, any> {
               </ClickAwayListener>
             )}
           </div>
+
+          <Tooltip placement="right" overlay={<span>地图全屏</span>}>
+            <div className="mc_map_tool_btn_container">
+              <div
+                className={cls("mc_map_tool_btn", {})}
+                onClick={this.onFullScreenCenter}
+              >
+                {fullscreencenter ? (
+                  <i key="1" className="material-icons">
+                    fullscreen_exit
+                  </i>
+                ) : (
+                  <i key="2" className="material-icons">
+                    fullscreen
+                  </i>
+                )}
+              </div>
+            </div>
+          </Tooltip>
+          {!moreMenu && (
+            <Tooltip
+              placement="right"
+              overlay={<span></span>}
+              overlayClassName={moreMenu ? "hidden" : ""}
+            >
+              <div className="mc_map_tool_btn_container">
+                <div
+                  className={cls("mc_map_left_btn more_select", {
+                    hidden: moreMenu
+                  })}
+                  onClick={() => {
+                    this.moreMenu(true);
+                  }}
+                />
+              </div>
+            </Tooltip>
+          )}
+          
+          
+          {moreMenu && (
+            <Tooltip
+              placement="right"
+              overlay={<span>收起</span>}
+              overlayClassName={!moreMenu ? "hidden" : ""}
+            >
+              <div
+                className={cls("mc_map_left_btn less_select", {
+                  hidden: !moreMenu
+                })}
+                onClick={() => {
+                  this.moreMenu(false);
+                }}
+              />
+            </Tooltip>
+          )}
+          <Tooltip placement="right" overlay={<span>截屏</span>}>
+            <div
+              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
+              onClick={this.saveAsJpeg}
+            >
+              <i className="material-icons">crop</i>
+            </div>
+          </Tooltip>
+          <Tooltip placement="right" overlay={<span>测距</span>}>
+            <div
+              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
+              onClick={this.turnOnRangingTool}
+            >
+              <i className="material-icons">straighten</i>
+            </div>
+          </Tooltip>
+          
           <Tooltip placement="right" overlay={<span>街景</span>}>
             <div
               className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
               onClick={this.toggleStreetView}
             >
               <i className="material-icons">streetview</i>
-            </div>
-          </Tooltip>
-          <Tooltip placement="right" overlay={<span>全屏</span>}>
-            <div
-              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-              onClick={this.onFullScreenCenter}
-            >
-              {fullscreencenter ? (
-                <i key="1" className="material-icons">
-                  fullscreen_exit
-                </i>
-              ) : (
-                <i key="2" className="material-icons">
-                  fullscreen
-                </i>
-              )}
             </div>
           </Tooltip>
         </div>
