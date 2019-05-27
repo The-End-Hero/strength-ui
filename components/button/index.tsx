@@ -19,7 +19,7 @@ const types = {
   disabled: "disabled"
 };
 
-export default class Button extends PureComponent <any,any>{
+export default class Button extends PureComponent<any, any> {
   static defaultProps = {
     prefixCls: "mc-button",
     href: "",
@@ -89,22 +89,23 @@ export default class Button extends PureComponent <any,any>{
       })
     };
 
-    const content:any = (
+    const content: any = (
       <>
         {loading && !circle && <LoadingIcon className="mc-loading" />}
         <span>{children}</span>
       </>
     );
-   
+
     let button;
     if (href) {
       // a标签没有disabled属性
       button = (
-        <a href={disabled ? "javascript:void(0);" : href}
-           className={cls(`${prefixCls}-link`, className, {
-             [`${prefixCls}-link-disabled`]: disabled
-           })}
-           {...attr}
+        <a
+          href={disabled ? "javascript:void(0);" : href}
+          className={cls(`${prefixCls}-link`, className, {
+            [`${prefixCls}-link-disabled`]: disabled
+          })}
+          {...attr}
         >
           {content}
         </a>

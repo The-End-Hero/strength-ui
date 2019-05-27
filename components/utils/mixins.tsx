@@ -4,6 +4,5 @@ export default function applyMixins(derivedCtor: any, baseCtors: any[]) {
       derivedCtor.prototype[name] = baseCtor.prototype[name];
     });
   });
-  return derivedCtor
+  return derivedCtor;
 }
-

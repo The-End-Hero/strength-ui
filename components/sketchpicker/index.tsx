@@ -11,12 +11,14 @@ import { self_select, dis_select, geo_types } from "../../constants/constants";
 
 const uuidv1 = require("uuid/v1");
 
-
 import ReactDOM from "react-dom";
 import $ from "jquery";
 import map from "lodash/map";
 import { SketchPicker as ReactSketchPicker } from "react-color";
-import { visualization_colors, workspace_menu_name } from "../../constants/constants";
+import {
+  visualization_colors,
+  workspace_menu_name
+} from "../../constants/constants";
 // import { headers, model_api_url } from "../../constants/ApiConfig";
 // import userUtil from "../../utils/userUtil";
 // import fetchUtil from "../../utils/fetchUtil";
@@ -24,12 +26,24 @@ import { visualization_colors, workspace_menu_name } from "../../constants/const
 // import message from "../Snackbar/SnackBar";
 
 const presetColors = [
-  "#FF4F4F", "#FFA74F", "#FFFF4F", "#4FFF4F", "#4FFFFF",
-  "#4FA7FF", "#A74FFF", "#FF4FA7", "#3B66E9", "#9296E9",
-  "#CCC9E4", "#FFFFDD", "#FFC1A2", "#FF806D", "#E4434E"
+  "#FF4F4F",
+  "#FFA74F",
+  "#FFFF4F",
+  "#4FFF4F",
+  "#4FFFFF",
+  "#4FA7FF",
+  "#A74FFF",
+  "#FF4FA7",
+  "#3B66E9",
+  "#9296E9",
+  "#CCC9E4",
+  "#FFFFDD",
+  "#FFC1A2",
+  "#FF806D",
+  "#E4434E"
 ];
 
-class Sketchpicker extends Component <any, any> {
+class Sketchpicker extends Component<any, any> {
   static defaultProps = {
     preventClose: true,
     noDrag: false,
@@ -45,7 +59,7 @@ class Sketchpicker extends Component <any, any> {
     super(props);
     this.state = {
       activeIdx: null,
-      collect_colors: [],//userUtil.getUserColors(),
+      collect_colors: [], //userUtil.getUserColors(),
       color: props.color || visualization_colors[0],
       pickerIndex: props.pickerIndex
     };
@@ -59,7 +73,7 @@ class Sketchpicker extends Component <any, any> {
     if (changeColor) changeColor(color);
   };
 
-  closePicker = (e) => {
+  closePicker = e => {
     this.stopDp(e);
     let { color, pickerIndex } = this.state;
     let { openColorPicker, preventClose } = this.props;
@@ -67,7 +81,7 @@ class Sketchpicker extends Component <any, any> {
     if (openColorPicker) openColorPicker(e, -1, pickerIndex, color);
   };
 
-  close = (e) => {
+  close = e => {
     let { close, openColorPicker, pickerIndex, color } = this.props;
     if (close) {
       return close(e, -1, pickerIndex, color);
@@ -75,7 +89,7 @@ class Sketchpicker extends Component <any, any> {
     if (openColorPicker) openColorPicker(e, -1, pickerIndex, color);
   };
 
-  finish = (e) => {
+  finish = e => {
     let { color, pickerIndex } = this.state;
     let { finish, openColorPicker } = this.props;
     if (finish) {
@@ -84,8 +98,7 @@ class Sketchpicker extends Component <any, any> {
     if (openColorPicker) openColorPicker(e, -1, pickerIndex, color);
   };
 
-
-  onMouseDown = (e) => {
+  onMouseDown = e => {
     this.stopDp(e);
     this.startMove = true;
     let { clientX, clientY } = e;
@@ -97,7 +110,7 @@ class Sketchpicker extends Component <any, any> {
     $("body").on("mouseup", this.onMouseUp);
   };
 
-  onMouseMove = (e) => {
+  onMouseMove = e => {
     if (!this.startMove) return;
     document.body.style.cursor = "col-resize";
     let { clientX, clientY } = e;
@@ -107,13 +120,13 @@ class Sketchpicker extends Component <any, any> {
     $center.css({ left, top });
   };
 
-  onMouseUp = (e) => {
+  onMouseUp = e => {
     this.startMove = false;
     $("body").off("mousemove", this.onMouseMove);
     $("body").off("mouseup", this.onMouseUp);
   };
 
-  stopDp = (e) => {
+  stopDp = e => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -128,7 +141,7 @@ class Sketchpicker extends Component <any, any> {
     if (changeColor) changeColor(c);
   };
 
-  handleKeydown = (e) => {
+  handleKeydown = e => {
     e.preventDefault();
     e.stopPropagation();
     let { activeIdx } = this.state;
@@ -144,7 +157,7 @@ class Sketchpicker extends Component <any, any> {
     this.postCollectColors(collect_colors);
   };
 
-  onAddCollect = (e) => {
+  onAddCollect = e => {
     e.preventDefault();
     e.stopPropagation();
     let { collect_colors, color } = this.state;
@@ -152,7 +165,7 @@ class Sketchpicker extends Component <any, any> {
     this.postCollectColors(collect_colors);
   };
 
-  postCollectColors = (collect_colors) => {
+  postCollectColors = collect_colors => {
     // const params = {};
     // const userInfo = userUtil.get();
     //
@@ -174,15 +187,19 @@ class Sketchpicker extends Component <any, any> {
     const { color, collect_colors, activeIdx } = this.state;
     const { className, style, noDrag, noOverlay } = this.props;
     return (
-      <div ref={ref => this.refPopover = ref}
-           className={className}
-           style={{ ...style, position: "fixed", backgroundColor: "#324067" }}
-           onClick={this.stopDp}
+      <div
+        ref={ref => (this.refPopover = ref)}
+        className={className}
+        style={{ ...style, position: "fixed", backgroundColor: "#324067" }}
+        onClick={this.stopDp}
       >
-        {!noOverlay && <div className="full_fixed" onClick={this.closePicker}/>}
-        <ReactSketchPicker color={color}
-                           onChange={this.changeColor}
-                           presetColors={presetColors}
+        {!noOverlay && (
+          <div className="full_fixed" onClick={this.closePicker} />
+        )}
+        <ReactSketchPicker
+          color={color}
+          onChange={this.changeColor}
+          presetColors={presetColors}
         />
         {/*<div className="color_collected_tit">-收藏的颜色</div>*/}
         {/*<div className="color_collected_wrap dis_flex_wrap">*/}
@@ -212,16 +229,19 @@ class Sketchpicker extends Component <any, any> {
         {/*</div>*/}
         {/*</div>*/}
         <div className="sketch_panel_btns">
-          <div className="btn cancel" onClick={this.close}>取消</div>
-          <div className="btn" onClick={this.finish}>确定</div>
+          <div className="btn cancel" onClick={this.close}>
+            取消
+          </div>
+          <div className="btn" onClick={this.finish}>
+            确定
+          </div>
         </div>
-        {
-          !noDrag && (
-            <div className="sketch_draggable_top"
-                 onMouseDown={this.onMouseDown}
-            />
-          )
-        }
+        {!noDrag && (
+          <div
+            className="sketch_draggable_top"
+            onMouseDown={this.onMouseDown}
+          />
+        )}
       </div>
     );
   }

@@ -22,7 +22,7 @@
     "upgrade": "yarn upgrade",
     "stylelint:fix": "stylelint 'components/**/*.less' --syntax less --fix",
     "eslint:fix": "eslint ./components --fix",
-    "lint": "prettier --write \"components/**/*.js\" && yarn eslint:fix && yarn stylelint:fix",
+    "lint": "prettier --write \"components/**/*.tsx\" && yarn eslint --fix \"components/**/*.tsx\" && yarn stylelint:fix",
     "test": "cross-env BABEL_ENV=test jest --config jest.config.js --passWithNoTests",
     "test:update": "yarn test -u --passWithNoTests",
     "coverage": "yarn test --coverage",
@@ -44,7 +44,12 @@
     "tsc-w": "tsc -w"
   },
   "lint-staged": {
-    "*.js": [
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.tsx": [
       "prettier --write",
       "eslint --fix",
       "git add"
@@ -141,6 +146,8 @@
     "@storybook/storybook-deployer": "^2.8.1",
     "@types/jest": "^24.0.11",
     "@types/storybook__react": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "autoprefixer": "^9.5.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^7.0.0-bridge.0",
@@ -164,7 +171,7 @@
     "enzyme-to-json": "^3.3.4",
     "eslint": "^5.15.3",
     "eslint-plugin-babel": "^5.1.0",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react": "^7.13.0",
     "file-loader": "^3.0.1",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
