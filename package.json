@@ -67,7 +67,7 @@
     }
   },
   "storybook-deployer": {
-    "gitUsername": "strength-ui",
+    "gitUsername": "The-End-Hero",
     "gitEmail": "527409987@qq.com",
     "commitMessage": "docs: deploy docs"
   },
