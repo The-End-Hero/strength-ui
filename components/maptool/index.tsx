@@ -417,7 +417,7 @@ class MapTool extends Component<any, any> {
       >
         <div className="mc_map_tool_btn_wrap">
 
-          <Tooltip placement="right" overlay={<span>搜索</span>}>
+          <Tooltip placement="right" title="搜索">
             <div className="mc_map_tool_btn_container">
               <div
                 className={cls("mc_map_left_btn map_search", {})}
@@ -425,7 +425,7 @@ class MapTool extends Component<any, any> {
               />
             </div>
           </Tooltip>
-          <Tooltip placement="right" overlay={<span>点选</span>}>
+          <Tooltip placement="right" title="点选">
             <div className="mc_map_tool_btn_container">
               <div
                 className={cls("mc_map_left_btn cursor_select", {})}
@@ -433,7 +433,7 @@ class MapTool extends Component<any, any> {
               />
             </div>
           </Tooltip>
-          <Tooltip placement="right" overlay={<span>画多边形</span>}>
+          <Tooltip placement="right" title="画多边形">
             <div className="mc_map_tool_btn_container">
               <div
                 className={cls("mc_map_left_btn polygon_select", {})}
@@ -441,7 +441,7 @@ class MapTool extends Component<any, any> {
               />
             </div>
           </Tooltip>
-          <Tooltip placement="right" overlay={<span>画圆</span>}>
+          <Tooltip placement="right" title="画圆">
             <div className="mc_map_tool_btn_container">
               <div
                 className={cls("mc_map_left_btn diameter_select", {})}
@@ -449,7 +449,7 @@ class MapTool extends Component<any, any> {
               />
             </div>
           </Tooltip>
-          <Tooltip placement="right" overlay={<span>清空围栏</span>}>
+          <Tooltip placement="right" title="清空围栏">
             <div className="mc_map_tool_btn_container">
               <div
                 className={cls("mc_map_left_btn delete_draw", {})}
@@ -459,7 +459,7 @@ class MapTool extends Component<any, any> {
           </Tooltip>
 
           <div style={{ position: "relative" }}>
-            <Tooltip placement="right" overlay={<span>地图样式</span>}>
+            <Tooltip placement="right" title="地图样式">
               <div className="mc_map_tool_btn_container">
                 <div
                   className={cls("mc_map_left_btn map_style", {})}
@@ -585,7 +585,7 @@ class MapTool extends Component<any, any> {
             )}
           </div>
 
-          <Tooltip placement="right" overlay={<span>地图全屏</span>}>
+          <Tooltip placement="right" title="地图全屏">
             <div className="mc_map_tool_btn_container">
               <div
                 className={cls("mc_map_left_btn full_screen", {})}
