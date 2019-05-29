@@ -1,4 +1,26 @@
 
+.mc_map_tool_collapse {
+  pointer-events: auto;
+  cursor: pointer;
+  height: 36px;
+  width: 64px;
+  color: #E0E3E8;
+  background-color: #262E44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  .mc_map_tool {
+    width: 14px;
+    height: 14px;
+    mask: url("../../static/images/map_visual/map_tool.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+    margin-right: 5px;
+  }
+}
+
 .mc_map_tool_wrap {
   user-select: none;
   cursor: pointer;
@@ -25,62 +47,87 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    transition: all 0.3s;
     &:hover {
       background-color: #3D4762;
     }
   }
+  .mc_map_tool_more {
+    pointer-events: auto;
+    position: absolute;
+    padding: 6px 0;
+    background-color: #343C54;
+    left: 36px;
+    bottom: -10px;
+    width: 140px;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid #586484;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.7);
+    .mc_map_tool_more_li {
+      height: 36px;
+      line-height: 36px;
+      padding: 0 27px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      &:hover {
+        background-color: #4A5472;
+      }
+    }
+    .mc_map_tool_more_line {
+      margin: 6px 0;
+      height: 2px;
+      background-color: #545F80;
+    }
+  }
 }
 
-.mc_map_left_btn {
+.mc_map_tool_more_li_icon {
+  margin-right: 4px;
+}
+
+.mc_map_left_btn, .mc_map_tool_more_li_icon {
   width: 16px;
   height: 16px;
-  margin: 4px;
+  //margin: 4px;
   pointer-events: auto;
   cursor: pointer;
+  &.map_search {
+    mask: url("../../static/images/map_visual/map_search.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+  }
   &.polygon_select {
     mask: url("../../static/images/map_visual/polygen-Select.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
-    &.polygon_select_s {
-
-    }
   }
   &.cursor_select { // 光标
     mask: url("../../static/images/map_visual/cursor_select.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
     transition: all 0.3s;
-    &.cursor_on {
-
-    }
   }
   &.delete_draw {
     mask: url("../../static/images/map_visual/delete_draw.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
     transition: all 0.3s;
-    &.no_lable {
-      height: 0;
-      opacity: 0;
-    }
   }
   &.diameter_select {
     mask: url("../../static/images/map_visual/diameter-Select.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
     transition: all 0.3s;
-    &.diameter_select_s {
-
-    }
   }
   &.hide_polygon_point {
     background-image: url("../../static/images/map_visual/baseline_pin_drop_white.png");
     background-repeat: no-repeat;
     background-size: 45%;
     background-position: center;
-    //&.diameter_select_s{
-    //    background-image: url("../../static/images/map_visual/diameter-Select-S.png");
-    //}
   }
   &.map_style {
     mask: url("../../static/images/map_visual/map_style.svg") no-repeat 50% 50%;
@@ -90,6 +137,36 @@
   }
   &.more_select {
     mask: url("../../static/images/map_visual/more_select.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+  }
+  &.full_screen {
+    mask: url("../../static/images/map_visual/full_screen.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+  }
+  &.save_as_jpeg {
+    mask: url("../../static/images/map_visual/save_as_jpeg.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+  }
+  &.street_view {
+    mask: url("../../static/images/map_visual/street_view.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+  }
+  &.ranging {
+    mask: url("../../static/images/map_visual/ranging.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #E0E3E8;
+    transition: all 0.3s;
+  }
+  &.reset_map {
+    mask: url("../../static/images/map_visual/reset_map.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
     transition: all 0.3s;

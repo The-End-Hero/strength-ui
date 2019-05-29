@@ -6,6 +6,9 @@ declare class MapTool extends Component<any, any> {
         is_server_render: boolean;
         fullscreencenter: boolean;
         getMap: () => void;
+        renderOrder: {
+            key: any;
+        }[];
     };
     static propTypes: {
         is_server_render: PropTypes.Validator<boolean>;

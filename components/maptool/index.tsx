@@ -3,18 +3,19 @@ import PropTypes from "prop-types";
 import * as maptalks from "maptalks";
 import mix from "mix-with";
 import cls from "classnames";
-import Tooltip from "rc-tooltip";
-import "rc-tooltip/assets/bootstrap.css";
+// import Tooltip from "rc-tooltip";
+// import "rc-tooltip/assets/bootstrap.css";
 import Radio from "@material-ui/core/Radio";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import flashChecker from "../../utils/flashChecker";
 import coordtrans from "../../utils/coordtrans";
-
+import MoreMenu from "./components/MoreMenu";
 // import alertUtil from '../../utils/alertUtil'
 import { self_select, dis_select, geo_types } from "../../constants/constants";
 import swal from "@sweetalert/with-react";
 import $ from "jquery";
+import {Tooltip} from 'antd'
 
 const { gcj02tobd09, bd09togcj02 } = coordtrans;
 // const  cursor_select = require("../../static/images/map_visual/cursor_select.svg")
@@ -65,7 +66,7 @@ class MapTool extends Component<any, any> {
     fullscreencenter: false,
     getMap: () => {
     },
-    // TODO 配置化渲染顺序，是否需要等
+    // TODO 配置化渲染顺序
     renderOrder: [
       { key: "search_map" }, //地图搜索
       { key: "show_line" },
@@ -76,7 +77,6 @@ class MapTool extends Component<any, any> {
       { key: "show_line" },
       { key: "map_style" }, // 地图样式
       { key: "full_screen" }, // 全屏
-
       { key: "save_as_jpeg" },//截屏
       { key: "street_view" },//街景
       { key: "ranging" }, // 测距
@@ -109,7 +109,8 @@ class MapTool extends Component<any, any> {
       show: false, // 地图样式
       map_style: props.map_style || "base",
       moreMenu: false,
-      pauseStyle: true
+      pauseStyle: true,
+      isCollapse: false // 工具栏是否收起
     };
     this.map = props.getMap(); // 当前maptool所在地图实例
   }
@@ -152,7 +153,8 @@ class MapTool extends Component<any, any> {
     const { disableMapClick } = this.props;
     if (disableMapClick) disableMapClick(false);
   };
-  moreMenu = bool => {
+  changeMoreMenu = (bool) => {
+    console.log(bool);
     this.setState({
       moreMenu: bool
     });
@@ -237,7 +239,7 @@ class MapTool extends Component<any, any> {
   addSecondMap = () => {
     let { is_server_render } = this.props;
     $("body").append(
-      '<div id="streetscapeView" style="position:absolute;right:0px;top:0px;border:1px solid #ccc;top: 0px;bottom: 0px;width:50%;overflow: hidden;z-index: 999999;background: #444e61;color:#fff;"><div id="streetscapeMap" style="height:100%;width:100%;overflow: hidden;"></div><div class="pano_close_ex" title="退出全景" style="z-index: 1201;"></div></div>'
+      "<div id=\"streetscapeView\" style=\"position:absolute;right:0px;top:0px;border:1px solid #ccc;top: 0px;bottom: 0px;width:50%;overflow: hidden;z-index: 999999;background: #444e61;color:#fff;\"><div id=\"streetscapeMap\" style=\"height:100%;width:100%;overflow: hidden;\"></div><div class=\"pano_close_ex\" title=\"退出全景\" style=\"z-index: 1201;\"></div></div>"
     );
     let $close = $(".pano_close_ex");
     $close.on("click", this.hideStreetscapeView);
@@ -342,7 +344,9 @@ class MapTool extends Component<any, any> {
       pauseStyle: bool
     });
   };
-  // 点选状态
+  /**
+   * 点选
+   */
   pauseState = () => {
     const { pauseState } = this.props;
     if (pauseState) {
@@ -350,7 +354,9 @@ class MapTool extends Component<any, any> {
       this.pauseStyle(true);
     }
   };
-  // 画圆状态
+  /**
+   * 画圆
+   */
   selfSelect = () => {
     const { selfSelect } = this.props;
     if (selfSelect) {
@@ -358,7 +364,9 @@ class MapTool extends Component<any, any> {
       this.pauseStyle(false);
     }
   };
-  // 画多边形状态
+  /**
+   * 画多边形
+   */
   disSelect = () => {
     const { disSelect } = this.props;
     if (disSelect) {
@@ -366,13 +374,20 @@ class MapTool extends Component<any, any> {
       this.pauseStyle(false);
     }
   };
-  // 清空
+  /**
+   * 清空自绘制围栏
+   */
   emptySelect = () => {
-    const { emptySelect } = this.props;
-    if (emptySelect) {
-      emptySelect();
+    const { onClearDraw } = this.props;
+    if (onClearDraw) {
+      onClearDraw();
       this.pauseStyle(false);
     }
+  };
+
+  changeCollapse = (isCollapse) => {
+    console.log(isCollapse);
+    this.setState({ isCollapse });
   };
 
   render() {
@@ -385,20 +400,35 @@ class MapTool extends Component<any, any> {
       hasCustomDraw,
       mapStyle
     } = this.props;
-    let { show, moreMenu, pauseStyle } = this.state;
+    let { show, moreMenu, pauseStyle, isCollapse } = this.state;
+    if (isCollapse) {
+      return (
+        <div className="mc_map_tool_collapse" onClick={() => {
+          this.changeCollapse(false);
+        }}>
+          <div className="mc_map_tool"></div>
+          <div>工具</div>
+        </div>
+      );
+    }
     return (
       <div
         className={cls("mc_map_tool_wrap", { fullscreen: fullscreencenter })}
       >
         <div className="mc_map_tool_btn_wrap">
+
+          <Tooltip placement="right" overlay={<span>搜索</span>}>
+            <div className="mc_map_tool_btn_container">
+              <div
+                className={cls("mc_map_left_btn map_search", {})}
+                onClick={this.pauseState}
+              />
+            </div>
+          </Tooltip>
           <Tooltip placement="right" overlay={<span>点选</span>}>
             <div className="mc_map_tool_btn_container">
               <div
-                className={cls("mc_map_left_btn cursor_select", {
-                  cursor_on:
-                  pauseStyle ||
-                  (mapState !== dis_select && mapState !== self_select)
-                })}
+                className={cls("mc_map_left_btn cursor_select", {})}
                 onClick={this.pauseState}
               />
             </div>
@@ -406,9 +436,7 @@ class MapTool extends Component<any, any> {
           <Tooltip placement="right" overlay={<span>画多边形</span>}>
             <div className="mc_map_tool_btn_container">
               <div
-                className={cls("mc_map_left_btn polygon_select", {
-                  polygon_select_s: !pauseStyle && mapState === self_select
-                })}
+                className={cls("mc_map_left_btn polygon_select", {})}
                 onClick={this.selfSelect}
               />
             </div>
@@ -416,9 +444,7 @@ class MapTool extends Component<any, any> {
           <Tooltip placement="right" overlay={<span>画圆</span>}>
             <div className="mc_map_tool_btn_container">
               <div
-                className={cls("mc_map_left_btn diameter_select", {
-                  diameter_select_s: !pauseStyle && mapState === dis_select
-                })}
+                className={cls("mc_map_left_btn diameter_select", {})}
                 onClick={this.disSelect}
               />
             </div>
@@ -426,17 +452,12 @@ class MapTool extends Component<any, any> {
           <Tooltip placement="right" overlay={<span>清空围栏</span>}>
             <div className="mc_map_tool_btn_container">
               <div
-                className={cls("mc_map_left_btn delete_draw", {
-                  no_lable: false && !(
-                    hasCustomDraw &&
-                    (mapState === dis_select || mapState === self_select)
-                  )
-                })}
+                className={cls("mc_map_left_btn delete_draw", {})}
                 onClick={this.emptySelect}
               />
             </div>
           </Tooltip>
-          
+
           <div style={{ position: "relative" }}>
             <Tooltip placement="right" overlay={<span>地图样式</span>}>
               <div className="mc_map_tool_btn_container">
@@ -488,7 +509,7 @@ class MapTool extends Component<any, any> {
                         />
                       </MuiThemeProvider>
                     </div>
-                    <div className="map_tool_choose_style_icon_1" />
+                    <div className="map_tool_choose_style_icon_1"/>
                     <div className="map_tool_choose_style_tit">默认地图</div>
                   </div>
                   <div
@@ -522,7 +543,7 @@ class MapTool extends Component<any, any> {
                         />
                       </MuiThemeProvider>
                     </div>
-                    <div className="map_tool_choose_style_icon_2" />
+                    <div className="map_tool_choose_style_icon_2"/>
                     <div className="map_tool_choose_style_tit">浅色地图</div>
                   </div>
                   <div
@@ -556,7 +577,7 @@ class MapTool extends Component<any, any> {
                         />
                       </MuiThemeProvider>
                     </div>
-                    <div className="map_tool_choose_style_icon_3" />
+                    <div className="map_tool_choose_style_icon_3"/>
                     <div className="map_tool_choose_style_tit">卫星地图</div>
                   </div>
                 </div>
@@ -567,82 +588,29 @@ class MapTool extends Component<any, any> {
           <Tooltip placement="right" overlay={<span>地图全屏</span>}>
             <div className="mc_map_tool_btn_container">
               <div
-                className={cls("mc_map_tool_btn", {})}
+                className={cls("mc_map_left_btn full_screen", {})}
                 onClick={this.onFullScreenCenter}
               >
-                {fullscreencenter ? (
-                  <i key="1" className="material-icons">
-                    fullscreen_exit
-                  </i>
-                ) : (
-                  <i key="2" className="material-icons">
-                    fullscreen
-                  </i>
-                )}
               </div>
             </div>
           </Tooltip>
-          {!moreMenu && (
-            <Tooltip
-              placement="right"
-              overlay={<span></span>}
-              overlayClassName={moreMenu ? "hidden" : ""}
-            >
-              <div className="mc_map_tool_btn_container">
-                <div
-                  className={cls("mc_map_left_btn more_select", {
-                    hidden: moreMenu
-                  })}
-                  onClick={() => {
-                    this.moreMenu(true);
-                  }}
-                />
-              </div>
-            </Tooltip>
-          )}
-          
-          
-          {moreMenu && (
-            <Tooltip
-              placement="right"
-              overlay={<span>收起</span>}
-              overlayClassName={!moreMenu ? "hidden" : ""}
-            >
-              <div
-                className={cls("mc_map_left_btn less_select", {
-                  hidden: !moreMenu
-                })}
-                onClick={() => {
-                  this.moreMenu(false);
-                }}
-              />
-            </Tooltip>
-          )}
-          <Tooltip placement="right" overlay={<span>截屏</span>}>
+
+
+          <div className="mc_map_tool_btn_container" style={{ height: 12 }}>
             <div
-              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-              onClick={this.saveAsJpeg}
-            >
-              <i className="material-icons">crop</i>
-            </div>
-          </Tooltip>
-          <Tooltip placement="right" overlay={<span>测距</span>}>
-            <div
-              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-              onClick={this.turnOnRangingTool}
-            >
-              <i className="material-icons">straighten</i>
-            </div>
-          </Tooltip>
-          
-          <Tooltip placement="right" overlay={<span>街景</span>}>
-            <div
-              className={cls("mc_map_tool_btn", { hidden: !moreMenu })}
-              onClick={this.toggleStreetView}
-            >
-              <i className="material-icons">streetview</i>
-            </div>
-          </Tooltip>
+              className={cls("mc_map_left_btn more_select")}
+              onClick={() => {
+                this.changeMoreMenu(!moreMenu);
+              }}
+            />
+          </div>
+          {
+            moreMenu &&
+            <MoreMenu
+              changeMoreMenu={this.changeMoreMenu}
+              changeCollapse={this.changeCollapse}
+            />
+          }
         </div>
       </div>
     );
