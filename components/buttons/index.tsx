@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cls from "classnames";
-import { MCLoadingIcon } from "../icon";
+import { LoadingIcon } from "../icon";
 
 const sizes = {
   small: "small",
@@ -48,7 +48,6 @@ export default class Button extends PureComponent<any, any> {
     type: PropTypes.oneOf(Object.values(types)),
     size: PropTypes.oneOf(Object.values(sizes))
   };
-
   render() {
     const {
       loading,
@@ -68,6 +67,7 @@ export default class Button extends PureComponent<any, any> {
       plain,
       ...attr
     } = this.props;
+
     const isDisabled = disabled || loading ? { disabled: true } : { onClick };
 
     const baseProps = {
@@ -88,12 +88,14 @@ export default class Button extends PureComponent<any, any> {
         [`${prefixCls}-plain`]: plain
       })
     };
+
     const content: any = (
       <>
-        {loading && !circle && <MCLoadingIcon className="mc-loading"/>}
+        {loading && !circle && <LoadingIcon className="mc-loading" />}
         <span>{children}</span>
       </>
     );
+
     let button;
     if (href) {
       // a标签没有disabled属性

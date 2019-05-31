@@ -3,49 +3,20 @@ import PropTypes from "prop-types";
 import * as maptalks from "maptalks";
 import mix from "mix-with";
 import cls from "classnames";
-// import Tooltip from "rc-tooltip";
-// import "rc-tooltip/assets/bootstrap.css";
 import Radio from "@material-ui/core/Radio";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import flashChecker from "../../utils/flashChecker";
 import coordtrans from "../../utils/coordtrans";
 import MoreMenu from "./components/MoreMenu";
-// import alertUtil from '../../utils/alertUtil'
-import { some } from "lodash";
+import { some, map, filter } from "lodash";
 import { self_select, dis_select, geo_types } from "../../constants/constants";
 import swal from "@sweetalert/with-react";
 import $ from "jquery";
 import { Tooltip } from "antd";
-import MapStyle from './components/MapStyle'
+import MapStyle from "./components/MapStyle";
+
 const { gcj02tobd09, bd09togcj02 } = coordtrans;
-// const  cursor_select = require("../../static/images/map_visual/cursor_select.svg")
-
-const iconStyle = {
-  fontSize: 16,
-  width: 16,
-  height: 16
-};
-
-const styles = {
-  iconStyle: {
-    viewBox: "0 0 16 16",
-    width: 16,
-    height: 16,
-    marginTop: 0,
-    marginLeft: 0,
-    marginRight: 0
-  },
-  inputStyle: {
-    width: 16,
-    height: 16
-  },
-  radioButton: {
-    display: "inline-block",
-    width: 16,
-    height: 16
-  }
-};
 const theme = createMuiTheme({
   overrides: {
     // Name of the component ⚛️ / style sheet
@@ -70,16 +41,19 @@ class MapTool extends Component<any, any> {
     },
     // TODO 配置化渲染顺序
     maptools: [
-      { key: "search_map", label: "搜索", checked: true },
-      { key: "self_select", label: "画多边形", checked: true },
-      { key: "dis_select", label: "画圆", checked: true },
-      { key: "clear_custom_drow", label: "清空围栏", checked: true },
-      { key: "map_style", label: "地图样式", checked: true },
-      { key: "full_screen", label: "地图全屏", checked: true },
-      { key: "save_as_jpeg", label: "地图截屏", checked: true },
-      { key: "street_view", label: "街景", checked: true },
-      { key: "ranging", label: "测距", checked: true },
-      { key: "reset_map", label: "还原地图", checked: true }
+      { key: "search_map", label: "搜索", checked: true, fold: false },
+      { key: "line" },
+      { key: "cursor_select", label: "点选", checked: true, fold: false },
+      { key: "self_select", label: "画多边形", checked: true, fold: false },
+      { key: "dis_select", label: "画圆", checked: true, fold: false },
+      { key: "clear_custom_drow", label: "清空围栏", checked: true, fold: false },
+      { key: "line" },
+      { key: "map_style", label: "地图样式", checked: true, fold: false },
+      { key: "full_screen", label: "地图全屏", checked: true, fold: false },
+      { key: "save_as_jpeg", label: "地图截屏", checked: true, fold: true },
+      { key: "street_view", label: "街景", checked: true, fold: true },
+      { key: "ranging", label: "测距", checked: true, fold: true },
+      { key: "reset_map", label: "还原地图", checked: true, fold: true }
     ]
   };
   static propTypes = {
@@ -108,8 +82,7 @@ class MapTool extends Component<any, any> {
       show: false, // 地图样式
       map_style: props.map_style || "base",
       moreMenu: false,
-      pauseStyle: true,
-      maptools: props.maptools || []
+      pauseStyle: true
     };
     this.map = props.getMap(); // 当前maptool所在地图实例
   }
@@ -384,264 +357,96 @@ class MapTool extends Component<any, any> {
     }
   };
 
-  changeCollapse = (is_map_tool_collapse) => {
-    console.log(is_map_tool_collapse,'is_map_tool_collapse')
-    const { changeCollapse } = this.props;
-    changeCollapse &&  changeCollapse(is_map_tool_collapse)
+  reSetMap = () => {
+    const { reSetMap } = this.props;
+    reSetMap && reSetMap();
+  };
+  searchMap = () => {
+
+  };
+  menuClick = (key) => {
+    console.log(key, "key");
+    if (key === "save_as_jpeg") { // 地图截屏
+      this.saveAsJpeg();
+    } else if (key === "street_view") {
+      this.toggleStreetView();
+    } else if (key === "ranging") {
+      this.turnOnRangingTool();
+    } else if (key === "reset_map") {
+      this.reSetMap();
+    } else if (key === "search_map") {
+      this.searchMap();
+    } else if (key === "cursor_select") {
+      this.pauseState();
+    } else if (key === "self_select") {
+      this.selfSelect();
+    } else if (key === "dis_select") {
+      this.disSelect();
+    } else if (key === "clear_custom_drow") {
+      this.emptySelect();
+    } else if (key === "map_style") {
+      this.showPop();
+    } else if (key === "full_screen") {
+      this.onFullScreenCenter();
+    }
   };
 
   render() {
     const {
       fullscreencenter, mapState, current_geo_filter, addBgPoint, changeCurrentGeoFilter,
-      hasCustomDraw,
-      mapStyle, is_map_tool_collapse
+      hasCustomDraw, maptools, changeCollapse, changeMapStyle, map_style, is_map_tool_collapse
     } = this.props;
-    let { show, moreMenu, pauseStyle, maptools } = this.state;
+    const list = filter(maptools, (t) => {
+      return t.fold === false;
+    });
+    let { show, moreMenu, pauseStyle } = this.state;
     if (is_map_tool_collapse) {
       return (
         <div className="mc_map_tool_collapse" onClick={() => {
-          this.changeCollapse(false);
+          changeCollapse(false);
         }}>
           <div className="mc_map_tool"></div>
           <div>工具</div>
         </div>
       );
     }
-    if(show){
+    // 展示地图样式选择
+    if (show) {
       return (
-        <MapStyle/>
-      )
+        <MapStyle
+          changeMapStyle={changeMapStyle}
+          map_style={map_style}/>
+      );
     }
     return (
       <div
         className={cls("mc_map_tool_wrap", { fullscreen: fullscreencenter })}
       >
         <div className="mc_map_tool_btn_wrap">
-
           {
-            maptools.some((m) => {
-              return m.key === "search_map" && m.checked;
-            }) &&
-            [
-              <Tooltip placement="right" title="搜索">
-                <div className="mc_map_tool_btn_container">
-                  <div
-                    className={cls("mc_map_left_btn map_search", {})}
-                    onClick={this.pauseState}
-                  />
-                </div>
-              </Tooltip>,
-              <div className="mc_map_tool_dividing_line"></div>
-            ]
-          }
-
-
-          <Tooltip placement="right" title="点选">
-            <div className="mc_map_tool_btn_container">
-              <div
-                className={cls("mc_map_left_btn cursor_select", {})}
-                onClick={this.pauseState}
-              />
-            </div>
-          </Tooltip>
-
-          {
-            maptools.some((m) => {
-              return m.key === "self_select" && m.checked;
-            }) &&
-            <Tooltip placement="right" title="画多边形">
-              <div className="mc_map_tool_btn_container">
-                <div
-                  className={cls("mc_map_left_btn polygon_select", {})}
-                  onClick={this.selfSelect}
-                />
-              </div>
-            </Tooltip>
-          }
-
-          {
-            maptools.some((m) => {
-              return m.key === "dis_select" && m.checked;
-            }) &&
-            <Tooltip placement="right" title="画圆">
-              <div className="mc_map_tool_btn_container">
-                <div
-                  className={cls("mc_map_left_btn diameter_select", {})}
-                  onClick={this.disSelect}
-                />
-              </div>
-            </Tooltip>
-          }
-
-          {
-            maptools.some((m) => {
-              return m.key === "clear_custom_drow" && m.checked;
-            }) &&
-            <Tooltip placement="right" title="清空围栏">
-              <div className="mc_map_tool_btn_container">
-                <div
-                  className={cls("mc_map_left_btn delete_draw", {})}
-                  onClick={this.emptySelect}
-                />
-              </div>
-            </Tooltip>
-          }
-
-          <div className="mc_map_tool_dividing_line"></div>
-
-
-          <div style={{ position: "relative" }}>
-
-            {
-              maptools.some((m) => {
-                return m.key === "map_style" && m.checked;
-              }) &&
-              <Tooltip placement="right" title="地图样式">
-                <div className="mc_map_tool_btn_container">
-                  <div
-                    className={cls("mc_map_left_btn map_style", {})}
-                    onClick={this.showPop}
-                  >
+            map(list, (mt) => {
+              if (mt.key === "line") {
+                return (
+                  <div className="mc_map_tool_dividing_line"></div>
+                );
+              }
+              let pS = "";
+              if (mt.key === "cursor_select") {
+                pS = pauseStyle ? "pauseStyle" : "";
+              }
+              const ele = [
+                <Tooltip placement="right" title={`${mt.label}`} key={mt.key}>
+                  <div className={cls(`mc_map_tool_btn_container ${pS}`)}>
+                    <div
+                      className={cls(`mc_map_left_btn ${mt.key}`, {})}
+                      onClick={() => this.menuClick(mt.key)}
+                    />
                   </div>
-                </div>
-              </Tooltip>
-            }
-
-
-            {show && (
-              <ClickAwayListener
-                onClickAway={() => {
-                  this.setState({ show: false });
-                }}
-              >
-                <div
-                  className="mc_map_tool_choose_style"
-                  style={{ position: "absolute", left: 36, top: 0 }}
-                >
-                  <div
-                    className="mc_map_tool_choose_style_item"
-                    onClick={() => {
-                      this.setState({ show: false });
-                      this.selectMapStyle("base");
-                    }}
-                  >
-                    <div className="map_tool_choose_style_btn">
-                      <MuiThemeProvider theme={theme}>
-                        <Radio
-                          value="base"
-                          checked={mapStyle === "base"}
-                          icon={
-                            <i
-                              className="material-icons"
-                              style={{ fontSize: 16 }}
-                            >
-                              radio_button_unchecked
-                            </i>
-                          }
-                          checkedIcon={
-                            <i
-                              className="material-icons"
-                              style={{ fontSize: 16 }}
-                            >
-                              radio_button_checked
-                            </i>
-                          }
-                        />
-                      </MuiThemeProvider>
-                    </div>
-                    <div className="map_tool_choose_style_icon_1"/>
-                    <div className="map_tool_choose_style_tit">默认地图</div>
-                  </div>
-                  <div
-                    className="mc_map_tool_choose_style_item"
-                    onClick={() => {
-                      this.setState({ show: false });
-                      this.selectMapStyle("normal");
-                    }}
-                  >
-                    <div className="map_tool_choose_style_btn">
-                      <MuiThemeProvider theme={theme}>
-                        <Radio
-                          value="normal"
-                          checked={mapStyle === "normal"}
-                          icon={
-                            <i
-                              className="material-icons"
-                              style={{ fontSize: 16 }}
-                            >
-                              radio_button_unchecked
-                            </i>
-                          }
-                          checkedIcon={
-                            <i
-                              className="material-icons"
-                              style={{ fontSize: 16 }}
-                            >
-                              radio_button_checked
-                            </i>
-                          }
-                        />
-                      </MuiThemeProvider>
-                    </div>
-                    <div className="map_tool_choose_style_icon_2"/>
-                    <div className="map_tool_choose_style_tit">浅色地图</div>
-                  </div>
-                  <div
-                    className="mc_map_tool_choose_style_item"
-                    onClick={() => {
-                      this.setState({ show: false });
-                      this.selectMapStyle("wxt");
-                    }}
-                  >
-                    <div className="map_tool_choose_style_btn">
-                      <MuiThemeProvider theme={theme}>
-                        <Radio
-                          value="wxt"
-                          checked={mapStyle === "wxt"}
-                          icon={
-                            <i
-                              className="material-icons"
-                              style={{ fontSize: 16 }}
-                            >
-                              radio_button_unchecked
-                            </i>
-                          }
-                          checkedIcon={
-                            <i
-                              className="material-icons"
-                              style={{ fontSize: 16 }}
-                            >
-                              radio_button_checked
-                            </i>
-                          }
-                        />
-                      </MuiThemeProvider>
-                    </div>
-                    <div className="map_tool_choose_style_icon_3"/>
-                    <div className="map_tool_choose_style_tit">卫星地图</div>
-                  </div>
-                </div>
-              </ClickAwayListener>
-            )}
-          </div>
-
-
-          {
-            maptools.some((m) => {
-              return m.key === "full_screen" && m.checked;
-            }) &&
-            <Tooltip placement="right" title="地图全屏">
-              <div className="mc_map_tool_btn_container">
-                <div
-                  className={cls("mc_map_left_btn full_screen", {})}
-                  onClick={this.onFullScreenCenter}
-                >
-                </div>
-              </div>
-            </Tooltip>
+                </Tooltip>
+              ];
+              return ele;
+            })
           }
-
-
           <div className="mc_map_tool_btn_container" style={{ height: 12 }}>
             <div
               className={cls("mc_map_left_btn more_select")}
@@ -653,8 +458,10 @@ class MapTool extends Component<any, any> {
           {
             moreMenu &&
             <MoreMenu
+              {...this.props}
+              menuClick={this.menuClick}
+              toggleStreetView={this.toggleStreetView}
               changeMoreMenu={this.changeMoreMenu}
-              changeCollapse={this.changeCollapse}
             />
           }
         </div>

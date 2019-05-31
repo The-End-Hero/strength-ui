@@ -19,6 +19,7 @@ import {
 import { IoMdCloseCircle } from "react-icons/io";
 
 import CbIcon from "./checkbox/CheckBoxIcon";
+import MCLIcon from "./MCLoadingIcon/mcloadingicon";
 
 
 export const InfoIcon = props => <FiVolume2 {...props} />;
@@ -38,5 +39,6 @@ export const EmptyIcon = props => <FiHardDrive {...props} />;
 export const UserIcon = props => <FiUser {...props} />;
 
 export const CheckBoxIcon = props => <CbIcon {...props}/>;
+export const MCLoadingIcon = props => <MCLIcon {...props}/>;
 
 

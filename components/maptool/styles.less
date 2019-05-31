@@ -52,6 +52,9 @@
     &:hover {
       background-color: #3D4762;
     }
+    &.pauseStyle {
+      background-color: #3D4762;
+    }
   }
   .mc_map_tool_more {
     pointer-events: auto;
@@ -100,13 +103,13 @@
   //margin: 4px;
   pointer-events: auto;
   cursor: pointer;
-  &.map_search {
+  &.search_map {
     mask: url("../../static/images/map_visual/map_search.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
     transition: all 0.3s;
   }
-  &.polygon_select {
+  &.self_select {
     mask: url("../../static/images/map_visual/polygen-Select.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
@@ -117,13 +120,13 @@
     background-color: #E0E3E8;
     transition: all 0.3s;
   }
-  &.delete_draw {
+  &.clear_custom_drow {
     mask: url("../../static/images/map_visual/delete_draw.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
     transition: all 0.3s;
   }
-  &.diameter_select {
+  &.dis_select {
     mask: url("../../static/images/map_visual/diameter-Select.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #E0E3E8;
@@ -244,10 +247,11 @@
   background-color: #262E44;
   padding: 20px;
   pointer-events: auto;
-  width: 256px;
+  display: inline-block;
   .mc_map_tool_style_title {
     font-size: 14px;
     color: #BBBFCA;
+    margin-bottom: 16px;
   }
   .mc_map_tool_style_select {
     display: flex;
@@ -258,13 +262,29 @@
       cursor: pointer;
       display: flex;
       justify-content: center;
+      align-items: center;
       flex-direction: column;
+      margin-right: 18px;
       .mc_map_tool_style_img {
         width: 60px;
         height: 60px;
         border-radius: 4px;
+        margin-bottom: 4px;
+        background-size: contain;
         &.selected {
           border: 2px solid #1D94FF;
+        }
+        &.base {
+          background-image: url('../../static/images/map_visual/map_base.png');
+        }
+        &.dark {
+          background-image: url('../../static/images/map_visual/map_base.png');
+        }
+        &.light {
+          background-image: url('../../static/images/map_visual/map_light.png');
+        }
+        &.wxt {
+          background-image: url('../../static/images/map_visual/map_wxt.png');
         }
       }
     }

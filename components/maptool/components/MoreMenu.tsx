@@ -1,23 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cls from "classnames";
-import { map, size } from "lodash";
+import { map, size, filter } from "lodash";
 
 export default class Button extends PureComponent<any, any> {
 
   static defaultProps = {
-    already_rendered: 2,
-    list: [
-      // { key: "polygon_select", label: "画多边形", checked: true },
-      // { key: "diameter_select", label: "画圆", checked: true },
-      // { key: "delete_draw", label: "清空围栏", checked: true },
-      // { key: "map_style", label: "地图样式", checked: true },
-      // { key: "full_screen", label: "地图全屏", checked: true },
-      { key: "save_as_jpeg", label: "地图截屏", checked: true },
-      { key: "street_view", label: "街景", checked: true },
-      { key: "ranging", label: "测距", checked: true },
-      { key: "reset_map", label: "还原地图", checked: false }
-    ]
+    already_rendered: 2
   };
   timeId: any;
 
@@ -37,9 +26,12 @@ export default class Button extends PureComponent<any, any> {
     }, 500);
   };
 
-  render() {
-    const { changeCollapse, changeMoreMenu, list, already_rendered } = this.props;
 
+  render() {
+    const { changeCollapse, changeMoreMenu, already_rendered, menuClick, maptools } = this.props;
+    const list = filter(maptools,(t)=>{
+      return t.fold === true
+    });
     const offset_buttom = -10 - (36 * (size(list) - 3));
     return (
       <div className="mc_map_tool_more" style={{ bottom: offset_buttom }}
@@ -48,7 +40,9 @@ export default class Button extends PureComponent<any, any> {
         {
           map(list, (l) => {
             return (
-              <div className="mc_map_tool_more_li">
+              <div className="mc_map_tool_more_li" onClick={() => {
+                menuClick(l.key);
+              }}>
                 <div className={`mc_map_tool_more_li_icon ${l.key}`}></div>
                 {l.label}
               </div>

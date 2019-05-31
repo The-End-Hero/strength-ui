@@ -1,15 +1,6 @@
-
-
-
-
-
 @import "../styles/vars.less";
 @import "../styles/animate.less";
 @import "../styles/mixins.less";
-
-
-
-
 @prefixCls : mc-button;
 .@{prefixCls} {
   display: inline-block;
@@ -38,7 +29,7 @@
     .mc-button-hover(@primary-color);
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@primary-color);
-    }
+ }
   }
   &.@{prefixCls}-default {
     color: @font-color;
@@ -54,31 +45,31 @@
     }
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@default-color);
-    }
+ }
   }
   &.@{prefixCls}-warning {
     .mc-button-hover(@warning-color);
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@warning-color);
-    }
+ }
   }
   &.@{prefixCls}-error {
     .mc-button-hover(@error-color);
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@error-color);
-    }
+ }
   }
   &.@{prefixCls}-success {
     .mc-button-hover(@success-color);
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@success-color);
-    }
+ }
   }
   &.@{prefixCls}-info {
     .mc-button-hover(@info-color);
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@info-color);
-    }
+ }
   }
   &.@{prefixCls}-disabled {
     cursor: not-allowed;
