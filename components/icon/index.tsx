@@ -38,7 +38,9 @@ export const CloseCircleIcon = props => <IoMdCloseCircle {...props} />;
 export const EmptyIcon = props => <FiHardDrive {...props} />;
 export const UserIcon = props => <FiUser {...props} />;
 
+// checkbox icon
 export const CheckBoxIcon = props => <CbIcon {...props}/>;
+// mc loading cur:button
 export const MCLoadingIcon = props => <MCLIcon {...props}/>;
 
 

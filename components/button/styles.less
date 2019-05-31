@@ -32,8 +32,8 @@
   border-color: @border-color;
   border-radius: @border-radius;
   outline: none;
-  text-shadow: @default-text-shadow;
-  .mc-button-hover(@default-color);
+  //text-shadow: @default-text-shadow;
+  //.mc-button-hover(@default-color);
   &.@{prefixCls}-primary {
     .mc-button-hover(@primary-color);
     &.@{prefixCls}-hollow {
@@ -41,15 +41,15 @@
     }
   }
   &.@{prefixCls}-default {
-    color: @font-color;
-    background-color: #fff;
-    border: 1px solid @default-color;
+    color: #BBBFCA;//@font-color;
+    background-color: #333C56;//#fff;
+    border: 1px solid #1d1d21;
     text-shadow: none;
     &:not(.@{prefixCls}-disabled):not(.@{prefixCls}-loading) {
       &:hover,
       &:active {
-        border: 1px solid @primary-color;
-        color: @primary-color;
+        border: 1px solid #d4dbe4;
+        color: #E0E3E8;
       }
     }
     &.@{prefixCls}-hollow {
@@ -63,15 +63,31 @@
     }
   }
   &.@{prefixCls}-error {
-    .mc-button-hover(@error-color);
+    border: unset;
+    background-color: rgba(243, 83, 81, 0.2);
+    color: rgba(243, 83, 81, 1);
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgba(243, 83, 81, 0.6);
+    }
     &.@{prefixCls}-hollow {
-      .mc-button-hollow(@error-color);
+      //.mc-button-hollow(@error-color);
     }
   }
+
   &.@{prefixCls}-success {
-    .mc-button-hover(@success-color);
+    border: unset;
+    background-color: rgba(76, 217, 100, 0.2);
+    color: rgba(76, 217, 100, 1);
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgba(76, 217, 100, 0.6);
+    }
     &.@{prefixCls}-hollow {
-      .mc-button-hollow(@success-color);
+      //.mc-button-hollow(@success-color);
     }
   }
   &.@{prefixCls}-info {

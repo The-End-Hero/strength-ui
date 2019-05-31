@@ -1,12 +1,16 @@
-.mc-button-hover(@color: @default-color, @lighten: 5%, @font-color: #fff) {
+/**
+mc-button主体样式
+ */
+.mc-button-hover(@color: @default-color, @lighten: 5%, @font-color: #fff, @btn-color:transparent) {
   color: @font-color;
+  font-weight: 600;
   background-color: @color;
-  border: 1px solid @color;
+  border: 1px solid @btn-color;
   &:not(.mc-button-disabled):not(.mc-button-default):not(.mc-button-dashed):not(.mc-button-hollow) {
     &:hover,
     &:active,
     &:focus {
-      border: 1px solid @color;
+      //border: 1px solid @color;
       background-color: lighten(@color, @lighten);
       color: lighten(@font-color, @lighten);
     }
@@ -14,8 +18,8 @@
   &.mc-button-default {
     &:active,
     &:focus {
-      border: 1px solid @primary-color;
-      color: lighten(@primary-color, @lighten);
+      //border: 1px solid @primary-color;
+      //color: lighten(@primary-color, @lighten);
     }
   }
   &.mc-button-dashed {

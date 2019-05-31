@@ -205,8 +205,7 @@ storiesOf('普通', module).add(
       </Button>
 
       <h2>链接</h2>
-      <Button href="#">主页</Button>
-      <Button type="primary" href="https://jd.com">京東商城</Button>
+      <Button type="primary" href="https://jd.com">京东商城</Button>
       <Button href="#" disabled>禁用</Button>
     </div>
   )
