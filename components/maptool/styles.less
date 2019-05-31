@@ -84,6 +84,12 @@
   }
 }
 
+.mc_map_tool_dividing_line {
+  width: 16px;
+  height: 1px;
+  background-color: #4A5472;
+}
+
 .mc_map_tool_more_li_icon {
   margin-right: 4px;
 }
@@ -232,4 +238,35 @@
 
 .pano_close_ex:hover {
   background-image: url(http://api0.map.bdimg.com/images/panorama/close_hover.png);
+}
+
+.mc_map_tool_style {
+  background-color: #262E44;
+  padding: 20px;
+  pointer-events: auto;
+  width: 256px;
+  .mc_map_tool_style_title {
+    font-size: 14px;
+    color: #BBBFCA;
+  }
+  .mc_map_tool_style_select {
+    display: flex;
+
+    .mc_map_tool_style_select_li {
+      font-size: 12px;
+      color: #8D93A9;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .mc_map_tool_style_img {
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+        &.selected {
+          border: 2px solid #1D94FF;
+        }
+      }
+    }
+  }
 }

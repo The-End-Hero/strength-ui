@@ -30,10 +30,32 @@
     window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 </script>
 <!--<script type="text/javascript"-->
-        <!--src="//api.map.baidu.com/getscript?v=2.0&ak=olTziYgwVYO1A1XNBrYzX604Hi6F2fYy&service"></script>-->
+<!--src="//api.map.baidu.com/getscript?v=2.0&ak=olTziYgwVYO1A1XNBrYzX604Hi6F2fYy&service"></script>-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
 <!--<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>-->
 <!--<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />-->
 <script>var exports = {};</script>
+<script>
+
+
+    function suda(arr, target, value) {
+        if (arr.length > 0) {
+            if (arr.length != 1) {// arr 长度大于1
+                target[arr[0]] = target[arr[0]] || {};
+                suda(arr.splice(0,1), target[arr[0]], value);
+            } else if (arr.length == 1) {
+                target[arr[0]] = value
+            }
+        }
+    }
+    
+    var arr = ['a',2,'ni','上海']
+    var target = {
+        a:'s',
+        suda:'qiang'
+    }
+    var value = '苏大强'
+    suda(arr,target,value)
+</script>

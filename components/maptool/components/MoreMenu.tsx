@@ -8,11 +8,11 @@ export default class Button extends PureComponent<any, any> {
   static defaultProps = {
     already_rendered: 2,
     list: [
-      { key: "polygon_select", label: "画多边形", checked: true },
-      { key: "diameter_select", label: "画圆", checked: true },
-      { key: "delete_draw", label: "清空围栏", checked: true },
-      { key: "map_style", label: "地图样式", checked: true },
-      { key: "full_screen", label: "地图全屏", checked: true },
+      // { key: "polygon_select", label: "画多边形", checked: true },
+      // { key: "diameter_select", label: "画圆", checked: true },
+      // { key: "delete_draw", label: "清空围栏", checked: true },
+      // { key: "map_style", label: "地图样式", checked: true },
+      // { key: "full_screen", label: "地图全屏", checked: true },
       { key: "save_as_jpeg", label: "地图截屏", checked: true },
       { key: "street_view", label: "街景", checked: true },
       { key: "ranging", label: "测距", checked: true },
