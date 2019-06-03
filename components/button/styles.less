@@ -21,28 +21,32 @@
   border: 1px solid transparent;
   white-space: nowrap;
   line-height: 1.5;
-  padding: @button-default-padding;
-  font-size: @button-default-font-size;
+  padding: 0 24px;//@button-default-padding;
+  font-size: 14px;// @button-default-font-size;
   height: @button-default-height;
   user-select: none;
   transition: all @default-transition;
   position: relative;
-  color: @font-color;
-  background-color: #fff;
-  border-color: @border-color;
+  color: #fff;//@font-color;
+  background-color: #0477DE;
+  border-color: #1D1D21;// @border-color;
   border-radius: @border-radius;
   outline: none;
   //text-shadow: @default-text-shadow;
   //.mc-button-hover(@default-color);
   &.@{prefixCls}-primary {
-    .mc-button-hover(@primary-color);
+    //.mc-button-hover(@primary-color);
+
+    color: #FFF;//@font-color;
+    background-color: #1D94FF;//#fff;
+    border: 1px solid #1D1D21;
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@primary-color);
     }
   }
   &.@{prefixCls}-default {
     color: #BBBFCA;//@font-color;
-    background-color: #333C56;//#fff;
+    background-color: #414B68;//#fff;
     border: 1px solid #1d1d21;
     text-shadow: none;
     &:not(.@{prefixCls}-disabled):not(.@{prefixCls}-loading) {
@@ -66,10 +70,13 @@
     border: unset;
     background-color: rgba(243, 83, 81, 0.2);
     color: rgba(243, 83, 81, 1);
+    font-size: 12px;
+    padding: 0 18px;
     &:hover,
     &:active,
     &:focus {
       background-color: rgba(243, 83, 81, 0.6);
+      color: #FF6968;
     }
     &.@{prefixCls}-hollow {
       //.mc-button-hollow(@error-color);
@@ -80,11 +87,13 @@
     border: unset;
     background-color: rgba(76, 217, 100, 0.2);
     color: rgba(76, 217, 100, 1);
-
+    font-size: 12px;
+    padding: 0 18px;
     &:hover,
     &:active,
     &:focus {
       background-color: rgba(76, 217, 100, 0.6);
+      color: #51ff6e;
     }
     &.@{prefixCls}-hollow {
       //.mc-button-hollow(@success-color);
@@ -122,8 +131,8 @@
     cursor: not-allowed;
     >.mc-loading {
       display: inline-block;
-      vertical-align: middle;
-      margin: -3px 10px 0 0;
+      vertical-align: sub;
+      // margin: -3px 10px 0 0;
       animation: mc-spin @loading-time linear infinite;
     }
   }

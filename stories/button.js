@@ -52,6 +52,9 @@ storiesOf('普通', module).add(
         加载中
       </Button>
 
+      <Button type="primary" loading={true} onClick={action('clicked')}>
+      </Button>
+      
       <Button type="primary" block onClick={action('clicked')}>
         100%
       </Button>

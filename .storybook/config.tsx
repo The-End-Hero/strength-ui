@@ -7,6 +7,8 @@ import { withNotes } from "@storybook/addon-notes";
 import { configureActions } from "@storybook/addon-actions";
 import { withOptions } from "@storybook/addon-options";
 import "@storybook/addon-console";
+import myTheme from './myTheme';
+
 // import "../components/styles/index.less";
 import "../stories/styles/code.less";
 
@@ -17,6 +19,8 @@ function loadStories() {
   require("../stories/maptool");
   // 按钮
   require("../stories/button");
+  // 输入框
+  require("../stories/input");
 }
 
 configureActions({
@@ -28,7 +32,8 @@ addParameters({
     url: repository,
     brandUrl: repository,
     brandTitle: `${name} v${version}`,
-    sidebarAnimations: true
+    showPanel: false, // 显示/隐藏 调试栏
+    theme: myTheme,
   }
 });
 addDecorator(withInfo({

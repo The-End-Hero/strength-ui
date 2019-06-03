@@ -8,6 +8,6 @@ storiesOf("综述", module)
       <h1 style={{ fontSize: 40, padding: 0, margin: 0 }}>
         {name}
       </h1>
-        業餘之作
+        
     </article>
   ))
