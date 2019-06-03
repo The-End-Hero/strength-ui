@@ -33,7 +33,7 @@ addParameters({
     brandUrl: repository,
     brandTitle: `${name} v${version}`,
     showPanel: false, // 显示/隐藏 调试栏
-    theme: myTheme,
+    // theme: myTheme,
   }
 });
 addDecorator(withInfo({

@@ -7,31 +7,31 @@ export default create({
   colorSecondary: 'deepskyblue',
 
   // UI
-  appBg: 'white',
-  appContentBg: 'silver',
-  appBorderColor: 'grey',
-  appBorderRadius: 4,
+  appBg: '#FFF',
+  appContentBg: '#262E44',
+  // appBorderColor: 'grey',
+  // appBorderRadius: 4,
 
   // Typography
-  fontBase: '"Open Sans", sans-serif',
-  fontCode: 'monospace',
+  // fontBase: '"Open Sans", sans-serif',
+  // fontCode: 'monospace',
 
   // Text colors
-  textColor: 'black',
-  textInverseColor: 'rgba(255,255,255,0.9)',
+  // textColor: 'black',
+  // textInverseColor: 'rgba(255,255,255,0.9)',
 
   // Toolbar default and active colors
-  barTextColor: 'silver',
-  barSelectedColor: 'black',
-  barBg: 'hotpink',
+  // barTextColor: 'silver',
+  // barSelectedColor: 'black',
+  // barBg: 'hotpink',
 
   // Form colors
-  inputBg: 'white',
-  inputBorder: 'silver',
-  inputTextColor: 'black',
-  inputBorderRadius: 4,
+  // inputBg: 'white',
+  // inputBorder: 'silver',
+  // inputTextColor: 'black',
+  // inputBorderRadius: 4,
 
-  brandTitle: 'My custom storybook',
-  brandUrl: 'https://example.com',
-  brandImage: 'https://placehold.it/350x150',
+  // brandTitle: 'My custom storybook',
+  // brandUrl: 'https://example.com',
+  // brandImage: 'https://placehold.it/350x150',
 });

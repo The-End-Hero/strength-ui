@@ -4,7 +4,6 @@ import {
   FiLoader,
   FiCheckCircle,
   FiXCircle,
-  FiAlertCircle,
   FiX,
   FiChevronUp,
   FiChevronDown,
@@ -20,13 +19,14 @@ import { IoMdCloseCircle } from "react-icons/io";
 
 import CbIcon from "./checkbox/CheckBoxIcon";
 import MCLIcon from "./MCLoadingIcon/mcloadingicon";
+import MCSIcon from "./search/search";
+import MCWarning from "./warning/warning";
 
 
 export const InfoIcon = props => <FiVolume2 {...props} />;
 export const LoadingIcon = props => <FiLoader {...props} />;
 export const SuccessIcon = props => <FiCheckCircle {...props} />;
 export const ErrorIcon = props => <FiXCircle {...props} />;
-export const WarningIcon = props => <FiAlertCircle {...props} />;
 export const CloseIcon = props => <FiX {...props} />;
 export const UpIcon = props => <FiChevronUp {...props} />;
 export const DownIcon = props => <FiChevronDown {...props} />;
@@ -43,4 +43,8 @@ export const CheckBoxIcon = props => <CbIcon {...props}/>;
 // mc loading cur:button
 export const MCLoadingIcon = props => <MCLIcon {...props}/>;
 
+
+export const SearchIcon = props => <MCSIcon {...props}/>;
+
+export const WarningIcon = props => <MCWarning {...props}/>;
 

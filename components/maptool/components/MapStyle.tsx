@@ -2,8 +2,9 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cls from "classnames";
 import { map, size } from "lodash";
+import Button from "../../button";
 
-export default class Button extends PureComponent<any, any> {
+export default class MapStyle extends PureComponent<any, any> {
 
   static defaultProps = {};
 
@@ -18,7 +19,7 @@ export default class Button extends PureComponent<any, any> {
   };
 
   render() {
-    const { map_style } = this.props;
+    const { map_style, goBack } = this.props;
     return (
       <div className="mc_map_tool_style">
         <div className="mc_map_tool_style_title">地图样式</div>
@@ -48,7 +49,9 @@ export default class Button extends PureComponent<any, any> {
             <div>卫星地图</div>
           </div>
         </div>
-        <div>确定</div>
+        <div style={{ marginTop: 20 }}>
+          <Button onClick={goBack} style={{ float: "right" }}>确定</Button>
+        </div>
       </div>
     );
   }

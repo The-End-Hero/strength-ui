@@ -415,7 +415,8 @@ class MapTool extends Component<any, any> {
       return (
         <MapStyle
           changeMapStyle={changeMapStyle}
-          map_style={map_style}/>
+          map_style={map_style}
+          goBack={this.showPop}/>
       );
     }
     return (
