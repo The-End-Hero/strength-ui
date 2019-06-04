@@ -27,6 +27,8 @@ function loadStories() {
   require("../stories/checkbox");
   // icon
   require("../stories/icon");
+  // modal
+  require("../stories/modal");
 }
 
 configureActions({

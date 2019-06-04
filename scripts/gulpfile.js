@@ -66,7 +66,7 @@ gulp.task("copyCss", () => {
         outputStyle: "compressed"
       })
     )
-    .pipe(autoprefixer({ browsers: browserList }))
+    .pipe(autoprefixer({ overrideBrowserslist: browserList }))
     .pipe(size()) // css大小日志
     .pipe(cssnano()) // css压缩
     .pipe(gulp.dest(DIR.lib))
@@ -82,7 +82,7 @@ gulp.task("dist", () => {
         outputStyle: "compressed"
       })
     )
-    .pipe(autoprefixer({ browsers: browserList }))
+    .pipe(autoprefixer({ overrideBrowserslist: browserList }))
     .pipe(concat(`${name}.css`))
     .pipe(size())
     .pipe(gulp.dest(DIR.dist))

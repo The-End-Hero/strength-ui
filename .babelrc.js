@@ -17,15 +17,11 @@ module.exports = {
   ],
   "compact": false,
   plugins: [
-    ["import", {
-      "libraryName": "antd",
-      "libraryDirectory": "lib",
-      "style": "css" // `style: true` 会加载 less 文件
-    }, "antd"],
-    // ["import", {
-    //   "libraryName": "lodash",
-    //   "libraryDirectory": ""
-    // }, "lodash"],
+      ["import", {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": "css" // `style: true` 会加载 less 文件
+      }],
     'lodash',
     "@babel/plugin-transform-runtime",
     [
