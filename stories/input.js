@@ -15,15 +15,34 @@ storiesOf("普通", module).add(
     <div className="input-example">
       <h2>基本使用</h2>
       <Input onClick={action("clicked")}/>
+      
+      <h2>带label标签</h2>
+      <Input onClick={action("clicked")}/>
+      
+      <h2>单位</h2>
+      <Input unitText="米" onClick={action("clicked")}/>
+
+      <h2>验证码</h2>
+      <Input placeholder="验证码" kind='vcode' onClick={action("clicked")}/>
+
+      <h2>验证码</h2>
+      <Input placeholder="验证码" kind='vcode_countdown' onClick={action("clicked")}/>
+
+      <h2>密码</h2>
+      <Input placeholder="请输入密码" type='password' onClick={action("clicked")}/>
 
       <h2>搜索</h2>
-      <Input kind='search' placeholder="我是个搜索" onChange={action('changed')}/>
+      <Input kind='search' placeholder="我是个搜索" onChange={action("changed")}/>
 
+
+      <h2>搜索</h2>
+      <Input kind='search' placeholder="我是个搜索" onChange={action("changed")}/>
+      
       <h2>错误</h2>
       <Input isError errorText="错误信息" onClick={action("clicked")}/>
+      <Input isError errorText="错误信息" unitText="米" onClick={action("clicked")}/>
+      <Input isError errorText="错误信息" placeholder="请输入密码" type='password' onClick={action("clicked")}/>
 
-      <h2>单位</h2>
-      <Input  unitText="米" onClick={action("clicked")}/>
     </div>
   )
 );

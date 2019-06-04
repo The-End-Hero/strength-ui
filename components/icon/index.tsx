@@ -21,6 +21,7 @@ import CbIcon from "./checkbox/CheckBoxIcon";
 import MCLIcon from "./MCLoadingIcon/mcloadingicon";
 import MCSIcon from "./search/search";
 import MCWarning from "./warning/warning";
+import WIcon from "./wireicon/wireicon";
 
 
 export const InfoIcon = props => <FiVolume2 {...props} />;
@@ -48,3 +49,6 @@ export const SearchIcon = props => <MCSIcon {...props}/>;
 
 export const WarningIcon = props => <MCWarning {...props}/>;
 
+
+// 点线面 线框风格 icon
+export const WireIcon = props => <WIcon {...props}/>;

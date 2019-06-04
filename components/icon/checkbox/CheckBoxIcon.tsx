@@ -16,24 +16,28 @@ function CheckBoxIcon(props: any) {
   const { type, style, classname } = props;
   if (type == CHECKED) {
     return (
-      <img src={CHECKED_ICON} className={`mc_checkbox_icon ${classname}`} alt={CHECKED} style={style}/>
+      <img src={CHECKED_ICON} className={`mc_checkbox_icon ${classname ? classname : ""}`} alt={CHECKED} style={style}/>
     );
   } else if (type == UNCHECKED) {
     return (
-      <img src={UNCHECKED_ICON} className={`mc_checkbox_icon ${classname}`} alt={UNCHECKED} style={style}/>
+      <img src={UNCHECKED_ICON} className={`mc_checkbox_icon ${classname ? classname : ""}`} alt={UNCHECKED}
+           style={style}/>
     );
   } else if (type == CHECKED_RADIUS) {
     return (
-      <img src={CHECKED_RADIUS_ICON} className={`mc_checkbox_icon ${classname}`} alt={CHECKED_RADIUS} style={style}/>
+      <img src={CHECKED_RADIUS_ICON} className={`mc_checkbox_icon ${classname ? classname : ""}`} alt={CHECKED_RADIUS}
+           style={style}/>
     );
   } else if (type == UNCHECKED_RADIUS) {
     return (
-      <img src={UNCHECKED_RADIUS_ICON} className={`mc_checkbox_icon ${classname}`} alt={UNCHECKED_RADIUS}
+      <img src={UNCHECKED_RADIUS_ICON} className={`mc_checkbox_icon ${classname ? classname : ""}`}
+           alt={UNCHECKED_RADIUS}
            style={style}/>
     );
   } else if (type == CHECKED_SOME) {
     return (
-      <img src={CHECKED_SOME_ICON} className={`mc_checkbox_icon ${classname}`} alt={CHECKED_SOME} style={style}/>
+      <img src={CHECKED_SOME_ICON} className={`mc_checkbox_icon ${classname ? classname : ""}`} alt={CHECKED_SOME}
+           style={style}/>
     );
   }
   return null;

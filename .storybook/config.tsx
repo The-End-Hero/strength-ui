@@ -1,13 +1,13 @@
 import React from "react";
 import { configure, addDecorator, addParameters } from "@storybook/react";
 import { themes } from "@storybook/theming";
-import { name, repository, version} from "../package.json";
+import { name, repository, version } from "../package.json";
 import { withInfo } from "@storybook/addon-info";
 import { withNotes } from "@storybook/addon-notes";
 import { configureActions } from "@storybook/addon-actions";
 import { withOptions } from "@storybook/addon-options";
 import "@storybook/addon-console";
-import myTheme from './myTheme';
+import myTheme from "./myTheme";
 
 // import "../components/styles/index.less";
 import "../stories/styles/code.less";
@@ -21,6 +21,12 @@ function loadStories() {
   require("../stories/button");
   // 输入框
   require("../stories/input");
+  // snackbar
+  require("../stories/snackbar");
+  // checkbox
+  require("../stories/checkbox");
+  // icon
+  require("../stories/icon");
 }
 
 configureActions({
@@ -32,7 +38,7 @@ addParameters({
     url: repository,
     brandUrl: repository,
     brandTitle: `${name} v${version}`,
-    showPanel: false, // 显示/隐藏 调试栏
+    showPanel: false // 显示/隐藏 调试栏
     // theme: myTheme,
   }
 });

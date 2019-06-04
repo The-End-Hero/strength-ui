@@ -13,20 +13,44 @@ export default class Input extends PureComponent<any, any> {
     isError: false,
     errorText: "",
     unitText: "",
+    countDownNum: 60,
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
   static propTypes = {};
 
 
   timeId: any = null;
+  countDownTimeId: any;
 
   constructor(props) {
     super(props);
     this.state = {
       value: props.value,
-      isFocus: false
+      isFocus: false,
+      countDownNum: props.countDownNum
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.kind === "mc_input_vcode" && nextProps.kind !== this.props.kind) {
+      this.setState({ countDownNum: nextProps.countDownNum || 60 }, () => {
+        this.countDown();
+      });
+    }
+  }
+
+  countDown = () => {
+    this.countDownTimeId = setTimeout(() => {
+      this.setState({
+        countDownNum: this.state.countDownNum - 1
+      }, () => {
+        if (this.state.countDownNum > 0) {
+          this.countDown();
+        }
+      });
+    }, 1000);
+  };
+
 
   changeInput = async (e) => {
     const value = e.currentTarget.value;
@@ -48,10 +72,14 @@ export default class Input extends PureComponent<any, any> {
   blurInput = () => {
     this.setState({ isFocus: false });
   };
+  getVcode = () => {
+    console.log("getvcode");
+  };
+
 
   render() {
-    const { type, placeholder, kind, isError, errorText, unitText } = this.props;
-    const { value,isFocus } = this.state;
+    const { type, placeholder, kind, isError, errorText, unitText, style } = this.props;
+    const { value, isFocus, countDownNum } = this.state;
     console.log(type, "type");
     const baseProps = {
       type,
@@ -66,11 +94,19 @@ export default class Input extends PureComponent<any, any> {
       onBlur: this.blurInput
     };
     let input = (
-      <div className="mc_input_comp">
+      <div className="mc_input_comp" style={style}>
         <input {...baseProps} />
         {
           kind === "search" && // 搜索ICON
           <SearchIcon className="mc_input_search_icon"/>
+        }
+        {
+          kind === "vcode" && // 发送后，切换到 vcode_countdown
+          <div className="mc_input_vcode" onClick={this.getVcode}>发送验证码</div>
+        }
+        {
+          kind === "vcode_countdown" &&
+          <div className="mc_input_vcode disable">{`${countDownNum} s`}</div>
         }
         {
           isError &&
@@ -81,7 +117,7 @@ export default class Input extends PureComponent<any, any> {
         }
         {
           unitText &&
-          <div className={`mc_input_unit ${isFocus?'focus':''}`}>{unitText}</div>
+          <div className={`mc_input_unit ${isFocus ? "focus" : ""}`}>{unitText}</div>
         }
       </div>
     );

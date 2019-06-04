@@ -1,14 +1,6 @@
-
-
-
-
-
 @import "../styles/vars.less";
 @import "../styles/animate.less";
 @import "../styles/mixins.less";
-
-
-
 
 @prefixCls : mc-button;
 .@{prefixCls} {
@@ -36,10 +28,18 @@
   //.mc-button-hover(@default-color);
   &.@{prefixCls}-primary {
     //.mc-button-hover(@primary-color);
-
     color: #FFF;//@font-color;
     background-color: #1D94FF;//#fff;
     border: 1px solid #1D1D21;
+    &.@{prefixCls}-hollow {
+      .mc-button-hollow(@primary-color);
+    }
+  }
+  &.@{prefixCls}-nobg {
+    //.mc-button-hover(@primary-color);
+    color: #1D94FF;//@font-color;
+    background-color: transparent;//#fff;
+    border: unset;
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@primary-color);
     }

@@ -1,3 +1,4 @@
+@input_height: 34px; // default 34px
 
 .mc_input_comp {
   position: relative;
@@ -24,16 +25,29 @@
     position: absolute;
     right: 0;
     top: 0;
-    height: 34px;
+    height: @input_height;
     border-left: 1px solid #181819;
     font-size: 14px;
     padding: 0 20px;
     line-height: 34px;
     user-select: none;
     &.focus {
-      height: 30px;
+      height: calc(@input_height - 4px);
       top: 2px;
-      line-height: 30px;
+      line-height: calc(@input_height - 4px);
+    }
+  }
+  .mc_input_vcode {
+    line-height: @input_height;
+    font-size: 12px;
+    color: #1D94FF;
+    position: absolute;
+    right: 12px;
+    top: 0;
+    user-select: none;
+    cursor: pointer;
+    &.disable {
+      cursor: not-allowed;
     }
   }
 }
@@ -57,7 +71,8 @@
     color: #98A1BA;
   }
   &:focus {
-    border: 2px solid #1D94FF;
+    border: 1px solid #1D94FF;
+    box-shadow: 0px 0px 0px 1px #1D94FF;
   }
 
   &.mc_input_search {
@@ -65,7 +80,8 @@
   }
 
   &.mc_inpit_error {
-    border: 2px solid #F35351;
+    border: 1px solid #F35351;
+    box-shadow: 0px 0px 0px 1px #F35351;
   }
 }
 

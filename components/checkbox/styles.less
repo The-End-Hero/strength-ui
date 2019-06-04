@@ -1,0 +1,27 @@
+@mc_checkbox_font_width: 30px;
+.mc_checkbox {
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  //justify-content: flex-end;
+  margin: 8px 0;
+  .mc_checkbox_main {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: #B7BFD6;
+    //justify-content: center;
+  }
+  .mc_checkbox_font {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: @mc_checkbox_font_width;
+  }
+  .mc_checkbox_tips {
+    font-size: 12px;
+    color: #8993B1;
+    margin-left: @mc_checkbox_font_width;
+  }
+}

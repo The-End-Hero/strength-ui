@@ -16,7 +16,8 @@ const types = {
   success: "success",
   error: "error",
   info: "info",
-  disabled: "disabled"
+  disabled: "disabled",
+  nobg: 'nobg'
 };
 
 export default class Button extends PureComponent<any, any> {
@@ -78,6 +79,7 @@ export default class Button extends PureComponent<any, any> {
         [`${prefixCls}-${type}`]: type,
         [`${prefixCls}-default`]: !disabled && type === types.default,
         [`${prefixCls}-normal`]: type === types.default,
+        [`${prefixCls}-nobg`]: type === types.nobg,
         [`${prefixCls}-disabled`]: disabled,
         [`${prefixCls}-loading`]: loading,
         [`${prefixCls}-block`]: block,
