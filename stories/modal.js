@@ -8,9 +8,10 @@ import { withInfo } from "@storybook/addon-info";
 import { action } from "@storybook/addon-actions";
 import "../components/styles/index.less";
 import "./style.less";
+import ModalPage from './pages/modal'
 
 storiesOf("普通", module).add(
-    "modal 彈窗",
+    "modal 弹窗",
     () => (
         <div className="input-example">
             <h2>基本使用</h2>
@@ -18,12 +19,13 @@ storiesOf("普通", module).add(
                 onClick={() => {
                     Modal.info({
                         title: "react",
-                        content: "厲害"
+                        content: "厉害"
                     })
                 }}
             >
                 Modal.info()
             </Button>
+            <ModalPage/>
         </div>
     )
 );

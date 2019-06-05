@@ -3,7 +3,7 @@
  * @description 参考 dragon-ui
  * @description 这里选择  webpack 进行打包  rollup也可以
  * @description 输出目录 [dist]
- * @description 文件名 [cuke-ui]
+ * @description 文件名 [strength-ui]
  * CMD Node.js 环境
  * AMD 浏览器环境
  * UMD 两种环境都可以执行

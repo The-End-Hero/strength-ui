@@ -45,7 +45,7 @@ export default class Modal extends PureComponent <any,any>{
     modal:any
     
   static defaultProps = {
-    prefixCls: "cuke-modal",
+    prefixCls: "mc-modal",
     visible: false,
     isStaticMethod: false, // 用来区分 是 Modal.xx() 还是 <Modal/>
     getPopupContainer: () => document.body,
@@ -225,7 +225,7 @@ export default class Modal extends PureComponent <any,any>{
     document.body.style.overflow = "";
     document.body.style.paddingRight = '0';
   };
-  onPromptChange:any = e => {
+  onPromptChange = e => {
     this.setState({
       promptValue: {
         value: e.target.value,
@@ -354,15 +354,15 @@ export default class Modal extends PureComponent <any,any>{
                 />
               )}
             </section>
-            {/*<section className={`${prefixCls}-content`}>*/}
-            {/*  {isStaticMethod &&*/}
-            {/*  staticMethodType === typeConfig.prompt &&*/}
-            {/*  isValidElement(defaultPromptContent)*/}
-            {/*    ? cloneElement(defaultPromptContent, {*/}
-            {/*        'onChange': this.onPromptChange*/}
-            {/*      })*/}
-            {/*    : content || children}*/}
-            {/*</section>*/}
+            <section className={`${prefixCls}-content`}>
+              {isStaticMethod &&
+              staticMethodType === typeConfig.prompt &&
+              isValidElement(defaultPromptContent)
+                ? cloneElement(defaultPromptContent as any, {
+                    onChange: this.onPromptChange
+                  })
+                : content || children}
+            </section>
             {footer &&
               (footer.length !== 0 ? (
                 <section className={`${prefixCls}-footer`}>{footer}</section>
