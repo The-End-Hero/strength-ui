@@ -363,7 +363,8 @@ class MapTool extends Component<any, any> {
     reSetMap && reSetMap();
   };
   searchMap = () => {
-
+    const {searchMap} = this.props
+    searchMap && searchMap()
   };
   menuClick = (key) => {
     console.log(key, "key");

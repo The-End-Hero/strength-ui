@@ -15,10 +15,7 @@ storiesOf("普通", module).add(
     <div className="input-example">
       <h2>基本使用</h2>
       <Input onClick={action("clicked")}/>
-      
-      <h2>带label标签</h2>
-      <Input onClick={action("clicked")}/>
-      
+
       <h2>单位</h2>
       <Input unitText="米" onClick={action("clicked")}/>
 
@@ -37,12 +34,18 @@ storiesOf("普通", module).add(
 
       <h2>搜索</h2>
       <Input kind='search' placeholder="我是个搜索" onChange={action("changed")}/>
-      
+
       <h2>错误</h2>
       <Input isError errorText="错误信息" onClick={action("clicked")}/>
       <Input isError errorText="错误信息" unitText="米" onClick={action("clicked")}/>
       <Input isError errorText="错误信息" placeholder="请输入密码" type='password' onClick={action("clicked")}/>
 
+      <h2>select</h2>
+      <Input selectLabel={[<div>上海人口</div>]} onClick={action("clicked")}/>
+
+
+      <h2>allowClear</h2>
+      <Input selectLabel={[<div>上海人口</div>]} value='陆家嘴' allowClear onClick={action("clicked")}/>
     </div>
   )
 );

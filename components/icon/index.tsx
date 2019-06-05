@@ -22,13 +22,13 @@ import MCLIcon from "./MCLoadingIcon/mcloadingicon";
 import MCSIcon from "./search/search";
 import MCWarning from "./warning/warning";
 import WIcon from "./wireicon/wireicon";
-
+import MCCIcon from './close/close'
 
 export const InfoIcon = props => <FiVolume2 {...props} />;
 export const LoadingIcon = props => <FiLoader {...props} />;
 export const SuccessIcon = props => <FiCheckCircle {...props} />;
 export const ErrorIcon = props => <FiXCircle {...props} />;
-export const CloseIcon = props => <FiX {...props} />;
+// export const CloseIcon = props => <FiX {...props} />;
 export const UpIcon = props => <FiChevronUp {...props} />;
 export const DownIcon = props => <FiChevronDown {...props} />;
 export const ArrowRightIcon = props => <FiChevronRight {...props} />;
@@ -52,3 +52,6 @@ export const WarningIcon = props => <MCWarning {...props}/>;
 
 // 点线面 线框风格 icon
 export const WireIcon = props => <WIcon {...props}/>;
+  
+export const CloseIcon = props => <MCCIcon {...props}/>;
+  

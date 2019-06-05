@@ -1,10 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cls from "classnames";
-import { SearchIcon, WarningIcon } from "../icon";
-import { async } from "q";
+import { SearchIcon, WarningIcon, CloseIcon } from "../icon";
+import { map, size } from "lodash";
 
-export default class Input extends PureComponent<any, any> {
+/** Input component description */
+class Input extends PureComponent<any, any> {
   static defaultProps = {
     type: "text",
     kind: "",
@@ -16,11 +17,14 @@ export default class Input extends PureComponent<any, any> {
     countDownNum: 60,
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
-  static propTypes = {};
+  static propTypes = {
+    
+  };
 
 
   timeId: any = null;
   countDownTimeId: any;
+  selectInputRefs: any;
 
   constructor(props) {
     super(props);
@@ -52,54 +56,117 @@ export default class Input extends PureComponent<any, any> {
   };
 
 
-  changeInput = async (e) => {
-    const value = e.currentTarget.value;
-    console.log(value);
-    this.clearTimeId();
-    await this.setState({ value });
-    const { onChange } = this.props;
-    this.timeId = setTimeout(() => {
-      onChange && onChange(value);
-    }, 300);
-  };
+  // changeInput = async (e) => {
+  //   const value = e.currentTarget.value;
+  //   console.log(value);
+  //   this.clearTimeId();
+  //   await this.setState({ value });
+  //   const { onChange } = this.props;
+  //   this.timeId = setTimeout(() => {
+  //     onChange && onChange(value);
+  //   }, 300);
+  // };
 
   clearTimeId = () => {
     this.timeId && clearTimeout(this.timeId);
   };
   focusInput = () => {
+    const { onFocus } = this.props;
     this.setState({ isFocus: true });
+    onFocus && onFocus();
   };
   blurInput = () => {
+    const { onBlur } = this.props;
     this.setState({ isFocus: false });
+    onBlur && onBlur();
   };
   getVcode = () => {
     console.log("getvcode");
   };
-
+  focusSelectInput = () => {
+    this.selectInputRefs.focus();
+  };
+  clearClick = () => {
+    const { clearClick } = this.props;
+    clearClick && clearClick();
+  };
 
   render() {
-    const { type, placeholder, kind, isError, errorText, unitText, style } = this.props;
-    const { value, isFocus, countDownNum } = this.state;
-    console.log(type, "type");
+    const {
+      type,
+      placeholder,
+      kind,
+      isError,
+      errorText,
+      unitText,
+      style,
+      value,
+      onFocus,
+      onBlur,
+      selectLabel,
+      allowClear,
+      ...attr
+    } = this.props;
+    const { isFocus, countDownNum } = this.state;
+    // console.log(type, "type");
+    console.log(value, "value");
     const baseProps = {
       type,
       placeholder,
       value,
       className: cls("mc_input", {
-        mc_input_search: kind === "search",
-        mc_inpit_error: isError
+        // mc_input_search: kind === "search",
       }),
-      onChange: this.changeInput,
+      // onChange: this.changeInput,
       onFocus: this.focusInput,
-      onBlur: this.blurInput
+      onBlur: this.blurInput,
+      ...attr
     };
-    let input = (
-      <div className="mc_input_comp" style={style}>
-        <input {...baseProps} />
+    let input;
+    // if (kind === "select") {
+    //   input = (
+    //     <div className="mc_input_select"
+    //          onClick={this.focusSelectInput}
+    //          style={style}>
+    //       <input ref={refs => this.selectInputRefs = refs}  type="text"/>
+    //     </div>
+    //   );
+    //
+    //   return input;
+    // }
+    input = (
+      <div className={cls("mc_input_comp", {
+        isFocus,
+        mc_inpit_error: isError
+
+      })} style={style}>
         {
           kind === "search" && // 搜索ICON
-          <SearchIcon className="mc_input_search_icon"/>
+          <div className="mc_input_left_icon_wrap">
+            <SearchIcon/>
+          </div>
         }
+        {
+          size(selectLabel) > 0 &&
+          <div className="mc_input_select_label">
+            {
+              map(selectLabel, (t) => {
+                return (
+                  <div>{t}</div>
+                );
+              })
+            }
+          </div>
+        }
+
+        <input {...baseProps} />
+        {
+          allowClear &&
+          <div className="mc_input_right_icon_wrap" onClick={this.clearClick} style={{ cursor: "pointer" }}>
+            <CloseIcon style={{ width: 12 }}/>
+          </div>
+        }
+
         {
           kind === "vcode" && // 发送后，切换到 vcode_countdown
           <div className="mc_input_vcode" onClick={this.getVcode}>发送验证码</div>
@@ -117,10 +184,30 @@ export default class Input extends PureComponent<any, any> {
         }
         {
           unitText &&
-          <div className={`mc_input_unit ${isFocus ? "focus" : ""}`}>{unitText}</div>
+          <div className={`mc_input_unit`}>{unitText}</div>
         }
       </div>
     );
     return input;
   }
 }
+
+Input.propTypes = {
+  /** 占位符*/
+  placeholder: PropTypes.string,
+  /** 单位名称*/
+  unitText: PropTypes.string,
+  errorText: PropTypes.string,
+  value: PropTypes.string,
+  kind: PropTypes.string,
+  type: PropTypes.string,
+  isError: PropTypes.bool,
+  allowClear: PropTypes.bool,
+  clearClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  countDownNum: PropTypes.number
+};
+
+export default Input;
