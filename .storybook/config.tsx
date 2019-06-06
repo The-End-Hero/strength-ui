@@ -73,7 +73,7 @@ addDecorator(withInfo({
     }
   },
   inline: true,
-  source: true
+  source: false
 }));
 addDecorator(withNotes);
 

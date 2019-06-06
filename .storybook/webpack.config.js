@@ -15,13 +15,44 @@ module.exports = async ({ config, mode }) => {
     test: /\.(ts|tsx)$/,
     use: [
       {
-        loader: require.resolve("awesome-typescript-loader")
+        loader: require.resolve("awesome-typescript-loader"),
+        options: {
+          "useBabel": true,
+          "babelOptions": {
+            "babelrc": false, /* Important line */
+            "presets": [
+              ["@babel/preset-env", { "targets": "last 2 versions, ie 11", "modules": false }]
+            ],
+            "plugins": [
+              [
+                "import", {
+                "libraryName": "antd",
+                "style": "css"
+              }
+              ]
+            ]
+          },
+          "babelCore": "@babel/core" // needed for Babel v7
+        }
       },
       // Optional
       {
         loader: require.resolve("react-docgen-typescript-loader")
+
       }
     ]
+    // loader: require.resolve("awesome-typescript-loader"),
+    // options: {
+    //   "plugins": [
+    //     [
+    //       "import", {
+    //       "libraryName": "antd",
+    //       "style": "css"
+    //     }
+    //     ]
+    //   ],
+    //   cacheDirectory: true
+    // }
   });
   config.resolve.extensions.push(".ts", ".tsx");
   config.module.rules.push({
@@ -50,5 +81,9 @@ module.exports = async ({ config, mode }) => {
     }]
     // include: path.resolve(__dirname, "../")
   });
+  config.module.rules.forEach((current) => {
+    console.log(current.test);
+  });
+  // console.log(JSON.stringify(config))
   return config;
 };

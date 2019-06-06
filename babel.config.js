@@ -18,20 +18,20 @@ const config = {
   "compact": false,
   plugins: [
     "lodash",
-    ["import", {
-      "libraryName": "antd",
-      "libraryDirectory": "es",
-      "style": "css" // `style: true` 会加载 less 文件
-    }, "antd"],
     "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
     [
       "@babel/plugin-proposal-decorators",
       {
         legacy: true
       }
     ],
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread"
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": "css" // `style: true` 会加载 less 文件
+    }, "antd"],
     // env === "test" && "@babel/plugin-transform-modules-commonjs"
   ]
 };
@@ -39,3 +39,4 @@ if (env === "test") {
   config.plugins.push("@babel/plugin-transform-modules-commonjs");
 }
 module.exports = config;
+
