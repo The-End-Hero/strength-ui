@@ -1,7 +1,7 @@
 const env = process.env.BABEL_ENV || process.env.NODE_ENV;
 const outputModule = process.env.OUTPUT_MODULE;
 
-module.exports = {
+const config = {
   ignore: [
     "**/*.d.ts"
   ],
@@ -17,12 +17,12 @@ module.exports = {
   ],
   "compact": false,
   plugins: [
-      ["import", {
-          "libraryName": "antd",
-          "libraryDirectory": "es",
-          "style": "css" // `style: true` 会加载 less 文件
-      }],
-    'lodash',
+    "lodash",
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": "css" // `style: true` 会加载 less 文件
+    }, "antd"],
     "@babel/plugin-transform-runtime",
     [
       "@babel/plugin-proposal-decorators",
@@ -31,7 +31,11 @@ module.exports = {
       }
     ],
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread",
-    env === "test" && "@babel/plugin-transform-modules-commonjs"
-  ].filter(Boolean)
+    "@babel/plugin-proposal-object-rest-spread"
+    // env === "test" && "@babel/plugin-transform-modules-commonjs"
+  ]
 };
+if (env === "test") {
+  config.plugins.push("@babel/plugin-transform-modules-commonjs");
+}
+module.exports = config;

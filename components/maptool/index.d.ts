@@ -1,14 +1,22 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import "rc-tooltip/assets/bootstrap.css";
 declare class MapTool extends Component<any, any> {
     static defaultProps: {
+        is_map_tool_collapse: boolean;
         is_server_render: boolean;
         fullscreencenter: boolean;
         getMap: () => void;
-        renderOrder: {
-            key: any;
-        }[];
+        maptools: ({
+            key: string;
+            label: string;
+            checked: boolean;
+            fold: boolean;
+        } | {
+            key: string;
+            label?: undefined;
+            checked?: undefined;
+            fold?: undefined;
+        })[];
     };
     static propTypes: {
         is_server_render: PropTypes.Validator<boolean>;
@@ -35,7 +43,7 @@ declare class MapTool extends Component<any, any> {
     componentWillUnmount(): void;
     escFunction: (event: any) => void;
     removeStreetscapeView: () => void;
-    moreMenu: (bool: any) => void;
+    changeMoreMenu: (bool: any) => void;
     selectMapStyle: (style: any) => void;
     getMapPanelInstance: () => any;
     toggleStreetView: () => void;
@@ -48,10 +56,25 @@ declare class MapTool extends Component<any, any> {
     saveAsJpeg: () => void;
     onFullScreenCenter: () => void;
     pauseStyle: (bool: any) => void;
+    /**
+     * 点选
+     */
     pauseState: () => void;
+    /**
+     * 画圆
+     */
     selfSelect: () => void;
+    /**
+     * 画多边形
+     */
     disSelect: () => void;
+    /**
+     * 清空自绘制围栏
+     */
     emptySelect: () => void;
+    reSetMap: () => void;
+    searchMap: () => void;
+    menuClick: (key: any) => void;
     render(): JSX.Element;
 }
 declare const MixMapTool: typeof MapTool;

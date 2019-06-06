@@ -14,7 +14,6 @@ import { self_select, dis_select, geo_types } from "../../constants/constants";
 import swal from "@sweetalert/with-react";
 import $ from "jquery";
 import { Tooltip } from "antd";
-// import 'antd/lib/tooltip/style/index.css'
 import MapStyle from "./components/MapStyle";
 
 const { gcj02tobd09, bd09togcj02 } = coordtrans;
