@@ -1,7 +1,8 @@
 @import "../styles/vars.less";
 @import "../styles/animate.less";
 @import "../styles/mixins.less";
-@prefixCls : mc_modal;
+
+@prefixCls: mc-modal;
 .@{prefixCls} {
   pointer-events: auto;
   box-shadow: @default-shadow;
@@ -31,7 +32,8 @@
   }
   &.no-title {
     .@{prefixCls}-header {
-      border-bottom: 1px solid transparent;
+      display: none;
+      //border-bottom: 1px solid transparent;
     }
   }
   //@media @mobile {
@@ -39,17 +41,20 @@
   //  margin: 10px;
   //}
   &-header {
-    padding: @modal-header-padding;
-    border-bottom: 1px solid #000000;
-    line-height: @modal-header-height;
-    text-align: center;
+    padding-left: 20px;
+    //padding: @modal-header-padding;
+    border-bottom: 1px solid #000;
+    //line-height: @modal-header-height;
+    //text-align: center;
     position: relative;
     .@{prefixCls}-title {
-      font-size: 16px; //@modal-title-font-size;
-      color: #C4C5CA; // @font-color;
+      font-size: 16px;
+      height: 60px;
+      line-height: 60px;
+      color: #E0E3E8;
       margin: 0;
       font-weight: 500;
-      padding: @modal-header-title-padding;
+      text-align: left;
       .ellipsis(1);
     }
     .@{prefixCls}-close {
@@ -85,13 +90,13 @@
     align-content: center;
     .mc-button {
       //flex: 1;
-      &:not(:first-child) {
+      &:not(:first-of-type) {
         margin-left: 20px;
       }
     }
   }
   &-method {
-    width: @modal-method-width  !important;
+    width: @modal-method-width !important;
     @media @mobile {
       width: auto !important;
       margin: 10px;
@@ -105,7 +110,7 @@
       .@{prefixCls}-footer {
         .mc-button {
           margin: 0;
-          &:first-child {
+          &:first-of-type {
             display: none;
           }
         }
@@ -169,23 +174,23 @@
   }
 }
 
-.@{prefixCls}-centered {
-  text-align: center;
-  &::before {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    width: 0;
-  }
-  .@{prefixCls} {
-    display: inline-block;
-    vertical-align: middle;
-    top: 0;
-    text-align: left;
-  }
-  margin-bottom: 0;
-}
+//.@{prefixCls}-centered {
+//  text-align: center;
+//  &::before {
+//    content: "";
+//    display: inline-block;
+//    height: 100%;
+//    vertical-align: middle;
+//    width: 0;
+//  }
+//  .@{prefixCls} {
+//    display: inline-block;
+//    vertical-align: middle;
+//    top: 0;
+//    text-align: left;
+//  }
+//  margin-bottom: 0;
+//}
 
 .@{prefixCls}-mask {
   position: fixed;

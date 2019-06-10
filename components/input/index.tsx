@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 import cls from "classnames";
 import { SearchIcon, WarningIcon, CloseIcon } from "../icon";
 import { map, size } from "lodash";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+
+let zIndex = 1000;
 
 /** Input component description */
 class Input extends PureComponent<any, any> {
   static defaultProps = {
+    prefixCls: "mc-input",
+    infoPlacement: "bottom",
     type: "text",
     kind: "",
     placeholder: "",
@@ -17,7 +22,23 @@ class Input extends PureComponent<any, any> {
     countDownNum: 60,
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
-  static propTypes = {};
+  static propTypes = {
+    /** 占位符*/
+    placeholder: PropTypes.string,
+    /** 单位名称*/
+    unitText: PropTypes.string,
+    errorText: PropTypes.string,
+    value: PropTypes.string,
+    kind: PropTypes.string,
+    type: PropTypes.string,
+    isError: PropTypes.bool,
+    allowClear: PropTypes.bool,
+    clearClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    countDownNum: PropTypes.number
+  };
 
 
   timeId: any = null;
@@ -29,6 +50,7 @@ class Input extends PureComponent<any, any> {
     this.state = {
       value: props.value,
       isFocus: false,
+      showSelectList: false,
       countDownNum: props.countDownNum
     };
   }
@@ -53,24 +75,15 @@ class Input extends PureComponent<any, any> {
     }, 1000);
   };
 
-
-  // changeInput = async (e) => {
-  //   const value = e.currentTarget.value;
-  //   console.log(value);
-  //   this.clearTimeId();
-  //   await this.setState({ value });
-  //   const { onChange } = this.props;
-  //   this.timeId = setTimeout(() => {
-  //     onChange && onChange(value);
-  //   }, 300);
-  // };
-
   clearTimeId = () => {
     this.timeId && clearTimeout(this.timeId);
   };
   focusInput = () => {
     const { onFocus } = this.props;
-    this.setState({ isFocus: true });
+    this.setState({
+      isFocus: true,
+      showSelectList: true
+    });
     onFocus && onFocus();
   };
   blurInput = () => {
@@ -91,6 +104,7 @@ class Input extends PureComponent<any, any> {
 
   render() {
     const {
+      prefixCls,
       type,
       placeholder,
       kind,
@@ -99,18 +113,20 @@ class Input extends PureComponent<any, any> {
       unitText,
       style,
       value,
+      infoPlacement,
       onFocus,
       onBlur,
       selectLabel,
       allowClear,
+      selectList,
       ...attr
     } = this.props;
-    const { isFocus, countDownNum } = this.state;
+    const { isFocus, countDownNum, showSelectList } = this.state;
     const baseProps = {
       type,
       placeholder,
       value,
-      className: cls("mc_input", {
+      className: cls(prefixCls, {
         // mc_input_search: kind === "search",
       }),
       onFocus: this.focusInput,
@@ -119,85 +135,84 @@ class Input extends PureComponent<any, any> {
     };
     let input;
     input = (
-      <div className={cls("mc_input_comp", {
-        isFocus,
-        mc_inpit_error: isError
+      <ClickAwayListener onClickAway={() => {
+        this.setState({ showSelectList: false });
+      }}>
+        <div className={cls(`${prefixCls}-comp`, {
+          isFocus,
+          [`${prefixCls}-error`]: isError
+        })} style={{
+          zIndex: isFocus ? zIndex : "unset",
+          ...style
+        }}>
+          {
+            kind === "search" && // 搜索ICON
+            <div className={`${prefixCls}-left-icon-wrap`}>
+              <SearchIcon/>
+            </div>
+          }
+          {
+            size(selectLabel) > 0 &&
+            <div className={`${prefixCls}-select-label`}>
+              {
+                map(selectLabel, (t) => {
+                  return (
+                    <div>{t}</div>
+                  );
+                })
+              }
+            </div>
+          }
 
-      })} style={style}>
-        {
-          kind === "search" && // 搜索ICON
-          <div className="mc_input_left_icon_wrap">
-            <SearchIcon/>
-          </div>
-        }
-        {
-          size(selectLabel) > 0 &&
-          <div className="mc_input_select_label">
-            {
-              map(selectLabel, (t) => {
-                return (
-                  <div>{t}</div>
-                );
-              })
-            }
-          </div>
-        }
+          <input {...baseProps} />
+          {
+            allowClear &&
+            <div className={`${prefixCls}-right-icon-wrap`} onClick={this.clearClick} style={{ cursor: "pointer" }}>
+              <CloseIcon style={{ width: 12 }}/>
+            </div>
+          }
 
-        <input {...baseProps} />
-        {
-          allowClear &&
-          <div className="mc_input_right_icon_wrap" onClick={this.clearClick} style={{ cursor: "pointer" }}>
-            <CloseIcon style={{ width: 12 }}/>
-          </div>
-        }
+          {
+            kind === "vcode" && // 发送后，切换到 vcode_countdown
+            <div className={`${prefixCls}-vcode`} onClick={this.getVcode}>发送验证码</div>
+          }
+          {
+            showSelectList && kind === "select" &&
 
-        {
-          kind === "vcode" && // 发送后，切换到 vcode_countdown
-          <div className="mc_input_vcode" onClick={this.getVcode}>发送验证码</div>
-        }
-        {
-          kind === "select" &&
-          <div>
-            搜索
-          </div>
-        }
-        {
-          kind === "vcode_countdown" &&
-          <div className="mc_input_vcode disable">{`${countDownNum} s`}</div>
-        }
-        {
-          isError &&
-          <div className="mc_input_error">
-            <WarningIcon/>
-            <span>{errorText}</span>
-          </div>
-        }
-        {
-          unitText &&
-          <div className={`mc_input_unit`}>{unitText}</div>
-        }
-      </div>
+            <div className={cls(`${prefixCls}-select-list`, {
+              show: kind === "select",
+              hide: kind !== "select"
+            })}>
+              {
+                map(selectList, (t) => {
+                  return t;
+                })
+              }
+            </div>
+          }
+          {
+            kind === "vcode_countdown" &&
+            <div className={`${prefixCls}-vcode disable`}>{`${countDownNum} s`}</div>
+          }
+          {
+            isError &&
+            <div className={cls(`${prefixCls}-error`, {
+              [`text-right`]: infoPlacement === "right",
+              [`text-bottom`]: infoPlacement === "bottom"
+            })}>
+              <WarningIcon/>
+              <span>{errorText}</span>
+            </div>
+          }
+          {
+            unitText &&
+            <div className={`${prefixCls}-unit`}>{unitText}</div>
+          }
+        </div>
+      </ClickAwayListener>
     );
     return input;
   }
 }
-
-Input.propTypes = {
-  /** 占位符*/
-  placeholder: PropTypes.string,
-  /** 单位名称*/
-  unitText: PropTypes.string,
-  errorText: PropTypes.string,
-  value: PropTypes.string,
-  kind: PropTypes.string,
-  type: PropTypes.string,
-  isError: PropTypes.bool,
-  allowClear: PropTypes.bool,
-  clearClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  countDownNum: PropTypes.number
-};
 
 export default Input;

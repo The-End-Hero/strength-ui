@@ -1,33 +1,33 @@
 <script>
     // amap 全局代理
-    const createGlobleAMap = () => {
-        const obj = {};
-        const map_instance = new Proxy(obj, {
-            get: (target, key, receiver) => {
-                // console.log(target, key, receiver);
-                // console.log(`getting ${key}!`);
-                if (key in target || key === "default") {
-                    return Reflect.get(target, key, receiver);
-                } else {
-                    return `找不到 ${key} 地图实例化对象`;
-                }
-            },
-            set: (target, key, value, receiver) => {
-                // console.log("target:", target);
-                // console.log("key:", key);
-                // console.log("value:", value);
-                // console.log("receiver:", receiver);
-                return Reflect.set(target, key, value, receiver);
-            },
-            deleteProperty: (target, key) => {
-                return Reflect.deleteProperty(target, key);
-            }
-        });
-        return map_instance;
-    };
-    window.map_instance = createGlobleAMap();
-
-    window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+    // const createGlobleAMap = () => {
+    //     const obj = {};
+    //     const map_instance = new Proxy(obj, {
+    //         get: (target, key, receiver) => {
+    //             // console.log(target, key, receiver);
+    //             // console.log(`getting ${key}!`);
+    //             if (key in target || key === "default") {
+    //                 return Reflect.get(target, key, receiver);
+    //             } else {
+    //                 return `找不到 ${key} 地图实例化对象`;
+    //             }
+    //         },
+    //         set: (target, key, value, receiver) => {
+    //             // console.log("target:", target);
+    //             // console.log("key:", key);
+    //             // console.log("value:", value);
+    //             // console.log("receiver:", receiver);
+    //             return Reflect.set(target, key, value, receiver);
+    //         },
+    //         deleteProperty: (target, key) => {
+    //             return Reflect.deleteProperty(target, key);
+    //         }
+    //     });
+    //     return map_instance;
+    // };
+    // window.map_instance = createGlobleAMap();
+    //
+    // window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 </script>
 <!--<script type="text/javascript"-->
 <!--src="//api.map.baidu.com/getscript?v=2.0&ak=olTziYgwVYO1A1XNBrYzX604Hi6F2fYy&service"></script>-->

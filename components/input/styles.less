@@ -1,6 +1,22 @@
-@input_height: 32px; // default 34px
+@import "../styles/vars.less";
+@import "../styles/animate.less";
+@import "../styles/mixins.less";
+@prefixCls : mc-input;
+@input-height: 32px; // default 34px
+@input-default-width: 351px;
+.text-right {
+  width: @input-default-width;
+  height: @input-height;
+  left: calc(@input-default-width + 5px);
+  top: 0;
+}
 
-.mc_input_comp {
+.text-bottom {
+  top: 30px;
+  left: 0;
+}
+
+.@{prefixCls}-comp {
   z-index: 2;
   background-color: #343E59;
   border: 1px solid #1D1D21;
@@ -10,59 +26,51 @@
   font-size: 12px;
   line-height: 1.5;
   padding: 3px;
-  //padding: 8px 10px;
   transition: all 0.3s;
   display: flex;
   position: relative;
-  width: 351px;
+  width: @input-default-width;
   &.isFocus {
-    border: 1px solid #1D94FF;
+    border: 1px solid #1D94FF !important;
     box-shadow: 0 0 0 1px #1D94FF;
   }
-  &.mc_inpit_error {
-    border: 1px solid #F35351;
+  &.@{prefixCls}-error {
+    border: 1px solid #F35351 !important;
     box-shadow: 0 0 0 1px #F35351;
     margin-bottom: 25px;
   }
-  .mc_input_search_icon {
+  .@{prefixCls}-search-icon {
     position: absolute;
     left: 10px;
     top: 10px;
     display: flex;
     width: 16px;
   }
-  .mc_input_error {
+  .@{prefixCls}-error {
     position: absolute;
-    top: 40px;
-    left: 0;
+    height: 34px;
     display: flex;
     align-items: center;
     font-size: 12px;
     color: #F35351;
-    //margin-top: 6px;
     & > img {
       margin-right: 6px;
     }
   }
-  .mc_input_unit {
+  .@{prefixCls}-unit {
     z-index: 10;
     position: absolute;
     right: 0;
     top: 0;
-    height: @input_height;
+    height: @input-height;
     border-left: 1px solid #181819;
     font-size: 14px;
     padding: 0 20px;
     line-height: 34px;
     user-select: none;
-    //&.focus {
-    //  height: calc(@input_height - 4px);
-    //  top: 2px;
-    //  line-height: calc(@input_height - 4px);
-    //}
   }
-  .mc_input_vcode {
-    line-height: @input_height;
+  .@{prefixCls}-vcode {
+    line-height: @input-height;
     font-size: 12px;
     color: #1D94FF;
     position: absolute;
@@ -74,19 +82,34 @@
       cursor: not-allowed;
     }
   }
-  .mc_input_right_icon_wrap {
+  .@{prefixCls}-right-icon-wrap {
     display: flex;
     align-items: center;
     padding-right: 7px;
   }
-  .mc_input_left_icon_wrap {
+  .@{prefixCls}-left-icon-wrap {
     display: flex;
     align-items: center;
     padding-left: 7px;
   }
+  .@{prefixCls}-select-list {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    background-color: #343C54;
+    border: 1px solid #586484;
+    padding: 6px 0;
+    width: 100%;
+    &.show {
+      animation: mc-slide-down 0.5s;
+    }
+    &.hide {
+      animation: mc-slide-up-out 0.5s;
+    }
+  }
 }
 
-.mc_input_select_label {
+.@{prefixCls}-select-label {
   display: flex;
   & > div {
     background-color: #1F6CBE;
@@ -97,21 +120,15 @@
   }
 }
 
-.mc_input {
+.@{prefixCls} {
   border: unset;
   background-color: transparent;
   color: #fff;
   flex: 1;
   z-index: 2;
-  //background-color: #343E59;
-  //border: 1px solid #1D1D21;
-  //border-radius: 6px;
-  //height: 34px;
-  //width: 100%;
   font-size: 12px;
   line-height: 1.5;
   padding-left: 5px;
-  //padding: 8px 10px;
   transition: all 0.3s;
   &::-webkit-input-placeholder {
     color: #98A1BA;
@@ -119,22 +136,11 @@
   &::-ms-input-placeholder {
     color: #98A1BA;
   }
-  //&:hover {
-  //  border: 1px solid #1D94FF;
-  //}
-  //&:focus {
-  //  border: 1px solid #1D94FF;
-  //  box-shadow: 0 0 0 1px #1D94FF;
-  //}
 
-  &.mc_input_search {
+  &.@{prefixCls}-search {
     padding-left: 30px;
   }
 
-  //&.mc_inpit_error {
-  //  border: 1px solid #F35351;
-  //  box-shadow: 0px 0px 0px 1px #F35351;
-  //}
 }
 
 

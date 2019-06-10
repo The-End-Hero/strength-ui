@@ -23,7 +23,7 @@ const typeConfig = {
   prompt: "prompt"
 };
 
-const ESC_KEY_CODE = 27
+const ESC_KEY_CODE = 27;
 
 /**
  * const modal = Modal.confirm()  // 得到当前 Modal 引用
@@ -32,31 +32,33 @@ const ESC_KEY_CODE = 27
  * @class Modal
  * @extends {PureComponent}
  */
-export default class Modal extends PureComponent <any,any>{
+export default class Modal extends PureComponent <any, any> {
   state = {
     init: false,
     visible: this.props.isStaticMethod || false,
     promptValue: {}
   };
-  _containerRef:any = null;
-  _currentNodeRef:any = null;
+  _containerRef: any = null;
+  _currentNodeRef: any = null;
   animationTime = 500;
-    wrapperRef:any
-    modal:any
-    
+  wrapperRef: any;
+  modal: any;
+
   static defaultProps = {
-    prefixCls: "mc_modal",
+    prefixCls: "mc-modal",
     visible: false,
     isStaticMethod: false, // 用来区分 是 Modal.xx() 还是 <Modal/>
     getPopupContainer: () => document.body,
-    width: 520,
-    title: "",
-    onOk: () => {},
-    onCancel: () => {},
+    width: 520, //默认宽度
+    title: "", // header 显示
+    onOk: () => {
+    }, // 确定默认调用
+    onCancel: () => {
+    }, // 取消默认调用
     okText: "确定",
     cancelText: "取消",
-    footer: [],
-    content: "",
+    footer: [], // 
+    content: "", // 
     confirmLoading: false,
     maskClosable: true,
     centered: false,
@@ -65,7 +67,7 @@ export default class Modal extends PureComponent <any,any>{
     zIndex: 999,
     okButtonProps: {},
     cancelButtonProps: {},
-    escClose: true,
+    escClose: true
   };
   static propTypes = {
     onCancel: PropTypes.func,
@@ -111,23 +113,32 @@ export default class Modal extends PureComponent <any,any>{
     okProps: PropTypes.object,
     cancelProps: PropTypes.object,
     wrapperClassName: PropTypes.string,
-    escClose: PropTypes.bool,
+    escClose: PropTypes.bool
   };
+
   constructor(props) {
     super(props);
-    this.wrapperRef = createRef()
-    this.modal = createRef()
+    this.wrapperRef = createRef();
+    this.modal = createRef();
   }
+
   destroy = () => {
     unmountComponentAtNode(this._containerRef);
     this._currentNodeRef.remove();
   };
-  static renderElement = (type, options:any = {}) => {
+  /**
+   * 静态方法渲染 函数调用
+   * @param type
+   * @param options
+   * @returns {{destroy: any}}
+   */
+  static renderElement = (type, options: any = {}) => {
     const container = document.createElement("div");
     const currentNode = document.body.appendChild(container);
     const defaultProps = Modal.defaultProps;
     const prefixCls = defaultProps.prefixCls;
     const iconType = options.iconType || type;
+    const { title,content, ...otherOpts } = options;
     const _modal = render(
       <Modal
         className={cls(`${prefixCls}-method`, `${prefixCls}-${iconType}`)}
@@ -135,16 +146,16 @@ export default class Modal extends PureComponent <any,any>{
         visible
         staticMethodType={type}
         isStaticMethod
-        {...options}
-        title={
-          <>
-            <span className={cls(`${prefixCls}-method-icon`)}>
+        {...otherOpts}
+      >
+        <>
+          <span className={cls(`${prefixCls}-method-icon`)}>
               {Modal.renderStaticMethodIcon(iconType)}
             </span>
-            <span>{options.title}</span>
-          </>
-        }
-      />,
+          <span>{options.title}</span>
+          <div>{content}</div>
+        </>
+      </Modal>,
       container
     );
     _modal._containerRef = container;
@@ -154,47 +165,56 @@ export default class Modal extends PureComponent <any,any>{
       destroy: _modal.destroy
     };
   };
+
   static confirm(options) {
     return this.renderElement(typeConfig.confirm, options);
   }
+
   static success(options) {
     return this.renderElement(typeConfig.success, options);
   }
+
   static info(options) {
     return this.renderElement(typeConfig.info, options);
   }
+
   static error(options) {
     return this.renderElement(typeConfig.error, options);
   }
+
   static warning(options) {
     return this.renderElement(typeConfig.warning, options);
   }
+
   static loading(options) {
     return this.renderElement(typeConfig.loading, options);
   }
+
   static prompt(options) {
     return this.renderElement(typeConfig.prompt, options);
   }
+
   static renderStaticMethodIcon(type) {
     switch (type) {
       case typeConfig["info"]:
-        return <InfoIcon />;
+        return <InfoIcon/>;
       case typeConfig["success"]:
-        return <SuccessIcon />;
+        return <SuccessIcon/>;
       case typeConfig["error"]:
-        return <ErrorIcon />;
+        return <ErrorIcon/>;
       case typeConfig["warning"]:
-        return <WarningIcon />;
+        return <WarningIcon/>;
       case typeConfig["confirm"]:
-        return <WarningIcon />;
+        return <WarningIcon/>;
       case typeConfig["loading"]:
-        return <LoadingIcon />;
+        return <LoadingIcon/>;
       case typeConfig["prompt"]:
-        return <InfoIcon />;
+        return <InfoIcon/>;
       default:
         return null;
     }
   }
+
   _onOk = () => {
     // 如果是 Modal.xx() 的方式 调用 直接销毁节点
     if (this.props.isStaticMethod) {
@@ -223,7 +243,7 @@ export default class Modal extends PureComponent <any,any>{
   };
   enableScroll = () => {
     document.body.style.overflow = "";
-    document.body.style.paddingRight = '0';
+    document.body.style.paddingRight = "0";
   };
   onPromptChange = e => {
     this.setState({
@@ -243,29 +263,32 @@ export default class Modal extends PureComponent <any,any>{
     }
     return null;
   }
+
   componentDidUpdate() {
     if (!this.props.isStaticMethod) {
       if (this.props.visible === true) {
         this.disableScroll();
-        if(this.wrapperRef.current){
-          this.wrapperRef.current.focus()
+        if (this.wrapperRef.current) {
+          this.wrapperRef.current.focus();
         }
       } else {
         this.enableScroll();
       }
     }
   }
+
   onKeyDown = (e) => {
-    if(!this.props.escClose) {
-      return
+    if (!this.props.escClose) {
+      return;
     }
-    if(e.keyCode === ESC_KEY_CODE) {
-      e.stopPropagation()
-      if(this.props.onCancel){
-        this._onCancel()
+    if (e.keyCode === ESC_KEY_CODE) {
+      e.stopPropagation();
+      if (this.props.onCancel) {
+        this._onCancel();
       }
     }
-  }
+  };
+
   render() {
     const {
       prefixCls,
@@ -304,7 +327,7 @@ export default class Modal extends PureComponent <any,any>{
 
     const maskClickHandle = maskClosable ? { onClick: this._onCancel } : {};
 
-    const defaultPromptContent = content || <Input placeholder="请输入" />;
+    const defaultPromptContent = content || <Input placeholder="请输入"/>;
 
     return createPortal(
       <>
@@ -323,8 +346,8 @@ export default class Modal extends PureComponent <any,any>{
           role="dialog"
           tabIndex={-1}
           className={cls(`${prefixCls}-wrap`, wrapperClassName, {
-            [`${prefixCls}-centered`]: centered,
-            [`${prefixCls}-wrap-visible`]: _visible,
+            // [`${prefixCls}-centered`]: centered,
+            [`${prefixCls}-wrap-visible`]: _visible
           })}
           onKeyDown={this.onKeyDown}
           ref={this.wrapperRef}
@@ -359,30 +382,30 @@ export default class Modal extends PureComponent <any,any>{
               staticMethodType === typeConfig.prompt &&
               isValidElement(defaultPromptContent)
                 ? cloneElement(defaultPromptContent as any, {
-                    onChange: this.onPromptChange
-                  })
+                  onChange: this.onPromptChange
+                })
                 : content || children}
             </section>
             {footer &&
-              (footer.length !== 0 ? (
-                <section className={`${prefixCls}-footer`}>{footer}</section>
-              ) : (
-                footer.length === 0 && (
-                  <section className={`${prefixCls}-footer`}>
-                    <Button {...cancelButtonProps} onClick={this._onCancel}>
-                      {cancelText}
-                    </Button>
-                    <Button
-                      type="primary"
-                      loading={confirmLoading}
-                      {...okButtonProps}
-                      onClick={this._onOk}
-                    >
-                      {okText}
-                    </Button>
-                  </section>
-                )
-              ))}
+            (footer.length !== 0 ? (
+              <section className={`${prefixCls}-footer`}>{footer}</section>
+            ) : (
+              footer.length === 0 && (
+                <section className={`${prefixCls}-footer`}>
+                  <Button {...cancelButtonProps} onClick={this._onCancel}>
+                    {cancelText}
+                  </Button>
+                  <Button
+                    type="primary"
+                    loading={confirmLoading}
+                    {...okButtonProps}
+                    onClick={this._onOk}
+                  >
+                    {okText}
+                  </Button>
+                </section>
+              )
+            ))}
           </div>
         </div>
       </>,

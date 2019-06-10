@@ -10,11 +10,16 @@ import "../components/styles/index.less";
 import "./style.less";
 import ModalPage from './pages/modal'
 
-storiesOf("普通", module).add(
+storiesOf("普通", module)
+  .add(
     "modal 弹窗",
     () => (
         <div className="modal_example">
             <ModalPage/>
         </div>
-    )
+    ),{
+      info:{
+        text:`ssssss`
+      }
+    }
 );
