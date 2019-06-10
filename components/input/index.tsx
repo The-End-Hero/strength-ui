@@ -17,9 +17,7 @@ class Input extends PureComponent<any, any> {
     countDownNum: 60,
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
-  static propTypes = {
-    
-  };
+  static propTypes = {};
 
 
   timeId: any = null;
@@ -108,8 +106,6 @@ class Input extends PureComponent<any, any> {
       ...attr
     } = this.props;
     const { isFocus, countDownNum } = this.state;
-    // console.log(type, "type");
-    console.log(value, "value");
     const baseProps = {
       type,
       placeholder,
@@ -117,23 +113,11 @@ class Input extends PureComponent<any, any> {
       className: cls("mc_input", {
         // mc_input_search: kind === "search",
       }),
-      // onChange: this.changeInput,
       onFocus: this.focusInput,
       onBlur: this.blurInput,
       ...attr
     };
     let input;
-    // if (kind === "select") {
-    //   input = (
-    //     <div className="mc_input_select"
-    //          onClick={this.focusSelectInput}
-    //          style={style}>
-    //       <input ref={refs => this.selectInputRefs = refs}  type="text"/>
-    //     </div>
-    //   );
-    //
-    //   return input;
-    // }
     input = (
       <div className={cls("mc_input_comp", {
         isFocus,
@@ -170,6 +154,12 @@ class Input extends PureComponent<any, any> {
         {
           kind === "vcode" && // 发送后，切换到 vcode_countdown
           <div className="mc_input_vcode" onClick={this.getVcode}>发送验证码</div>
+        }
+        {
+          kind === "select" &&
+          <div>
+            搜索
+          </div>
         }
         {
           kind === "vcode_countdown" &&

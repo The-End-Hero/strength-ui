@@ -13,7 +13,7 @@ import '../components/icon/styles.less'
 storiesOf("普通", module).add(
   "icon 图标",
   () => (
-    <div className="input-example">
+    <div className="input_example">
       <h2>基本使用</h2>
       <WireIcon type='POINT'/>
       <WireIcon type='LINE'/>

@@ -12,7 +12,7 @@ import "./style.less";
 storiesOf("普通", module).add(
   "checkbox 选择框",
   () => (
-    <div className="input-example">
+    <div className="input_example">
       <h2>基本使用</h2>
       <CheckBox
         label="开关"

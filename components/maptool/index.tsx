@@ -394,8 +394,18 @@ class MapTool extends Component<any, any> {
 
   render() {
     const {
-      fullscreencenter, mapState, current_geo_filter, addBgPoint, changeCurrentGeoFilter,
-      hasCustomDraw, maptools, changeCollapse, changeMapStyle, map_style, is_map_tool_collapse
+      fullscreencenter,
+      mapState,
+      current_geo_filter, 
+      addBgPoint, 
+      changeCurrentGeoFilter,
+      hasCustomDraw,
+      maptools, 
+      changeCollapse,
+      changeMapStyle,
+      map_style, 
+      is_map_tool_collapse,
+      is_translucent // 半透明
     } = this.props;
     const list = filter(maptools, (t) => {
       return t.fold === false;
@@ -424,7 +434,9 @@ class MapTool extends Component<any, any> {
       <div
         className={cls("mc_map_tool_wrap", { fullscreen: fullscreencenter })}
       >
-        <div className="mc_map_tool_btn_wrap">
+        <div className={cls("mc_map_tool_btn_wrap",{
+          is_translucent: is_translucent
+        })}>
           {
             map(list, (mt) => {
               if (mt.key === "line") {
@@ -438,10 +450,10 @@ class MapTool extends Component<any, any> {
               }
               const ele = [
                 <Tooltip placement="right" title={`${mt.label}`} key={mt.key}>
-                  <div className={cls(`mc_map_tool_btn_container ${pS}`)}>
+                  <div className={cls(`mc_map_tool_btn_container ${pS}`)}
+                       onClick={() => this.menuClick(mt.key)}>
                     <div
                       className={cls(`mc_map_left_btn ${mt.key}`, {})}
-                      onClick={() => this.menuClick(mt.key)}
                     />
                   </div>
                 </Tooltip>

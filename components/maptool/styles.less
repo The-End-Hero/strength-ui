@@ -24,7 +24,7 @@
 
 .mc_map_tool_wrap {
   user-select: none;
-  cursor: pointer;
+  //cursor: pointer;
 }
 
 .mc_map_tool_btn_wrap {
@@ -36,6 +36,15 @@
   align-items: center;
   position: relative;
   z-index: 20;
+  &.is_translucent {
+    border-radius: 10px;
+    background-color: rgba(41, 51, 83, 0.6);
+    .mc_map_tool_btn_container {
+      &:hover {
+        background-color: #2F3C67;
+      }
+    }
+  }
   .material-icons {
     color: #fff;
     font-size: 16px;

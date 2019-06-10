@@ -15,7 +15,7 @@ import { SuccessIcon } from '../components/icon';
 storiesOf('普通', module).add(
   'Button 按钮',
   () => (
-    <div className="button-example">
+    <div className="button_example">
       <h2>基本使用</h2>
 
       <Button onClick={action('clicked')}>默认</Button>

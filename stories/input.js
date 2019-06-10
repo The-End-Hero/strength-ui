@@ -12,7 +12,7 @@ import { SuccessIcon } from "../components/icon";
 storiesOf("普通", module).add(
   "input 输入框",
   () => (
-    <div className="input-example">
+    <div className="input_example">
       <h2>基本使用</h2>
       <Input onClick={action("clicked")}/>
 

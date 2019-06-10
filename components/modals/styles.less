@@ -1,11 +1,13 @@
 @import "../styles/vars.less";
 @import "../styles/animate.less";
 @import "../styles/mixins.less";
-@prefixCls : mc-modal;
+@prefixCls : mc_modal;
 .@{prefixCls} {
   pointer-events: auto;
   box-shadow: @default-shadow;
-  background-color: @modal-bg-color;
+  background-color: #262E44; // @modal-bg-color;
+  color: #C4C5CA;
+  border: 1px solid #141414;
   border-radius: @border-radius;
   width: @modal-width;
   z-index: @modal-z-index;
@@ -32,19 +34,19 @@
       border-bottom: 1px solid transparent;
     }
   }
-  @media @mobile {
-    width: auto !important;
-    margin: 10px;
-  }
+  //@media @mobile {
+  //  width: auto !important;
+  //  margin: 10px;
+  //}
   &-header {
     padding: @modal-header-padding;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid #000000;
     line-height: @modal-header-height;
     text-align: center;
     position: relative;
     .@{prefixCls}-title {
-      font-size: @modal-title-font-size;
-      color: @font-color;
+      font-size: 16px; //@modal-title-font-size;
+      color: #C4C5CA; // @font-color;
       margin: 0;
       font-weight: 500;
       padding: @modal-header-title-padding;
@@ -79,12 +81,12 @@
   }
   &-footer {
     padding: @modal-footer-padding;
-    .flex-center(space-between);
+    .flex-center(flex-end);
     align-content: center;
     .mc-button {
-      flex: 1;
+      //flex: 1;
       &:not(:first-child) {
-        margin-left: 10%;
+        margin-left: 20px;
       }
     }
   }

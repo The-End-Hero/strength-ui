@@ -45,7 +45,7 @@ export default class Modal extends PureComponent <any,any>{
     modal:any
     
   static defaultProps = {
-    prefixCls: "mc-modal",
+    prefixCls: "mc_modal",
     visible: false,
     isStaticMethod: false, // 用来区分 是 Modal.xx() 还是 <Modal/>
     getPopupContainer: () => document.body,

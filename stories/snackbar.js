@@ -12,7 +12,7 @@ import "./style.less";
 storiesOf("普通", module).add(
   "snackbar 提示气泡框",
   () => (
-    <div className="input-example">
+    <div className="input_example">
       <Button onClick={()=>{
         SnackBar.info('success','成功')
       }}>成功</Button>
