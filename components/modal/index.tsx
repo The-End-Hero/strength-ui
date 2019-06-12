@@ -138,7 +138,7 @@ export default class Modal extends PureComponent <any, any> {
     const defaultProps = Modal.defaultProps;
     const prefixCls = defaultProps.prefixCls;
     const iconType = options.iconType || type;
-    const { title,content, ...otherOpts } = options;
+    const { title, content, ...otherOpts } = options;
     const _modal = render(
       <Modal
         className={cls(`${prefixCls}-method`, `${prefixCls}-${iconType}`)}
@@ -149,10 +149,12 @@ export default class Modal extends PureComponent <any, any> {
         {...otherOpts}
       >
         <>
-          <span className={cls(`${prefixCls}-method-icon`)}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span className={cls(`${prefixCls}-method-icon`)}>
               {Modal.renderStaticMethodIcon(iconType)}
             </span>
-          <span>{options.title}</span>
+            <span style={{ fontSize: 20 }}>{options.title}</span>
+          </div>
           <div>{content}</div>
         </>
       </Modal>,
@@ -197,19 +199,19 @@ export default class Modal extends PureComponent <any, any> {
   static renderStaticMethodIcon(type) {
     switch (type) {
       case typeConfig["info"]:
-        return <InfoIcon/>;
+        return <InfoIcon style={{ width: 28 }}/>;
       case typeConfig["success"]:
-        return <SuccessIcon/>;
+        return <SuccessIcon style={{ width: 28 }}/>;
       case typeConfig["error"]:
-        return <ErrorIcon/>;
+        return <ErrorIcon style={{ width: 28 }}/>;
       case typeConfig["warning"]:
-        return <WarningIcon/>;
+        return <WarningIcon style={{ width: 28 }}/>;
       case typeConfig["confirm"]:
-        return <WarningIcon/>;
+        return <WarningIcon style={{ width: 28 }}/>;
       case typeConfig["loading"]:
-        return <LoadingIcon/>;
+        return <LoadingIcon style={{ width: 28 }}/>;
       case typeConfig["prompt"]:
-        return <InfoIcon/>;
+        return <InfoIcon style={{ width: 28 }}/>;
       default:
         return null;
     }
@@ -346,7 +348,6 @@ export default class Modal extends PureComponent <any, any> {
           role="dialog"
           tabIndex={-1}
           className={cls(`${prefixCls}-wrap`, wrapperClassName, {
-            // [`${prefixCls}-centered`]: centered,
             [`${prefixCls}-wrap-visible`]: _visible
           })}
           onKeyDown={this.onKeyDown}

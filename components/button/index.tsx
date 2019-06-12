@@ -36,7 +36,7 @@ export default class Button extends PureComponent<any, any> {
     plain: false
   };
   static propTypes = {
-    prefixCls: PropTypes.string.isRequired,
+    prefixCls: PropTypes.string,
     block: PropTypes.bool,
     hollow: PropTypes.bool,
     loading: PropTypes.bool,

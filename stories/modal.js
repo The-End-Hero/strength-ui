@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import "../components/checkbox/styles.less";
-import Modal from "../components/modals/index";
-import "../components/modals/styles.less";
+import Modal from "../components/modal/index";
+import "../components/modal/styles.less";
 import Button from "../components/button/index";
 import { withInfo } from "@storybook/addon-info";
 import { action } from "@storybook/addon-actions";

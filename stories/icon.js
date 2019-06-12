@@ -6,8 +6,8 @@ import { withInfo } from "@storybook/addon-info";
 import { action } from "@storybook/addon-actions";
 import "../components/styles/index.less";
 import "./style.less";
-import { WireIcon, CloseIcon } from "../components/icon";
-import '../components/icon/styles.less' 
+import { WireIcon, CloseIcon, WarningIcon, ErrorIcon, InfoIcon } from "../components/icon";
+import "../components/icon/styles.less";
 
 
 storiesOf("普通", module).add(
@@ -19,8 +19,10 @@ storiesOf("普通", module).add(
       <WireIcon type='LINE'/>
       <WireIcon type='POLYGON'/>
       <WireIcon type='MAP'/>
-
       <CloseIcon/>
+      <WarningIcon/>
+      <ErrorIcon/>
+      <InfoIcon/>
     </div>
   )
 );

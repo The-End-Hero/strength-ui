@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Modal from "../../components/modals";
+import Modal from "../../components/modal";
 import Button from "../../components/button";
 import Checkbox from "../../components/checkbox";
 

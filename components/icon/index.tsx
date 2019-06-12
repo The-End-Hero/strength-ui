@@ -20,14 +20,16 @@ import { IoMdCloseCircle } from "react-icons/io";
 import CbIcon from "./checkbox/CheckBoxIcon";
 import MCLIcon from "./MCLoadingIcon/mcloadingicon";
 import MCSIcon from "./search/search";
+import MCInfo from "./info/info";
+import MCError from "./error/error";
 import MCWarning from "./warning/warning";
 import WIcon from "./wireicon/wireicon";
 import MCCIcon from './close/close'
 
-export const InfoIcon = props => <FiVolume2 {...props} />;
+// export const InfoIcon = props => <FiVolume2 {...props} />;
 export const LoadingIcon = props => <FiLoader {...props} />;
 export const SuccessIcon = props => <FiCheckCircle {...props} />;
-export const ErrorIcon = props => <FiXCircle {...props} />;
+// export const ErrorIcon = props => <FiXCircle {...props} />;
 // export const CloseIcon = props => <FiX {...props} />;
 export const UpIcon = props => <FiChevronUp {...props} />;
 export const DownIcon = props => <FiChevronDown {...props} />;
@@ -48,6 +50,8 @@ export const MCLoadingIcon = props => <MCLIcon {...props}/>;
 export const SearchIcon = props => <MCSIcon {...props}/>;
 
 export const WarningIcon = props => <MCWarning {...props}/>;
+export const ErrorIcon = props => <MCError {...props}/>;
+export const InfoIcon = props => <MCInfo {...props}/>;
 
 
 // 点线面 线框风格 icon
@@ -55,3 +59,4 @@ export const WireIcon = props => <WIcon {...props}/>;
   
 export const CloseIcon = props => <MCCIcon {...props}/>;
   
+//   

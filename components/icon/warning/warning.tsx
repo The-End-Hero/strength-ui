@@ -1,14 +1,18 @@
 import React from "react";
 
 
-const WARNING_ICON = require("../../../static/images/other/warning.svg");
-const WARNING = "SEARCH";
+const ICON_SRC = require("../../../static/images/other/warning_icon.svg");
+const ALT = "WARNING";
 
 function WarningIcon(props: any) {
-  const { style, className } = props;
+  const { style, className, ...attr } = props;
   return (
-    <img src={WARNING_ICON} className={`${className ? className : ""}`} alt={WARNING}
-         style={style}/>
+    <img src={ICON_SRC}
+         className={`${className ? className : ""}`}
+         alt={ALT}
+         style={style}
+         {...attr}
+    />
   );
 }
 

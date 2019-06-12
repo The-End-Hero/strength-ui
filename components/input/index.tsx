@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cls from "classnames";
-import { SearchIcon, WarningIcon, CloseIcon } from "../icon";
+import { SearchIcon, ErrorIcon, CloseIcon } from "../icon";
 import { map, size } from "lodash";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
@@ -23,6 +23,7 @@ class Input extends PureComponent<any, any> {
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
   static propTypes = {
+    prefixCls:PropTypes.string,
     /** 占位符*/
     placeholder: PropTypes.string,
     /** 单位名称*/
@@ -200,7 +201,7 @@ class Input extends PureComponent<any, any> {
               [`text-right`]: infoPlacement === "right",
               [`text-bottom`]: infoPlacement === "bottom"
             })}>
-              <WarningIcon/>
+              <ErrorIcon/>
               <span>{errorText}</span>
             </div>
           }

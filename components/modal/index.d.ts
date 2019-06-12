@@ -66,6 +66,12 @@ export default class Modal extends PureComponent<any, any> {
     };
     constructor(props: any);
     destroy: () => void;
+    /**
+     * 静态方法渲染 函数调用
+     * @param type
+     * @param options
+     * @returns {{destroy: any}}
+     */
     static renderElement: (type: any, options?: any) => {
         destroy: any;
     };
