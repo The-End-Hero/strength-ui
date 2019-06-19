@@ -23,7 +23,7 @@ class Input extends PureComponent<any, any> {
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
   static propTypes = {
-    prefixCls:PropTypes.string,
+    prefixCls: PropTypes.string,
     /** 占位符*/
     placeholder: PropTypes.string,
     /** 单位名称*/
@@ -56,9 +56,17 @@ class Input extends PureComponent<any, any> {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.kind === "mc_input_vcode" && nextProps.kind !== this.props.kind) {
-      this.setState({ countDownNum: nextProps.countDownNum || 60 }, () => {
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.kind === "mc_input_vcode" && nextProps.kind !== this.props.kind) {
+  //     this.setState({ countDownNum: nextProps.countDownNum || 60 }, () => {
+  //       this.countDown();
+  //     });
+  //   }
+  // }
+  componentDidUpdate(prevProps){
+    const {kind} = this.props
+    if (kind === "mc_input_vcode" && kind !== prevProps.kind) {
+      this.setState({ countDownNum: prevProps.countDownNum || 60 }, () => {
         this.countDown();
       });
     }
@@ -178,8 +186,7 @@ class Input extends PureComponent<any, any> {
             <div className={`${prefixCls}-vcode`} onClick={this.getVcode}>发送验证码</div>
           }
           {
-            showSelectList && kind === "select" &&
-
+            showSelectList && kind === "select" && size(selectList) > 0 && 
             <div className={cls(`${prefixCls}-select-list`, {
               show: kind === "select",
               hide: kind !== "select"

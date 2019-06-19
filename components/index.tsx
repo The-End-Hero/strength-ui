@@ -5,6 +5,7 @@
 // export { default as Amap } from "./amap";
 // export { default as MapTalks } from "./maptalks";
 export { default as Modal } from "./modal";
+export { default as Slider } from "./slider";
 export { default as MapTool } from "./maptool";
 export { default as Button } from "./button";
 export { default as CheckBox } from "./checkbox";

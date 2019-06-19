@@ -34,7 +34,7 @@ const AMap = (window as any).AMap;
 
 class MapTool extends Component<any, any> {
   static defaultProps = {
-    is_map_tool_collapse: false, // 工具栏是否收起
+    is_default_collapse_tool: false, // 工具栏是否收起 is_default_collapse_tool
     is_server_render: false,
     fullscreencenter: false,
     getMap: () => {
@@ -82,7 +82,8 @@ class MapTool extends Component<any, any> {
       show: false, // 地图样式
       map_style: props.map_style || "base",
       moreMenu: false,
-      pauseStyle: true
+      pauseStyle: true,
+      is_collapse_tool: props.is_default_collapse_tool || false
     };
     this.map = props.getMap(); // 当前maptool所在地图实例
   }
@@ -90,9 +91,11 @@ class MapTool extends Component<any, any> {
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
   }
-
-  componentWillReceiveProps(nextProps) {
-    this.map = nextProps.getMap();
+  
+  componentDidUpdate(prevProps){
+    if(this.props.getMap ){
+      this.map = this.props.getMap();
+    }
   }
 
   componentWillUnmount() {
@@ -391,7 +394,11 @@ class MapTool extends Component<any, any> {
       this.onFullScreenCenter();
     }
   };
-
+  changeCollapse = (is_collapse_tool)=>{
+    this.setState({
+      is_collapse_tool
+    })
+  }
   render() {
     const {
       fullscreencenter,
@@ -400,21 +407,22 @@ class MapTool extends Component<any, any> {
       addBgPoint, 
       changeCurrentGeoFilter,
       hasCustomDraw,
-      maptools, 
-      changeCollapse,
+      maptools,
       changeMapStyle,
-      map_style, 
-      is_map_tool_collapse,
+      map_style,
       is_translucent // 半透明
     } = this.props;
+    const {
+      is_collapse_tool,
+    } = this.state
     const list = filter(maptools, (t) => {
       return t.fold === false;
     });
     let { show, moreMenu, pauseStyle } = this.state;
-    if (is_map_tool_collapse) {
+    if (is_collapse_tool) {
       return (
         <div className="mc_map_tool_collapse" onClick={() => {
-          changeCollapse(false);
+          this.changeCollapse(false);
         }}>
           <div className="mc_map_tool"></div>
           <div>工具</div>
@@ -432,7 +440,9 @@ class MapTool extends Component<any, any> {
     }
     return (
       <div
-        className={cls("mc_map_tool_wrap", { fullscreen: fullscreencenter })}
+        className={cls("mc_map_tool_wrap", { 
+          mc_map_tool_fullscreen: fullscreencenter
+        })}
       >
         <div className={cls("mc_map_tool_btn_wrap",{
           is_translucent: is_translucent
@@ -473,6 +483,7 @@ class MapTool extends Component<any, any> {
             moreMenu &&
             <MoreMenu
               {...this.props}
+              changeCollapse={this.changeCollapse}
               menuClick={this.menuClick}
               toggleStreetView={this.toggleStreetView}
               changeMoreMenu={this.changeMoreMenu}

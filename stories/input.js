@@ -9,7 +9,7 @@ import "./style.less";
 
 import { SuccessIcon } from "../components/icon";
 
-storiesOf("普通", module).add(
+storiesOf("组件", module).add(
   "input 输入框",
   () => (
     <div className="input_example">

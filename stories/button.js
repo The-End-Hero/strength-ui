@@ -12,8 +12,8 @@ import "./style.less"
 
 import { SuccessIcon } from '../components/icon';
 
-storiesOf('普通', module).add(
-  'Button 按钮',
+storiesOf('组件', module).add(
+  'button 按钮',
   () => (
     <div className="button_example">
       <h2>基本使用</h2>

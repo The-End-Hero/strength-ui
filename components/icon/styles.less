@@ -1,3 +1,6 @@
+@import "../styles/vars.less";
+@import "../styles/animate.less";
+@import "../styles/mixins.less";
 
 .mc_checkbox_icon {
   display: flex;
@@ -12,6 +15,11 @@
   width: 14px;
   height: 14px;
   pointer-events: auto;
+  &.mc-loading {
+    //display: inline-block;
+    //vertical-align: sub;
+    animation: mc-spin @loading-time linear infinite;
+  }
 }
 
 .mc_close_icon {

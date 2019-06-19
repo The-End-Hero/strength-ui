@@ -2,7 +2,7 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 declare class MapTool extends Component<any, any> {
     static defaultProps: {
-        is_map_tool_collapse: boolean;
+        is_default_collapse_tool: boolean;
         is_server_render: boolean;
         fullscreencenter: boolean;
         getMap: () => void;
@@ -39,7 +39,7 @@ declare class MapTool extends Component<any, any> {
     vectorLayer: any;
     constructor(props: any);
     componentDidMount(): void;
-    componentWillReceiveProps(nextProps: any): void;
+    componentDidUpdate(prevProps: any): void;
     componentWillUnmount(): void;
     escFunction: (event: any) => void;
     removeStreetscapeView: () => void;
@@ -75,6 +75,7 @@ declare class MapTool extends Component<any, any> {
     reSetMap: () => void;
     searchMap: () => void;
     menuClick: (key: any) => void;
+    changeCollapse: (is_collapse_tool: any) => void;
     render(): JSX.Element;
 }
 declare const MixMapTool: typeof MapTool;

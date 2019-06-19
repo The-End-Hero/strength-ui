@@ -59,4 +59,3 @@ export const WireIcon = props => <WIcon {...props}/>;
   
 export const CloseIcon = props => <MCCIcon {...props}/>;
   
-//   

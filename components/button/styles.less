@@ -13,40 +13,36 @@
   border: 1px solid transparent;
   white-space: nowrap;
   line-height: 1.5;
-  padding: 0 24px;//@button-default-padding;
-  font-size: 14px;// @button-default-font-size;
+  padding: 0 24px;
+  font-size: 14px;
   height: @button-default-height;
   user-select: none;
   transition: all @default-transition;
   position: relative;
-  color: #fff;//@font-color;
+  color: #fff;
   background-color: #0477DE;
-  border-color: #1D1D21;// @border-color;
+  border-color: #1D1D21;
   border-radius: @border-radius;
   outline: none;
-  //text-shadow: @default-text-shadow;
-  //.mc-button-hover(@default-color);
   &.@{prefixCls}-primary {
-    //.mc-button-hover(@primary-color);
-    color: #FFF;//@font-color;
-    background-color: #1D94FF;//#fff;
+    color: #FFF;
+    background-color: #1D94FF;
     border: 1px solid #1D1D21;
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@primary-color);
     }
   }
   &.@{prefixCls}-nobg {
-    //.mc-button-hover(@primary-color);
-    color: #1D94FF;//@font-color;
-    background-color: transparent;//#fff;
+    color: #1D94FF;
+    background-color: transparent;
     border: unset;
     &.@{prefixCls}-hollow {
       .mc-button-hollow(@primary-color);
     }
   }
   &.@{prefixCls}-default {
-    color: #BBBFCA;//@font-color;
-    background-color: #414B68;//#fff;
+    color: #BBBFCA;
+    background-color: #414B68;
     border: 1px solid #1d1d21;
     text-shadow: none;
     &:not(.@{prefixCls}-disabled):not(.@{prefixCls}-loading) {
@@ -79,7 +75,6 @@
       color: #FF6968;
     }
     &.@{prefixCls}-hollow {
-      //.mc-button-hollow(@error-color);
     }
   }
 
@@ -96,7 +91,6 @@
       color: #51ff6e;
     }
     &.@{prefixCls}-hollow {
-      //.mc-button-hollow(@success-color);
     }
   }
   &.@{prefixCls}-info {
@@ -132,7 +126,6 @@
     >.mc-loading {
       display: inline-block;
       vertical-align: sub;
-      // margin: -3px 10px 0 0;
       animation: mc-spin @loading-time linear infinite;
     }
   }

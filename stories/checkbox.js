@@ -9,7 +9,7 @@ import { action } from "@storybook/addon-actions";
 import "../components/styles/index.less";
 import "./style.less";
 
-storiesOf("普通", module).add(
+storiesOf("组件", module).add(
   "checkbox 选择框",
   () => (
     <div className="input_example">

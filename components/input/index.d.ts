@@ -16,6 +16,7 @@ declare class Input extends PureComponent<any, any> {
         allowClear: boolean;
     };
     static propTypes: {
+        prefixCls: PropTypes.Requireable<string>;
         /** 占位符*/
         placeholder: PropTypes.Requireable<string>;
         /** 单位名称*/
@@ -36,7 +37,7 @@ declare class Input extends PureComponent<any, any> {
     countDownTimeId: any;
     selectInputRefs: any;
     constructor(props: any);
-    componentWillReceiveProps(nextProps: any): void;
+    componentDidUpdate(prevProps: any): void;
     countDown: () => void;
     clearTimeId: () => void;
     focusInput: () => void;

@@ -29,6 +29,8 @@ function loadStories() {
   require("../stories/icon");
   // modal
   require("../stories/modal");
+  // slider
+  require("../stories/slider");
 }
 
 configureActions({
@@ -73,7 +75,7 @@ addDecorator(withInfo({
     }
   },
   inline: true,
-  source: false
+  source: true
 }));
 addDecorator(withNotes);
 

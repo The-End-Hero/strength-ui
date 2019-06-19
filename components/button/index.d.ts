@@ -16,7 +16,7 @@ export default class Button extends PureComponent<any, any> {
         plain: boolean;
     };
     static propTypes: {
-        prefixCls: PropTypes.Validator<string>;
+        prefixCls: PropTypes.Requireable<string>;
         block: PropTypes.Requireable<boolean>;
         hollow: PropTypes.Requireable<boolean>;
         loading: PropTypes.Requireable<boolean>;

@@ -14,25 +14,29 @@ export default class CheckBox extends PureComponent<any, any> {
     this.state = {};
   }
 
-  componentWillReceiveProps(nextProps) {
-
-  }
-
   onChange = () => {
     const { onChange, checked } = this.props;
     onChange && onChange(!checked);
   };
 
   render() {
-    const { checked, label, tips, style, className } = this.props;
+    const {
+      checked,
+      label,
+      tips,
+      style,
+      className,
+      CheckedIcon,
+      UnCheckedIcon
+    } = this.props;
     let checkbox = (
       <div className={`mc_checkbox ${className ? className : ""}`} style={style}>
         <div className="mc_checkbox_main" onClick={this.onChange}>
           <div className="mc_checkbox_font">
             {
               checked ?
-                <CheckBoxIcon type="CHECKED"/> :
-                <CheckBoxIcon type="UNCHECKED"/>
+                (CheckedIcon || <CheckBoxIcon type="CHECKED"/>) :
+                (UnCheckedIcon || <CheckBoxIcon type="UNCHECKED"/>)
             }
           </div>
           <div>
