@@ -63,8 +63,8 @@ class Input extends PureComponent<any, any> {
   //     });
   //   }
   // }
-  componentDidUpdate(prevProps){
-    const {kind} = this.props
+  componentDidUpdate(prevProps) {
+    const { kind } = this.props;
     if (kind === "mc_input_vcode" && kind !== prevProps.kind) {
       this.setState({ countDownNum: prevProps.countDownNum || 60 }, () => {
         this.countDown();
@@ -96,8 +96,14 @@ class Input extends PureComponent<any, any> {
     onFocus && onFocus();
   };
   blurInput = () => {
+    console.log("blur");
+    // setTimeout(()=>{
+    //   this.setState({
+    //     isFocus: false,
+    //     showSelectList: false
+    //   });
+    // },300)
     const { onBlur } = this.props;
-    this.setState({ isFocus: false });
     onBlur && onBlur();
   };
   getVcode = () => {
@@ -111,6 +117,16 @@ class Input extends PureComponent<any, any> {
     clearClick && clearClick();
   };
 
+  // onChange = async(e) => {
+  //   const v = e.currentTarget.value;
+  //   await this.setState({
+  //     value: v
+  //   });
+  //   const { onChange } = this.props;
+  //   const { value } = this.state;
+  //   onChange && onChange(value);
+  // };
+
   render() {
     const {
       prefixCls,
@@ -121,6 +137,7 @@ class Input extends PureComponent<any, any> {
       errorText,
       unitText,
       style,
+      className,
       value,
       infoPlacement,
       onFocus,
@@ -130,11 +147,15 @@ class Input extends PureComponent<any, any> {
       selectList,
       ...attr
     } = this.props;
-    const { isFocus, countDownNum, showSelectList } = this.state;
+    const {
+      isFocus,
+      countDownNum,
+      showSelectList
+    } = this.state;
     const baseProps = {
       type,
       placeholder,
-      value,
+      // value,
       className: cls(prefixCls, {
         // mc_input_search: kind === "search",
       }),
@@ -143,11 +164,14 @@ class Input extends PureComponent<any, any> {
       ...attr
     };
     let input;
+    console.log(showSelectList, "showSelectList");
+    console.log(selectList, "selectList");
+    console.log('Input render')
     input = (
       <ClickAwayListener onClickAway={() => {
         this.setState({ showSelectList: false });
       }}>
-        <div className={cls(`${prefixCls}-comp`, {
+        <div className={cls(`${prefixCls}-comp ${className}`, {
           isFocus,
           [`${prefixCls}-error`]: isError
         })} style={{
@@ -173,7 +197,7 @@ class Input extends PureComponent<any, any> {
             </div>
           }
 
-          <input {...baseProps} />
+          <input {...baseProps}/>
           {
             allowClear &&
             <div className={`${prefixCls}-right-icon-wrap`} onClick={this.clearClick} style={{ cursor: "pointer" }}>
@@ -186,10 +210,10 @@ class Input extends PureComponent<any, any> {
             <div className={`${prefixCls}-vcode`} onClick={this.getVcode}>发送验证码</div>
           }
           {
-            showSelectList && kind === "select" && size(selectList) > 0 && 
+            showSelectList && kind === "select" && size(selectList) > 0 &&
             <div className={cls(`${prefixCls}-select-list`, {
-              show: kind === "select",
-              hide: kind !== "select"
+              show: kind === "select"
+              // hide: kind !== "select" || showSelectList
             })}>
               {
                 map(selectList, (t) => {

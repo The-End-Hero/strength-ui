@@ -39,7 +39,7 @@ export default class MapStyle extends PureComponent<any, any> {
           <div className="mc_map_tool_style_select_li" onClick={() => {
             this.changeMapStyle("normal");
           }}>
-            <div className={cls("mc_map_tool_style_img light", { selected: map_style === "light" })}></div>
+            <div className={cls("mc_map_tool_style_img light", { selected: map_style === "normal" })}></div>
             <div>浅色地图</div>
           </div>
           <div className="mc_map_tool_style_select_li" style={{ marginRight: 0 }} onClick={() => {

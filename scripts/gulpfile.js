@@ -68,7 +68,10 @@ gulp.task("copyCss", () => {
     )
     .pipe(autoprefixer({ overrideBrowserslist: browserList }))
     .pipe(size()) // css大小日志
-    .pipe(cssnano()) // css压缩
+    .pipe(cssnano({
+      zindex: false,
+      reduceIdents: false
+    })) // css压缩
     .pipe(gulp.dest(DIR.lib))
     .pipe(gulp.dest(DIR.es));
 });
@@ -91,7 +94,10 @@ gulp.task("dist", () => {
     .pipe(size())
     .pipe(gulp.dest(DIR.dist))
 
-    .pipe(cssnano())
+    .pipe(cssnano({
+      zindex: false,
+      reduceIdents: false
+    }))
     .pipe(concat(`${name}.min.css`))
     .pipe(size())
     .pipe(gulp.dest(DIR.dist))

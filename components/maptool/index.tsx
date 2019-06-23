@@ -11,7 +11,7 @@ import coordtrans from "../../utils/coordtrans";
 import MoreMenu from "./components/MoreMenu";
 import { some, map, filter } from "lodash";
 import { self_select, dis_select, geo_types } from "../../constants/constants";
-import swal from "@sweetalert/with-react";
+import Modal from '../modal'
 import $ from "jquery";
 import { Tooltip } from "antd";
 import MapStyle from "./components/MapStyle";
@@ -91,9 +91,9 @@ class MapTool extends Component<any, any> {
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
   }
-  
-  componentDidUpdate(prevProps){
-    if(this.props.getMap ){
+
+  componentDidUpdate(prevProps) {
+    if (this.props.getMap) {
       this.map = this.props.getMap();
     }
   }
@@ -111,12 +111,12 @@ class MapTool extends Component<any, any> {
   };
   removeStreetscapeView = () => {
     const { is_server_render } = this.props;
-    let mapPanelIns = this.getMapPanelInstance();
-    let mapIns =
-      mapPanelIns &&
-      (mapPanelIns.getMapInstance
-        ? mapPanelIns.getMapInstance()
-        : mapPanelIns.getMapRef().getMapInstance());
+    // let mapPanelIns = this.getMapPanelInstance();
+    let mapIns = this.map
+      // mapPanelIns &&
+      // (mapPanelIns.getMapInstance
+      //   ? mapPanelIns.getMapInstance()
+      //   : mapPanelIns.getMapRef().getMapInstance());
     let dview = document.getElementById("streetscapeView");
     if (dview) dview.remove();
     if (mapIns) mapIns.off("click", this.setStreetViewCoord);
@@ -147,26 +147,24 @@ class MapTool extends Component<any, any> {
     // }
   };
 
-  // 街景
+  // 街景按钮 触发
   toggleStreetView = () => {
     let isFlash = flashChecker();
     // console.log(isFlash);
     // snackbar.info('warning','Flash未安装或被禁用')
     if (!isFlash.hasFlash) {
-      swal({
+      Modal.prompt({
         title: "Flash未安装或被禁用",
-        icon: "error",
-        button: "确定",
-        content: (
-          <div>
-            点击{" "}
-            <a href="https://get.adobe.com/cn/flashplayer/" target="_blank">
-              https://get.adobe.com/cn/flashplayer/
-            </a>{" "}
-            安装或启用
-          </div>
-        )
-      });
+        noTitle:true,
+        content: <>
+          点击
+          <a href="https://get.adobe.com/cn/flashplayer/" target="_blank">https://get.adobe.com/cn/flashplayer/</a>
+          安装或启用
+        </>,
+        onOk({ value, checked }) {
+          console.log(value, checked);
+        }
+      })
       return;
     }
 
@@ -176,12 +174,13 @@ class MapTool extends Component<any, any> {
     // let mapPanelIns = this.getMapPanelInstance();
     // if (!mapPanelIns) return;
     // let mapIns = mapPanelIns.getMapInstance ? mapPanelIns.getMapInstance() : mapPanelIns.getMapRef().getMapInstance();
+    console.log(this.panorama,'this.panorama')
     if (!this.panorama) {
       this.addSecondMap();
     } else {
       this.showStreetscapeView();
     }
-    // mapIns && mapIns.on("click", this.setStreetViewCoord)
+    this.map && this.map.on("click", this.setStreetViewCoord)
     //禁止地图点击
     const { disableMapClick } = this.props;
     if (disableMapClick) disableMapClick(true);
@@ -203,8 +202,8 @@ class MapTool extends Component<any, any> {
 
   showStreetscapeView = () => {
     let { is_server_render } = this.props;
-    let mapPanelIns = this.getMapPanelInstance();
-    if (!mapPanelIns) return;
+    // let mapPanelIns = this.getMapPanelInstance();
+    // if (!mapPanelIns) return;
     // let mapIns = mapPanelIns.getMapInstance ? mapPanelIns.getMapInstance() : mapPanelIns.getMapRef().getMapInstance();
     if (is_server_render) this.layer.show();
     if (this.poiMarker) this.poiMarker.show();
@@ -212,7 +211,7 @@ class MapTool extends Component<any, any> {
   };
 
   addSecondMap = () => {
-    let { is_server_render } = this.props;
+    let { is_server_render, getMap } = this.props;
     $("body").append(
       "<div id=\"streetscapeView\" style=\"position:absolute;right:0px;top:0px;border:1px solid #ccc;top: 0px;bottom: 0px;width:50%;overflow: hidden;z-index: 999999;background: #444e61;color:#fff;\"><div id=\"streetscapeMap\" style=\"height:100%;width:100%;overflow: hidden;\"></div><div class=\"pano_close_ex\" title=\"退出全景\" style=\"z-index: 1201;\"></div></div>"
     );
@@ -220,7 +219,7 @@ class MapTool extends Component<any, any> {
     $close.on("click", this.hideStreetscapeView);
     // let mapPanelIns = this.getMapPanelInstance();
     // if (!mapPanelIns) return;
-    let mapIns = this.props.getMap(); //mapPanelIns.getMapInstance ? mapPanelIns.getMapInstance() : mapPanelIns.getMapRef().getMapInstance();
+    let mapIns = getMap(); //mapPanelIns.getMapInstance ? mapPanelIns.getMapInstance() : mapPanelIns.getMapRef().getMapInstance();
     //console.log(mapIns,'mapIns')
     if (is_server_render)
       this.layer = new maptalks.TileLayer(STREET_COVERAGE_LAYER, {
@@ -365,8 +364,8 @@ class MapTool extends Component<any, any> {
     reSetMap && reSetMap();
   };
   searchMap = () => {
-    const {searchMap} = this.props
-    searchMap && searchMap()
+    const { searchMap } = this.props;
+    searchMap && searchMap();
   };
   menuClick = (key) => {
     console.log(key, "key");
@@ -394,17 +393,18 @@ class MapTool extends Component<any, any> {
       this.onFullScreenCenter();
     }
   };
-  changeCollapse = (is_collapse_tool)=>{
+  changeCollapse = (is_collapse_tool) => {
     this.setState({
       is_collapse_tool
-    })
-  }
+    });
+  };
+
   render() {
     const {
       fullscreencenter,
       mapState,
-      current_geo_filter, 
-      addBgPoint, 
+      current_geo_filter,
+      addBgPoint,
       changeCurrentGeoFilter,
       hasCustomDraw,
       maptools,
@@ -413,10 +413,11 @@ class MapTool extends Component<any, any> {
       is_translucent // 半透明
     } = this.props;
     const {
-      is_collapse_tool,
-    } = this.state
+      is_collapse_tool
+    } = this.state;
+    console.log(maptools, "maptools");
     const list = filter(maptools, (t) => {
-      return t.fold === false;
+      return (t.fold === false || t.key === "line");
     });
     let { show, moreMenu, pauseStyle } = this.state;
     if (is_collapse_tool) {
@@ -440,11 +441,11 @@ class MapTool extends Component<any, any> {
     }
     return (
       <div
-        className={cls("mc_map_tool_wrap", { 
+        className={cls("mc_map_tool_wrap", {
           mc_map_tool_fullscreen: fullscreencenter
         })}
       >
-        <div className={cls("mc_map_tool_btn_wrap",{
+        <div className={cls("mc_map_tool_btn_wrap", {
           is_translucent: is_translucent
         })}>
           {

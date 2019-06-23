@@ -139,24 +139,29 @@ export default class Modal extends PureComponent <any, any> {
     const prefixCls = defaultProps.prefixCls;
     const iconType = options.iconType || type;
     const { title, content, ...otherOpts } = options;
+    console.log(options,'options')
     const _modal = render(
       <Modal
         className={cls(`${prefixCls}-method`, `${prefixCls}-${iconType}`)}
         closable={false}
+        title={title}
         visible
         staticMethodType={type}
         isStaticMethod
+        content={
+          <>
+            {content}
+            {/*<div style={{ display: "flex", alignItems: "center" }}>*/}
+            {/*<span className={cls(`${prefixCls}-method-icon`)}>*/}
+              {/*{Modal.renderStaticMethodIcon(iconType)}*/}
+            {/*</span>*/}
+              {/*<span style={{ fontSize: 20 }}>{options.title}</span>*/}
+            {/*</div>*/}
+            {/*<div>{content}</div>*/}
+          </>
+        }
         {...otherOpts}
       >
-        <>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span className={cls(`${prefixCls}-method-icon`)}>
-              {Modal.renderStaticMethodIcon(iconType)}
-            </span>
-            <span style={{ fontSize: 20 }}>{options.title}</span>
-          </div>
-          <div>{content}</div>
-        </>
       </Modal>,
       container
     );
@@ -320,6 +325,7 @@ export default class Modal extends PureComponent <any, any> {
       staticMethodType, //eslint-disable-line
       isStaticMethod, //eslint-disable-line
       escClose, // eslint-disable-line
+      noTitle,
       ...attr
     } = this.props;
 
@@ -359,7 +365,7 @@ export default class Modal extends PureComponent <any, any> {
               [`${prefixCls}-close`]: isStaticMethod
                 ? !_visible
                 : init && !_visible,
-              "no-title": !title
+              "no-title": !title || noTitle
             })}
             ref={this.modal}
             style={{
