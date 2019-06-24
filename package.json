@@ -1,6 +1,6 @@
 {
   "name": "strength-ui",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A React.js UI/Map components for Web",
   "repository": "https://",
   "homepage": "https://",
@@ -12,6 +12,7 @@
     "es",
     "dist",
     "static",
+    "utils",
     "LICENSE"
   ],
   "main": "lib/index.js",
