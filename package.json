@@ -11,6 +11,7 @@
     "lib",
     "es",
     "dist",
+    "static",
     "LICENSE"
   ],
   "main": "lib/index.js",
