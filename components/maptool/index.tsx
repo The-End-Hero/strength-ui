@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 import * as maptalks from "maptalks";
 import mix from "mix-with";
 import cls from "classnames";
-import Radio from "@material-ui/core/Radio";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import flashChecker from "../../utils/flashChecker";
 import coordtrans from "../../utils/coordtrans";
 import MoreMenu from "./components/MoreMenu";
@@ -17,17 +14,6 @@ import { Tooltip } from "antd";
 import MapStyle from "./components/MapStyle";
 
 const { gcj02tobd09, bd09togcj02 } = coordtrans;
-const theme = createMuiTheme({
-  overrides: {
-    // Name of the component ⚛️ / style sheet
-    MuiRadio: {
-      // Name of the rule
-      root: {
-        color: "white"
-      }
-    }
-  }
-});
 const STREET_COVERAGE_LAYER = "STREET_COVERAGE_LAYER";
 const BMap = (window as any).BMap;
 const AMap = (window as any).AMap;

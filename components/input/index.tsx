@@ -169,7 +169,10 @@ class Input extends PureComponent<any, any> {
     console.log('Input render')
     input = (
       <ClickAwayListener onClickAway={() => {
-        this.setState({ showSelectList: false });
+        this.setState({
+          isFocus: false,
+          showSelectList: false
+        });
       }}>
         <div className={cls(`${prefixCls}-comp ${className}`, {
           isFocus,
@@ -188,9 +191,9 @@ class Input extends PureComponent<any, any> {
             size(selectLabel) > 0 &&
             <div className={`${prefixCls}-select-label`}>
               {
-                map(selectLabel, (t) => {
+                map(selectLabel, (t,index) => {
                   return (
-                    <div>{t}</div>
+                    <div key={index}>{t}</div>
                   );
                 })
               }
