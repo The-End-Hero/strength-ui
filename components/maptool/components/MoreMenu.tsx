@@ -28,13 +28,13 @@ export default class Button extends PureComponent<any, any> {
 
 
   render() {
-    const { changeCollapse, changeMoreMenu, already_rendered, menuClick, maptools } = this.props;
-    const list = filter(maptools,(t)=>{
-      return t.fold === true
+    const { changeCollapse, changeMoreMenu, already_rendered, menuClick, maptools, style } = this.props;
+    const list = filter(maptools, (t) => {
+      return (t.fold === true && t.checked);
     });
-    const offset_buttom = -10 - (36 * (size(list) - 3));
+    const offset_buttom = -15//-10 - (36 * (size(list) - 3));
     return (
-      <div className="mc_map_tool_more" style={{ bottom: offset_buttom }}
+      <div className="mc_map_tool_more" style={{ bottom: offset_buttom, ...style }}
            onMouseEnter={this.enter}
            onMouseLeave={this.leave}>
         {
@@ -49,7 +49,10 @@ export default class Button extends PureComponent<any, any> {
             );
           })
         }
-        <div className="mc_map_tool_more_line"></div>
+        {
+          size(list) > 0 &&
+          <div className="mc_map_tool_more_line"></div>
+        }
         <div className="mc_map_tool_more_li" onClick={() => {
           changeCollapse && changeCollapse(true);
           changeMoreMenu && changeMoreMenu(false);

@@ -8,7 +8,7 @@ import coordtrans from "../../utils/coordtrans";
 import MoreMenu from "./components/MoreMenu";
 import { some, map, filter } from "lodash";
 import { self_select, dis_select, geo_types } from "../../constants/constants";
-import Modal from '../modal'
+import Modal from "../modal";
 import $ from "jquery";
 import { Tooltip } from "antd";
 import MapStyle from "./components/MapStyle";
@@ -69,19 +69,32 @@ class MapTool extends Component<any, any> {
       map_style: props.map_style || "base",
       moreMenu: false,
       pauseStyle: true,
-      is_collapse_tool: props.is_default_collapse_tool || false
+      is_collapse_tool: props.is_default_collapse_tool || false,
+      noTool: false // 没有工具栏
     };
     this.map = props.getMap(); // 当前maptool所在地图实例
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
+    this.setOption();
   }
+
+  setOption = () => {
+    const { maptools } = this.props;
+    let noTool;
+    noTool = !some(maptools, ["checked", true]);
+    this.setState({ noTool });
+  };
 
   componentDidUpdate(prevProps) {
     if (this.props.getMap) {
       this.map = this.props.getMap();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setOption();
   }
 
   componentWillUnmount() {
@@ -98,11 +111,11 @@ class MapTool extends Component<any, any> {
   removeStreetscapeView = () => {
     const { is_server_render } = this.props;
     // let mapPanelIns = this.getMapPanelInstance();
-    let mapIns = this.map
-      // mapPanelIns &&
-      // (mapPanelIns.getMapInstance
-      //   ? mapPanelIns.getMapInstance()
-      //   : mapPanelIns.getMapRef().getMapInstance());
+    let mapIns = this.map;
+    // mapPanelIns &&
+    // (mapPanelIns.getMapInstance
+    //   ? mapPanelIns.getMapInstance()
+    //   : mapPanelIns.getMapRef().getMapInstance());
     let dview = document.getElementById("streetscapeView");
     if (dview) dview.remove();
     if (mapIns) mapIns.off("click", this.setStreetViewCoord);
@@ -141,7 +154,7 @@ class MapTool extends Component<any, any> {
     if (!isFlash.hasFlash) {
       Modal.prompt({
         title: "Flash未安装或被禁用",
-        noTitle:true,
+        noTitle: true,
         content: <>
           点击
           <a href="https://get.adobe.com/cn/flashplayer/" target="_blank">https://get.adobe.com/cn/flashplayer/</a>
@@ -150,7 +163,7 @@ class MapTool extends Component<any, any> {
         onOk({ value, checked }) {
           console.log(value, checked);
         }
-      })
+      });
       return;
     }
 
@@ -160,13 +173,13 @@ class MapTool extends Component<any, any> {
     // let mapPanelIns = this.getMapPanelInstance();
     // if (!mapPanelIns) return;
     // let mapIns = mapPanelIns.getMapInstance ? mapPanelIns.getMapInstance() : mapPanelIns.getMapRef().getMapInstance();
-    console.log(this.panorama,'this.panorama')
+    console.log(this.panorama, "this.panorama");
     if (!this.panorama) {
       this.addSecondMap();
     } else {
       this.showStreetscapeView();
     }
-    this.map && this.map.on("click", this.setStreetViewCoord)
+    this.map && this.map.on("click", this.setStreetViewCoord);
     //禁止地图点击
     const { disableMapClick } = this.props;
     if (disableMapClick) disableMapClick(true);
@@ -385,6 +398,25 @@ class MapTool extends Component<any, any> {
     });
   };
 
+  // trimList = (list)=>{
+  //   list = filter(list, (t, index) => {
+  //     if (index === 0 || t.key === "line") {
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   });
+  //   return list
+  // }
+
+  moreSelectClick = (e) => {
+    const { moreMenu } = this.state;
+    console.log(e);
+    const target = e.currentTarget;
+    console.log(target);
+    this.changeMoreMenu(!moreMenu);
+  };
+
   render() {
     const {
       fullscreencenter,
@@ -399,18 +431,28 @@ class MapTool extends Component<any, any> {
       is_translucent // 半透明
     } = this.props;
     const {
-      is_collapse_tool
+      is_collapse_tool,
+      noTool
     } = this.state;
     console.log(maptools, "maptools");
-    const list = filter(maptools, (t) => {
-      return (t.fold === false || t.key === "line");
-    });
+
     let { show, moreMenu, pauseStyle } = this.state;
-    if (is_collapse_tool) {
+
+
+    // 获取初始化能显示的list
+    let list = filter(maptools, (t) => {
+      return ((t.fold === false && t.checked) || t.key === "line");
+    });
+    while (list[0].key === "line") {
+      list.splice(0, 1);
+    }
+    if (is_collapse_tool) { // 收起状态
       return (
-        <div className="mc_map_tool_collapse" onClick={() => {
-          this.changeCollapse(false);
-        }}>
+        <div className="mc_map_tool_collapse"
+             style={{ display: noTool ? "none" : "" }}
+             onClick={() => {
+               this.changeCollapse(false);
+             }}>
           <div className="mc_map_tool"></div>
           <div>工具</div>
         </div>
@@ -430,6 +472,7 @@ class MapTool extends Component<any, any> {
         className={cls("mc_map_tool_wrap", {
           mc_map_tool_fullscreen: fullscreencenter
         })}
+        style={{ display: noTool ? "none" : "" }}
       >
         <div className={cls("mc_map_tool_btn_wrap", {
           is_translucent: is_translucent
@@ -461,21 +504,19 @@ class MapTool extends Component<any, any> {
           <div className="mc_map_tool_btn_container" style={{ height: 12 }}>
             <div
               className={cls("mc_map_left_btn more_select")}
-              onClick={() => {
-                this.changeMoreMenu(!moreMenu);
-              }}
+              onClick={this.moreSelectClick}
             />
           </div>
-          {
-            moreMenu &&
-            <MoreMenu
-              {...this.props}
-              changeCollapse={this.changeCollapse}
-              menuClick={this.menuClick}
-              toggleStreetView={this.toggleStreetView}
-              changeMoreMenu={this.changeMoreMenu}
-            />
-          }
+          <MoreMenu
+            {...this.props}
+            style={{
+              display: moreMenu ? "" : "none"
+            }}
+            changeCollapse={this.changeCollapse}
+            menuClick={this.menuClick}
+            toggleStreetView={this.toggleStreetView}
+            changeMoreMenu={this.changeMoreMenu}
+          />
         </div>
       </div>
     );

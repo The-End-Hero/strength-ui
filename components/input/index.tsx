@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cls from "classnames";
 import { SearchIcon, ErrorIcon, CloseIcon } from "../icon";
-import { map, size } from "lodash";
+import { map, size, isString } from "lodash";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 let zIndex = 1000;
@@ -167,6 +167,7 @@ class Input extends PureComponent<any, any> {
     console.log(showSelectList, "showSelectList");
     console.log(selectList, "selectList");
     console.log('Input render')
+    
     input = (
       <ClickAwayListener onClickAway={() => {
         this.setState({
@@ -199,8 +200,12 @@ class Input extends PureComponent<any, any> {
               }
             </div>
           }
+          {
+            isString(value) ?
+              <input {...baseProps} value={value}/>
+              : <input {...baseProps}/>
 
-          <input {...baseProps}/>
+          }
           {
             allowClear &&
             <div className={`${prefixCls}-right-icon-wrap`} onClick={this.clearClick} style={{ cursor: "pointer" }}>
