@@ -39,7 +39,9 @@ declare class MapTool extends Component<any, any> {
     vectorLayer: any;
     constructor(props: any);
     componentDidMount(): void;
+    setOption: () => void;
     componentDidUpdate(prevProps: any): void;
+    componentWillReceiveProps(nextProps: any): void;
     componentWillUnmount(): void;
     escFunction: (event: any) => void;
     removeStreetscapeView: () => void;
@@ -76,6 +78,7 @@ declare class MapTool extends Component<any, any> {
     searchMap: () => void;
     menuClick: (key: any) => void;
     changeCollapse: (is_collapse_tool: any) => void;
+    moreSelectClick: (e: any) => void;
     render(): JSX.Element;
 }
 declare const MixMapTool: typeof MapTool;

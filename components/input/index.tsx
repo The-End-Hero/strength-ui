@@ -70,6 +70,13 @@ class Input extends PureComponent<any, any> {
         this.countDown();
       });
     }
+    console.log(prevProps.value, "prevProps.value");
+    console.log(this.props.value, "this.props.value");
+    if (prevProps.value !== this.props.value) {
+      this.setState({
+        value: this.props.value
+      });
+    }
   }
 
   countDown = () => {
@@ -117,15 +124,14 @@ class Input extends PureComponent<any, any> {
     clearClick && clearClick();
   };
 
-  // onChange = async(e) => {
-  //   const v = e.currentTarget.value;
-  //   await this.setState({
-  //     value: v
-  //   });
-  //   const { onChange } = this.props;
-  //   const { value } = this.state;
-  //   onChange && onChange(value);
-  // };
+  _onChange = (e) => {
+    const v = e.currentTarget.value;
+    this.setState({
+      value: v
+    });
+    const { onChange } = this.props;
+    onChange && onChange(e);
+  };
 
   render() {
     const {
@@ -138,7 +144,7 @@ class Input extends PureComponent<any, any> {
       unitText,
       style,
       className,
-      value,
+      // value,
       infoPlacement,
       onFocus,
       onBlur,
@@ -150,7 +156,8 @@ class Input extends PureComponent<any, any> {
     const {
       isFocus,
       countDownNum,
-      showSelectList
+      showSelectList,
+      value
     } = this.state;
     const baseProps = {
       type,
@@ -161,13 +168,14 @@ class Input extends PureComponent<any, any> {
       }),
       onFocus: this.focusInput,
       onBlur: this.blurInput,
+      onChange:this._onChange,
       ...attr
     };
     let input;
     console.log(showSelectList, "showSelectList");
     console.log(selectList, "selectList");
-    console.log('Input render')
-    
+    console.log("Input render");
+
     input = (
       <ClickAwayListener onClickAway={() => {
         this.setState({
@@ -192,7 +200,7 @@ class Input extends PureComponent<any, any> {
             size(selectLabel) > 0 &&
             <div className={`${prefixCls}-select-label`}>
               {
-                map(selectLabel, (t,index) => {
+                map(selectLabel, (t, index) => {
                   return (
                     <div key={index}>{t}</div>
                   );
@@ -200,12 +208,7 @@ class Input extends PureComponent<any, any> {
               }
             </div>
           }
-          {
-            isString(value) ?
-              <input {...baseProps} value={value}/>
-              : <input {...baseProps}/>
-
-          }
+          <input {...baseProps} value={value} onChange={this._onChange}/>
           {
             allowClear &&
             <div className={`${prefixCls}-right-icon-wrap`} onClick={this.clearClick} style={{ cursor: "pointer" }}>
