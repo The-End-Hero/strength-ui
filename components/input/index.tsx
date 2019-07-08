@@ -70,8 +70,8 @@ class Input extends PureComponent<any, any> {
         this.countDown();
       });
     }
-    console.log(prevProps.value, "prevProps.value");
-    console.log(this.props.value, "this.props.value");
+    // console.log(prevProps.value, "prevProps.value");
+    // console.log(this.props.value, "this.props.value");
     if (prevProps.value !== this.props.value) {
       this.setState({
         value: this.props.value
@@ -103,7 +103,7 @@ class Input extends PureComponent<any, any> {
     onFocus && onFocus();
   };
   blurInput = () => {
-    console.log("blur");
+    // console.log("blur");
     // setTimeout(()=>{
     //   this.setState({
     //     isFocus: false,
@@ -114,7 +114,7 @@ class Input extends PureComponent<any, any> {
     onBlur && onBlur();
   };
   getVcode = () => {
-    console.log("getvcode");
+    // console.log("getvcode");
   };
   focusSelectInput = () => {
     this.selectInputRefs.focus();
@@ -172,9 +172,9 @@ class Input extends PureComponent<any, any> {
       ...attr
     };
     let input;
-    console.log(showSelectList, "showSelectList");
-    console.log(selectList, "selectList");
-    console.log("Input render");
+    // console.log(showSelectList, "showSelectList");
+    // console.log(selectList, "selectList");
+    // console.log("Input render");
 
     input = (
       <ClickAwayListener onClickAway={() => {

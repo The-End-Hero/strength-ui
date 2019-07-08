@@ -128,7 +128,6 @@ class MapTool extends Component<any, any> {
     if (disableMapClick) disableMapClick(false);
   };
   changeMoreMenu = (bool) => {
-    console.log(bool);
     this.setState({
       moreMenu: bool
     });
@@ -161,7 +160,7 @@ class MapTool extends Component<any, any> {
           安装或启用
         </>,
         onOk({ value, checked }) {
-          console.log(value, checked);
+          // console.log(value, checked);
         }
       });
       return;
@@ -173,7 +172,7 @@ class MapTool extends Component<any, any> {
     // let mapPanelIns = this.getMapPanelInstance();
     // if (!mapPanelIns) return;
     // let mapIns = mapPanelIns.getMapInstance ? mapPanelIns.getMapInstance() : mapPanelIns.getMapRef().getMapInstance();
-    console.log(this.panorama, "this.panorama");
+    // console.log(this.panorama, "this.panorama");
     if (!this.panorama) {
       this.addSecondMap();
     } else {
@@ -367,7 +366,7 @@ class MapTool extends Component<any, any> {
     searchMap && searchMap();
   };
   menuClick = (key) => {
-    console.log(key, "key");
+    // console.log(key, "key");
     if (key === "save_as_jpeg") { // 地图截屏
       this.saveAsJpeg();
     } else if (key === "street_view") {
@@ -411,9 +410,9 @@ class MapTool extends Component<any, any> {
 
   moreSelectClick = (e) => {
     const { moreMenu } = this.state;
-    console.log(e);
+    // console.log(e);
     const target = e.currentTarget;
-    console.log(target);
+    // console.log(target);
     this.changeMoreMenu(!moreMenu);
   };
 
@@ -434,7 +433,7 @@ class MapTool extends Component<any, any> {
       is_collapse_tool,
       noTool
     } = this.state;
-    console.log(maptools, "maptools");
+    // console.log(maptools, "maptools");
 
     let { show, moreMenu, pauseStyle } = this.state;
 

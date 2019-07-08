@@ -45,6 +45,7 @@ declare class Input extends PureComponent<any, any> {
     getVcode: () => void;
     focusSelectInput: () => void;
     clearClick: () => void;
+    _onChange: (e: any) => void;
     render(): any;
 }
 export default Input;
