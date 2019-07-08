@@ -6,7 +6,7 @@ import cls from "classnames";
 import flashChecker from "../../utils/flashChecker";
 import coordtrans from "../../utils/coordtrans";
 import MoreMenu from "./components/MoreMenu";
-import { some, map, filter } from "lodash";
+import { some, map, filter, size } from "lodash";
 import { self_select, dis_select, geo_types } from "../../constants/constants";
 import Modal from "../modal";
 import $ from "jquery";
@@ -442,7 +442,7 @@ class MapTool extends Component<any, any> {
     let list = filter(maptools, (t) => {
       return ((t.fold === false && t.checked) || t.key === "line");
     });
-    while (list[0].key === "line") {
+    while (size(list) > 0 && list[0].key === "line") {
       list.splice(0, 1);
     }
     if (is_collapse_tool) { // 收起状态
