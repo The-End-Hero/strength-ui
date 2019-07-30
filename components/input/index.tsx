@@ -187,7 +187,7 @@ class Input extends PureComponent<any, any> {
           isFocus,
           [`${prefixCls}-error`]: isError
         })} style={{
-          zIndex: isFocus ? zIndex : "unset",
+          zIndex: isFocus ? zIndex : "",
           ...style
         }}>
           {
