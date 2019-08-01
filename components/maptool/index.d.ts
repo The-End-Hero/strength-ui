@@ -63,6 +63,10 @@ declare class MapTool extends Component<any, any> {
      */
     pauseState: () => void;
     /**
+     * 画点
+     */
+    pointSelect: () => Promise<void>;
+    /**
      * 画圆
      */
     selfSelect: () => void;
