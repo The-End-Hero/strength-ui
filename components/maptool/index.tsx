@@ -15,8 +15,8 @@ import MapStyle from "./components/MapStyle";
 
 const { gcj02tobd09, bd09togcj02 } = coordtrans;
 const STREET_COVERAGE_LAYER = "STREET_COVERAGE_LAYER";
-const BMap = (window as any).BMap;
-const AMap = (window as any).AMap;
+// const BMap = (window as any).BMap;
+// const AMap = (window as any).AMap;
 
 class MapTool extends Component<any, any> {
   static defaultProps = {
@@ -70,7 +70,8 @@ class MapTool extends Component<any, any> {
       moreMenu: false,
       pauseStyle: true,
       is_collapse_tool: props.is_default_collapse_tool || false,
-      noTool: false // 没有工具栏
+      noTool: false, // 没有工具栏
+      is_point_select_status: false // 是否是画点状态
     };
     this.map = props.getMap(); // 当前maptool所在地图实例
   }
@@ -194,7 +195,7 @@ class MapTool extends Component<any, any> {
       coordinate = { lng: coordinate.x, lat: coordinate.y };
     }
     if (this.panorama) {
-      this.panorama.setPosition(new BMap.Point(coordinate.lng, coordinate.lat));
+      this.panorama.setPosition(new window.BMap.Point(coordinate.lng, coordinate.lat));
     }
   };
 
@@ -224,14 +225,14 @@ class MapTool extends Component<any, any> {
         urlTemplate:
           "https://mapsv0.bdimg.com/tile/?udt=20180726&qt=tile&styles=pl&x={x}&y={y}&z={z}"
       }).addTo(mapIns);
-    let streetscapeMap = new BMap.Panorama("streetscapeMap");
+    let streetscapeMap = new window.BMap.Panorama("streetscapeMap");
     let center = mapIns.getCenter();
     let coordinate = { lng: center.x, lat: center.y };
     if (!center.x) {
       //amap
       coordinate = gcj02tobd09(center.lng, center.lat);
     }
-    streetscapeMap.setPosition(new BMap.Point(coordinate.lng, coordinate.lat));
+    streetscapeMap.setPosition(new window.BMap.Point(coordinate.lng, coordinate.lat));
     streetscapeMap.setPov({
       heading: -40,
       pitch: 6
@@ -259,13 +260,13 @@ class MapTool extends Component<any, any> {
             }
           }).addTo(this.vectorLayer);
         } else {
-          this.poiMarker = new AMap.Marker({
+          this.poiMarker = new window.AMap.Marker({
             map: mapIns,
             position: [116.405467, 39.907761],
-            icon: new AMap.Icon({
-              size: new AMap.Size(22, 34), //图标大小
+            icon: new window.AMap.Icon({
+              size: new window.AMap.Size(22, 34), //图标大小
               image: require("../../static/images/other/streetimg.png"), //`${window.location.origin}/images/other/streetimg.png`,
-              imageSize: new AMap.Size(22, 34)
+              imageSize: new window.AMap.Size(22, 34)
             })
           });
         }
@@ -273,7 +274,7 @@ class MapTool extends Component<any, any> {
         if (is_server_render) {
           this.poiMarker.setCoordinates(center);
         } else {
-          this.poiMarker.setPosition(new AMap.LngLat(center.lng, center.lat));
+          this.poiMarker.setPosition(new window.AMap.LngLat(center.lng, center.lat));
         }
       }
     });
@@ -325,6 +326,13 @@ class MapTool extends Component<any, any> {
       pauseState();
       this.pauseStyle(true);
     }
+    this.setState({ is_point_select_status: false });
+  };
+  /**
+   * 画点
+   */
+  pointSelect = async () => {
+    await this.setState({ is_point_select_status: !this.state.is_point_select_status });
   };
   /**
    * 画圆
@@ -369,26 +377,28 @@ class MapTool extends Component<any, any> {
     // console.log(key, "key");
     if (key === "save_as_jpeg") { // 地图截屏
       this.saveAsJpeg();
-    } else if (key === "street_view") {
+    } else if (key === "street_view") { // 街景
       this.toggleStreetView();
-    } else if (key === "ranging") {
+    } else if (key === "ranging") { // 测距
       this.turnOnRangingTool();
-    } else if (key === "reset_map") {
+    } else if (key === "reset_map") { // 重置地图
       this.reSetMap();
-    } else if (key === "search_map") {
+    } else if (key === "search_map") { // 地图搜索
       this.searchMap();
-    } else if (key === "cursor_select") {
+    } else if (key === "cursor_select") { // 点选
       this.pauseState();
-    } else if (key === "self_select") {
+    } else if (key === "self_select") { // 绘制围栏
       this.selfSelect();
-    } else if (key === "dis_select") {
+    } else if (key === "dis_select") { // 绘制圆
       this.disSelect();
-    } else if (key === "clear_custom_drow") {
+    } else if (key === "clear_custom_drow") { // 清除绘制的圆
       this.emptySelect();
-    } else if (key === "map_style") {
+    } else if (key === "map_style") { // 地图样式
       this.showPop();
-    } else if (key === "full_screen") {
+    } else if (key === "full_screen") { // 全屏
       this.onFullScreenCenter();
+    } else if (key === "point_select") { // 画点
+      this.pointSelect();
     }
   };
   changeCollapse = (is_collapse_tool) => {
@@ -435,9 +445,15 @@ class MapTool extends Component<any, any> {
     } = this.state;
     // console.log(maptools, "maptools");
 
-    let { show, moreMenu, pauseStyle } = this.state;
+    let {
+      show,
+      moreMenu,
+      pauseStyle,
+      is_point_select_status
+    } = this.state;
 
 
+    console.log(maptools, "maptools");
     // 获取初始化能显示的list
     let list = filter(maptools, (t) => {
       return ((t.fold === false && t.checked) || t.key === "line");
@@ -484,7 +500,10 @@ class MapTool extends Component<any, any> {
                 );
               }
               let pS = "";
-              if (mt.key === "cursor_select") {
+              if (mt.key === "cursor_select" && !is_point_select_status) {
+                pS = pauseStyle ? "pauseStyle" : "";
+              }
+              if (mt.key === "point_select" && is_point_select_status) {
                 pS = pauseStyle ? "pauseStyle" : "";
               }
               const ele = [

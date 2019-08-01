@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>工具栏/画点工具/默认</title>
+    <desc>Created with Sketch.</desc>
+    <g id="工具栏/画点工具/默认" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-25" fill-opacity="0" fill="#D8D8D8" fill-rule="nonzero" x="0" y="0" width="16" height="16"></rect>
+        <path d="M3.91543163,7.21893194 C5.72057585,7.21893194 7.18393438,5.75557341 7.18393438,3.95042919 C7.18393438,2.14528496 5.72057585,0.681926435 3.91543163,0.681926435 C2.95134124,0.681926435 2.08474209,1.09933604 1.48649599,1.76329343" id="椭圆形" stroke="#A5ABBE" stroke-width="1.2" stroke-linecap="round" transform="translate(4.335215, 3.950429) rotate(-112.000000) translate(-4.335215, -3.950429) "></path>
+        <g id="编组-2" transform="translate(8.725245, 8.221825) rotate(-45.000000) translate(-8.725245, -8.221825) translate(3.725245, 2.221825)" stroke="#A5ABBE" stroke-linecap="round" stroke-width="1.2">
+            <path d="M4.67998006,0.562242808 L0.429958386,10.6826133" id="直线-4"></path>
+            <path d="M8.69139155,0.562242808 L4.44136987,10.6826133" id="直线-4" transform="translate(6.685686, 5.622428) scale(-1, 1) translate(-6.685686, -5.622428) "></path>
+            <path d="M0.429958386,10.7097357 C2.31587699,10.0822636 3.73255088,9.76852755 4.67998006,9.76852755 C5.62740925,9.76852755 7.04408314,10.0822636 8.93000174,10.7097357" id="直线-5"></path>
+        </g>
+    </g>
+</svg>
