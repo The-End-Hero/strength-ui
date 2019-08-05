@@ -80,6 +80,7 @@ declare class MapTool extends Component<any, any> {
     emptySelect: () => void;
     reSetMap: () => void;
     searchMap: () => void;
+    changeIsPointSelectStatus: (bool: any) => Promise<void>;
     menuClick: (key: any) => void;
     changeCollapse: (is_collapse_tool: any) => void;
     moreSelectClick: (e: any) => void;
