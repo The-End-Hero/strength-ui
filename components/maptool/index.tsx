@@ -28,12 +28,12 @@ class MapTool extends Component<any, any> {
     // TODO 配置化渲染顺序
     maptools: [
       { key: "search_map", label: "搜索", checked: true, fold: false },
-      { key: "line" },
+      { key: "line-1" },
       { key: "cursor_select", label: "点选", checked: true, fold: false },
       { key: "self_select", label: "画多边形", checked: true, fold: false },
       { key: "dis_select", label: "画圆", checked: true, fold: false },
       { key: "clear_custom_drow", label: "清空围栏", checked: true, fold: false },
-      { key: "line" },
+      { key: "line-2" },
       { key: "map_style", label: "地图样式", checked: true, fold: false },
       { key: "full_screen", label: "地图全屏", checked: true, fold: false },
       { key: "save_as_jpeg", label: "地图截屏", checked: true, fold: true },
@@ -326,13 +326,13 @@ class MapTool extends Component<any, any> {
       pauseState();
       this.pauseStyle(true);
     }
-    this.setState({ is_point_select_status: false });
+    this.changeIsPointSelectStatus(false);
   };
   /**
    * 画点
    */
   pointSelect = async () => {
-    await this.setState({ is_point_select_status: !this.state.is_point_select_status });
+    this.changeIsPointSelectStatus(!this.state.is_point_select_status);
   };
   /**
    * 画圆
@@ -373,6 +373,13 @@ class MapTool extends Component<any, any> {
     const { searchMap } = this.props;
     searchMap && searchMap();
   };
+  // 改变 is_point_select_status 状态
+  changeIsPointSelectStatus = async (bool) => {
+    await this.setState({ is_point_select_status: bool });
+    const { pointSelect } = this.props;
+    pointSelect && pointSelect(this.state.is_point_select_status);
+  };
+
   menuClick = (key) => {
     // console.log(key, "key");
     if (key === "save_as_jpeg") { // 地图截屏
@@ -398,6 +405,7 @@ class MapTool extends Component<any, any> {
     } else if (key === "full_screen") { // 全屏
       this.onFullScreenCenter();
     } else if (key === "point_select") { // 画点
+      console.log("画点");
       this.pointSelect();
     }
   };
@@ -456,9 +464,9 @@ class MapTool extends Component<any, any> {
     console.log(maptools, "maptools");
     // 获取初始化能显示的list
     let list = filter(maptools, (t) => {
-      return ((t.fold === false && t.checked) || t.key === "line");
+      return ((t.fold === false && t.checked) || t.key.indexOf("line") > -1);
     });
-    while (size(list) > 0 && list[0].key === "line") {
+    while (size(list) > 0 && list[0].key.indexOf("line") > -1) {
       list.splice(0, 1);
     }
     if (is_collapse_tool) { // 收起状态
@@ -494,10 +502,14 @@ class MapTool extends Component<any, any> {
         })}>
           {
             map(list, (mt) => {
-              if (mt.key === "line") {
-                return (
-                  <div className="mc_map_tool_dividing_line"></div>
-                );
+              if (mt.key.indexOf("line") > -1) {
+                if(mt.checked || mt.checked === undefined){
+                  return (
+                    <div className="mc_map_tool_dividing_line"></div>
+                  );
+                }else {
+                  return null
+                }
               }
               let pS = "";
               if (mt.key === "cursor_select" && !is_point_select_status) {
