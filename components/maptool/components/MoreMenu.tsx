@@ -32,7 +32,7 @@ export default class Button extends PureComponent<any, any> {
     const list = filter(maptools, (t) => {
       return (t.fold === true && t.checked);
     });
-    const offset_buttom = -15//-10 - (36 * (size(list) - 3));
+    const offset_buttom = size(list) >= 3 ? -15 - (36 * (size(list) - 3)) : -15;
     return (
       <div className="mc_map_tool_more" style={{ bottom: offset_buttom, ...style }}
            onMouseEnter={this.enter}

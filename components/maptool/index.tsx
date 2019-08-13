@@ -243,6 +243,8 @@ class MapTool extends Component<any, any> {
         ? [pos.lng, pos.lat]
         : bd09togcj02(pos.lng, pos.lat);
       // mapIns.setCenter(center);
+      // debugger
+      // console.log(this.poiMarker,'this.poiMarker')
       if (!this.poiMarker) {
         if (is_server_render) {
           this.vectorLayer = new maptalks.VectorLayer(
