@@ -4,22 +4,44 @@
   pointer-events: auto;
   cursor: pointer;
   height: 36px;
-  width: auto;
+  width: 36px;
+  //width: auto;
   color: #E0E3E8;
   background-color: #262E44;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  padding: 0 10px;
-  .mc_map_tool {
-    width: 14px;
-    height: 14px;
-    mask: url("../../static/images/map_visual/map_tool.svg") no-repeat 50% 50%;
-    mask-size: contain;
-    background-color: #E0E3E8;
-    transition: all 0.3s;
-    margin-right: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  //font-size: 12px;
+  //padding: 0 10px;
+  &.is_translucent { // 半透明
+    border-radius: 6px;
+    opacity: 0.6;
+    background-color: #293353;
+    .mc_map_tool_container {
+      border-radius: 12px;
+    }
+  }
+  .mc_map_tool_container {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      background-color: #3D4762;
+      .E0E3E8();
+    }
+    .mc_map_tool {
+      width: 14px;
+      height: 14px;
+      mask: url("../../static/images/map_visual/map_tool.svg") no-repeat 50% 50%;
+      mask-size: contain;
+      background-color: #A5ABBE;
+      transition: all 0.3s;
+      //margin-right: 5px;
+    }
   }
 }
 
@@ -28,10 +50,11 @@
 }
 
 .E0E3E8 {
-  .search_map, .self_select, .cursor_select, .clear_custom_drow, .dis_select, .map_style, .more_select, .full_screen, .save_as_jpeg, .street_view, .ranging, .reset_map, .point_select {
+  .search_map, .self_select, .cursor_select, .clear_custom_drow, .dis_select, .map_style, .more_select, .full_screen, .save_as_jpeg, .street_view, .ranging, .reset_map, .point_select, .mc_map_tool {
     background-color: #E0E3E8;
   }
 }
+
 .mc_map_tool_btn_wrap {
   width: 36px;
   height: auto;
@@ -42,7 +65,7 @@
   align-items: center;
   position: relative;
   z-index: 20;
-  padding: 3px 0px;
+  padding: 3px 0;
   &.is_translucent {
     border-radius: 10px;
     background-color: rgba(41, 51, 83, 0.6);

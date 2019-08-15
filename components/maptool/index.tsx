@@ -473,13 +473,20 @@ class MapTool extends Component<any, any> {
     }
     if (is_collapse_tool) { // 收起状态
       return (
-        <div className="mc_map_tool_collapse"
+        <div className={cls('mc_map_tool_collapse',{
+          is_translucent: is_translucent
+        })}
              style={{ display: noTool ? "none" : "" }}
              onClick={() => {
                this.changeCollapse(false);
              }}>
-          <div className="mc_map_tool"></div>
-          <div>工具</div>
+          <Tooltip placement="right" title={`展开工具栏`}>
+            <div className='mc_map_tool_container'>
+              <div className="mc_map_tool"></div>
+            </div>
+          </Tooltip>
+          
+          {/*<div>工具</div>*/}
         </div>
       );
     }
