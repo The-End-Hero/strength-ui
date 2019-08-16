@@ -462,8 +462,14 @@ class MapTool extends Component<any, any> {
       is_point_select_status
     } = this.state;
 
+    
 
     console.log(maptools, "maptools");
+    // 没有选中项，不展示 直接返回null
+    let hasChecked = some(maptools, ["checked", true]);
+    if(!hasChecked){
+      return null
+    }
     // 获取初始化能显示的list
     let list = filter(maptools, (t) => {
       return ((t.fold === false && t.checked) || t.key.indexOf("line") > -1);
