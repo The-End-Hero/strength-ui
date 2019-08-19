@@ -163,6 +163,24 @@
   }
 }
 
+.@{prefixCls}-centered {
+  text-align: center;
+  &::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    width: 0;
+  }
+  .@{prefixCls} {
+    display: inline-block;
+    vertical-align: middle;
+    top: 0;
+    text-align: left;
+  }
+}
+
+
 .@{prefixCls}-mask {
   position: fixed;
   background-color: @modal-mask-color;

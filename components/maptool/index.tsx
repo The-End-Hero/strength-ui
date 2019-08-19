@@ -153,6 +153,7 @@ class MapTool extends Component<any, any> {
     // snackbar.info('warning','Flash未安装或被禁用')
     if (!isFlash.hasFlash) {
       Modal.prompt({
+        centered:true,
         title: "Flash未安装或被禁用",
         noTitle: true,
         content: <>

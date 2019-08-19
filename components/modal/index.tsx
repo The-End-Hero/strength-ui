@@ -354,6 +354,7 @@ export default class Modal extends PureComponent <any, any> {
           role="dialog"
           tabIndex={-1}
           className={cls(`${prefixCls}-wrap`, wrapperClassName, {
+            [`${prefixCls}-centered`]: centered,
             [`${prefixCls}-wrap-visible`]: _visible
           })}
           onKeyDown={this.onKeyDown}

@@ -84,7 +84,7 @@ declare class MapTool extends Component<any, any> {
     menuClick: (key: any) => void;
     changeCollapse: (is_collapse_tool: any) => void;
     moreSelectClick: (e: any) => void;
-    render(): JSX.Element;
+    render(): JSX.Element | null;
 }
 declare const MixMapTool: typeof MapTool;
 export default MixMapTool;

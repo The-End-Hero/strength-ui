@@ -46,10 +46,10 @@ export default class ModalPage extends Component {
         <Button type="primary" onClick={() => this.onShow("visible10")}>
           打开
         </Button>
-        {/*<h2>居中显示</h2>*/}
-        {/*<Button type="primary" onClick={() => this.onShow("visible5")}>*/}
-          {/*打开*/}
-        {/*</Button>*/}
+        <h2>居中显示</h2>
+        <Button type="primary" onClick={() => this.onShow("visible5")}>
+          打开
+        </Button>
         <h2>点击蒙版不关闭</h2>
         <Button type="info" onClick={() => this.onShow("visible6")}>
           打开
