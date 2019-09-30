@@ -246,7 +246,8 @@ export default class Modal extends PureComponent <any, any> {
   disableScroll = () => {
     document.body.style.overflow = "hidden";
     //滚动条的宽度 防止鬼畜
-    document.body.style.paddingRight = "15px";
+    const isMac = /macintosh|mac os x/i.test(navigator.userAgent)
+    if(!isMac) document.body.style.paddingRight = "15px";
   };
   enableScroll = () => {
     document.body.style.overflow = "";

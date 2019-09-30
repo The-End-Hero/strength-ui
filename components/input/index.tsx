@@ -45,6 +45,7 @@ class Input extends PureComponent<any, any> {
   timeId: any = null;
   countDownTimeId: any;
   selectInputRefs: any;
+  inputRef: any;
 
   constructor(props) {
     super(props);
@@ -101,6 +102,7 @@ class Input extends PureComponent<any, any> {
       showSelectList: true
     });
     onFocus && onFocus();
+    this.inputRef && this.inputRef.focus();
   };
   blurInput = () => {
     // console.log("blur");
@@ -168,7 +170,7 @@ class Input extends PureComponent<any, any> {
       }),
       onFocus: this.focusInput,
       onBlur: this.blurInput,
-      onChange:this._onChange,
+      onChange: this._onChange,
       ...attr
     };
     let input;
@@ -208,7 +210,7 @@ class Input extends PureComponent<any, any> {
               }
             </div>
           }
-          <input {...baseProps} value={value} onChange={this._onChange}/>
+          <input ref={ref => this.inputRef = ref}{...baseProps} value={value} onChange={this._onChange}/>
           {
             allowClear &&
             <div className={`${prefixCls}-right-icon-wrap`} onClick={this.clearClick} style={{ cursor: "pointer" }}>

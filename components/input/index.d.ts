@@ -36,6 +36,7 @@ declare class Input extends PureComponent<any, any> {
     timeId: any;
     countDownTimeId: any;
     selectInputRefs: any;
+    inputRef: any;
     constructor(props: any);
     componentDidUpdate(prevProps: any): void;
     countDown: () => void;

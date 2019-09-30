@@ -287,15 +287,15 @@ export default class ModalPage extends Component {
           <span>自定义文字</span>
         </Modal>
 
-        {/*<Modal*/}
-          {/*title="居中"*/}
-          {/*visible={this.state.visible5}*/}
-          {/*centered*/}
-          {/*onCancel={() => this.onCancel("visible5")}*/}
-          {/*onOk={() => this.onCancel("visible5")}*/}
-        {/*>*/}
-          {/*<span>自定义文字</span>*/}
-        {/*</Modal>*/}
+        <Modal
+          title="居中"
+          visible={this.state.visible5}
+          centered
+          onCancel={() => this.onCancel("visible5")}
+          onOk={() => this.onCancel("visible5")}
+        >
+          <span>自定义文字</span>
+        </Modal>
 
         <Modal
           title="点击蒙版不关闭"
