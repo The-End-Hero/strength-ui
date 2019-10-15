@@ -75,6 +75,10 @@ declare class MapTool extends Component<any, any> {
      */
     disSelect: () => void;
     /**
+     * 等时圈
+     */
+    timeLoop: () => void;
+    /**
      * 清空自绘制围栏
      */
     emptySelect: () => void;

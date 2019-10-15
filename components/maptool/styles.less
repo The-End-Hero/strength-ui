@@ -52,7 +52,7 @@
 }
 
 .E0E3E8 {
-  .search_map, .self_select, .cursor_select, .clear_custom_drow, .dis_select, .map_style, .more_select, .full_screen, .save_as_jpeg, .street_view, .ranging, .reset_map, .point_select, .mc_map_tool {
+  .search_map, .self_select, .cursor_select, .time_loop, .clear_custom_drow, .dis_select, .map_style, .more_select, .full_screen, .save_as_jpeg, .street_view, .ranging, .reset_map, .point_select, .mc_map_tool {
     background-color: #E0E3E8;
   }
 }
@@ -172,6 +172,12 @@
   }
   &.cursor_select { // 光标
     mask: url("../../static/images/map_visual/cursor_select.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #A5ABBE;
+    transition: all 0.3s;
+  }
+  &.time_loop {
+    mask: url("../../static/images/map_visual/time_loop.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #A5ABBE;
     transition: all 0.3s;

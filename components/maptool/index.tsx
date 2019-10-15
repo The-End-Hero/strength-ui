@@ -153,7 +153,7 @@ class MapTool extends Component<any, any> {
     // snackbar.info('warning','Flash未安装或被禁用')
     if (!isFlash.hasFlash) {
       Modal.prompt({
-        centered:true,
+        centered: true,
         title: "Flash未安装或被禁用",
         noTitle: true,
         content: <>
@@ -358,6 +358,16 @@ class MapTool extends Component<any, any> {
     }
   };
   /**
+   * 等时圈
+   */
+  timeLoop = () => {
+    const { timeLoop } = this.props;
+    if (timeLoop) {
+      timeLoop();
+      this.pauseStyle(false);
+    }
+  };
+  /**
    * 清空自绘制围栏
    */
   emptySelect = () => {
@@ -410,6 +420,8 @@ class MapTool extends Component<any, any> {
     } else if (key === "point_select") { // 画点
       console.log("画点");
       this.pointSelect();
+    } else if (key === "time_loop") {
+      this.timeLoop();
     }
   };
   changeCollapse = (is_collapse_tool) => {
@@ -463,13 +475,12 @@ class MapTool extends Component<any, any> {
       is_point_select_status
     } = this.state;
 
-    
 
     console.log(maptools, "maptools");
     // 没有选中项，不展示 直接返回null
     let hasChecked = some(maptools, ["checked", true]);
-    if(!hasChecked){
-      return null
+    if (!hasChecked) {
+      return null;
     }
     // 获取初始化能显示的list
     let list = filter(maptools, (t) => {
@@ -480,7 +491,7 @@ class MapTool extends Component<any, any> {
     }
     if (is_collapse_tool) { // 收起状态
       return (
-        <div className={cls('mc_map_tool_collapse',{
+        <div className={cls("mc_map_tool_collapse", {
           is_translucent: is_translucent
         })}
              style={{ display: noTool ? "none" : "" }}
@@ -492,7 +503,7 @@ class MapTool extends Component<any, any> {
               <div className="mc_map_tool"></div>
             </div>
           </Tooltip>
-          
+
           {/*<div>工具</div>*/}
         </div>
       );
@@ -519,12 +530,12 @@ class MapTool extends Component<any, any> {
           {
             map(list, (mt) => {
               if (mt.key.indexOf("line") > -1) {
-                if(mt.checked || mt.checked === undefined){
+                if (mt.checked || mt.checked === undefined) {
                   return (
                     <div className="mc_map_tool_dividing_line"></div>
                   );
-                }else {
-                  return null
+                } else {
+                  return null;
                 }
               }
               let pS = "";
