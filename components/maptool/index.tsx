@@ -460,6 +460,7 @@ class MapTool extends Component<any, any> {
       maptools,
       changeMapStyle,
       map_style,
+      is_server_render,
       is_translucent // 半透明
     } = this.props;
     const {
@@ -514,6 +515,7 @@ class MapTool extends Component<any, any> {
         <MapStyle
           changeMapStyle={changeMapStyle}
           map_style={map_style}
+          is_server_render={is_server_render}
           goBack={this.showPop}/>
       );
     }

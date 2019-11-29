@@ -19,7 +19,7 @@ export default class MapStyle extends PureComponent<any, any> {
   };
 
   render() {
-    const { map_style, goBack } = this.props;
+    const { map_style, goBack, is_server_render } = this.props;
     return (
       <div className="mc_map_tool_style">
         <div className="mc_map_tool_style_title">地图样式</div>
@@ -36,24 +36,30 @@ export default class MapStyle extends PureComponent<any, any> {
             <div className={cls("mc_map_tool_style_img dark", { selected: map_style === "dark" })}></div>
             <div>深色地图</div>
           </div>
-          <div className="mc_map_tool_style_select_li" onClick={() => {
-            this.changeMapStyle("darklabel");
-          }}>
-            <div className={cls("mc_map_tool_style_img dark", { selected: map_style === "darklabel" })}></div>
-            <div>深色(label)</div>
-          </div>
+          {
+            is_server_render &&
+            <div className="mc_map_tool_style_select_li" onClick={() => {
+              this.changeMapStyle("darklabel");
+            }}>
+              <div className={cls("mc_map_tool_style_img dark", { selected: map_style === "darklabel" })}></div>
+              <div>深色(label)</div>
+            </div>
+          }
           <div className="mc_map_tool_style_select_li" onClick={() => {
             this.changeMapStyle("normal");
           }}>
             <div className={cls("mc_map_tool_style_img light", { selected: map_style === "normal" })}></div>
             <div>浅色地图</div>
           </div>
-          <div className="mc_map_tool_style_select_li" onClick={() => {
-            this.changeMapStyle("whitelabel");
-          }}>
-            <div className={cls("mc_map_tool_style_img light", { selected: map_style === "whitelabel" })}></div>
-            <div>浅色(label)</div>
-          </div>
+          {
+            is_server_render &&
+            <div className="mc_map_tool_style_select_li" onClick={() => {
+              this.changeMapStyle("whitelabel");
+            }}>
+              <div className={cls("mc_map_tool_style_img light", { selected: map_style === "whitelabel" })}></div>
+              <div>浅色(label)</div>
+            </div>
+          }
           <div className="mc_map_tool_style_select_li" style={{ marginRight: 0 }} onClick={() => {
             this.changeMapStyle("wxt");
           }}>
