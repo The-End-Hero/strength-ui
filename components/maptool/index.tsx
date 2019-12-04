@@ -101,6 +101,11 @@ class MapTool extends Component<any, any> {
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction, false);
     this.removeStreetscapeView();
+    this.map = null
+    this.poiMarker = null
+    this.panorama = null
+    this.layer = null
+    this.vectorLayer = null
   }
 
   escFunction = event => {
