@@ -40,7 +40,7 @@ export default class Button extends PureComponent<any, any> {
         {
           map(list, (l) => {
             return (
-              <div className="mc_map_tool_more_li" onClick={() => {
+              <div className="mc_map_tool_more_li" key={l.label} onClick={() => {
                 menuClick(l.key);
               }}>
                 <div className={`mc_map_tool_more_li_icon ${l.key}`}></div>

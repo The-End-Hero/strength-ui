@@ -23,8 +23,7 @@ class MapTool extends Component<any, any> {
     is_default_collapse_tool: false, // 工具栏是否收起 is_default_collapse_tool
     is_server_render: false,
     fullscreencenter: false,
-    getMap: () => {
-    },
+    getMap: () => {},
     // TODO 配置化渲染顺序
     maptools: [
       { key: "search_map", label: "搜索", checked: true, fold: false },
@@ -32,7 +31,12 @@ class MapTool extends Component<any, any> {
       { key: "cursor_select", label: "点选", checked: true, fold: false },
       { key: "self_select", label: "画多边形", checked: true, fold: false },
       { key: "dis_select", label: "画圆", checked: true, fold: false },
-      { key: "clear_custom_drow", label: "清空围栏", checked: true, fold: false },
+      {
+        key: "clear_custom_drow",
+        label: "清空围栏",
+        checked: true,
+        fold: false
+      },
       { key: "line-2" },
       { key: "map_style", label: "地图样式", checked: true, fold: false },
       { key: "full_screen", label: "地图全屏", checked: true, fold: false },
@@ -101,11 +105,11 @@ class MapTool extends Component<any, any> {
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction, false);
     this.removeStreetscapeView();
-    this.map = null
-    this.poiMarker = null
-    this.panorama = null
-    this.layer = null
-    this.vectorLayer = null
+    this.map = null;
+    this.poiMarker = null;
+    this.panorama = null;
+    this.layer = null;
+    this.vectorLayer = null;
   }
 
   escFunction = event => {
@@ -133,7 +137,7 @@ class MapTool extends Component<any, any> {
     const { disableMapClick } = this.props;
     if (disableMapClick) disableMapClick(false);
   };
-  changeMoreMenu = (bool) => {
+  changeMoreMenu = bool => {
     this.setState({
       moreMenu: bool
     });
@@ -161,11 +165,15 @@ class MapTool extends Component<any, any> {
         centered: true,
         title: "Flash未安装或被禁用",
         noTitle: true,
-        content: <>
-          点击
-          <a href="https://get.adobe.com/cn/flashplayer/" target="_blank">https://get.adobe.com/cn/flashplayer/</a>
-          安装或启用
-        </>,
+        content: (
+          <>
+            点击
+            <a href="https://get.adobe.com/cn/flashplayer/" target="_blank">
+              https://get.adobe.com/cn/flashplayer/
+            </a>
+            安装或启用
+          </>
+        ),
         onOk({ value, checked }) {
           // console.log(value, checked);
         }
@@ -201,7 +209,9 @@ class MapTool extends Component<any, any> {
       coordinate = { lng: coordinate.x, lat: coordinate.y };
     }
     if (this.panorama) {
-      this.panorama.setPosition(new window.BMap.Point(coordinate.lng, coordinate.lat));
+      this.panorama.setPosition(
+        new window.BMap.Point(coordinate.lng, coordinate.lat)
+      );
     }
   };
 
@@ -218,7 +228,7 @@ class MapTool extends Component<any, any> {
   addSecondMap = () => {
     let { is_server_render, getMap } = this.props;
     $("body").append(
-      "<div id=\"streetscapeView\" style=\"position:absolute;right:0px;top:0px;border:1px solid #ccc;top: 0px;bottom: 0px;width:50%;overflow: hidden;z-index: 999999;background: #444e61;color:#fff;\"><div id=\"streetscapeMap\" style=\"height:100%;width:100%;overflow: hidden;\"></div><div class=\"pano_close_ex\" title=\"退出全景\" style=\"z-index: 1201;\"></div></div>"
+      '<div id="streetscapeView" style="position:absolute;right:0px;top:0px;border:1px solid #ccc;top: 0px;bottom: 0px;width:50%;overflow: hidden;z-index: 999999;background: #444e61;color:#fff;"><div id="streetscapeMap" style="height:100%;width:100%;overflow: hidden;"></div><div class="pano_close_ex" title="退出全景" style="z-index: 1201;"></div></div>'
     );
     let $close = $(".pano_close_ex");
     $close.on("click", this.hideStreetscapeView);
@@ -238,7 +248,9 @@ class MapTool extends Component<any, any> {
       //amap
       coordinate = gcj02tobd09(center.lng, center.lat);
     }
-    streetscapeMap.setPosition(new window.BMap.Point(coordinate.lng, coordinate.lat));
+    streetscapeMap.setPosition(
+      new window.BMap.Point(coordinate.lng, coordinate.lat)
+    );
     streetscapeMap.setPov({
       heading: -40,
       pitch: 6
@@ -282,7 +294,9 @@ class MapTool extends Component<any, any> {
         if (is_server_render) {
           this.poiMarker.setCoordinates(center);
         } else {
-          this.poiMarker.setPosition(new window.AMap.LngLat(center.lng, center.lat));
+          this.poiMarker.setPosition(
+            new window.AMap.LngLat(center.lng, center.lat)
+          );
         }
       }
     });
@@ -392,44 +406,56 @@ class MapTool extends Component<any, any> {
     searchMap && searchMap();
   };
   // 改变 is_point_select_status 状态
-  changeIsPointSelectStatus = async (bool) => {
+  changeIsPointSelectStatus = async bool => {
     await this.setState({ is_point_select_status: bool });
     const { pointSelect } = this.props;
     pointSelect && pointSelect(this.state.is_point_select_status);
   };
 
-  menuClick = (key) => {
+  menuClick = key => {
     // console.log(key, "key");
-    if (key === "save_as_jpeg") { // 地图截屏
+    if (key === "save_as_jpeg") {
+      // 地图截屏
       this.saveAsJpeg();
-    } else if (key === "street_view") { // 街景
+    } else if (key === "street_view") {
+      // 街景
       this.toggleStreetView();
-    } else if (key === "ranging") { // 测距
+    } else if (key === "ranging") {
+      // 测距
       this.turnOnRangingTool();
-    } else if (key === "reset_map") { // 重置地图
+    } else if (key === "reset_map") {
+      // 重置地图
       this.reSetMap();
-    } else if (key === "search_map") { // 地图搜索
+    } else if (key === "search_map") {
+      // 地图搜索
       this.searchMap();
-    } else if (key === "cursor_select") { // 点选
+    } else if (key === "cursor_select") {
+      // 点选
       this.pauseState();
-    } else if (key === "self_select") { // 绘制围栏
+    } else if (key === "self_select") {
+      // 绘制围栏
       this.selfSelect();
-    } else if (key === "dis_select") { // 绘制圆
+    } else if (key === "dis_select") {
+      // 绘制圆
       this.disSelect();
-    } else if (key === "clear_custom_drow") { // 清除绘制的圆
+    } else if (key === "clear_custom_drow") {
+      // 清除绘制的圆
       this.emptySelect();
-    } else if (key === "map_style") { // 地图样式
+    } else if (key === "map_style") {
+      // 地图样式
       this.showPop();
-    } else if (key === "full_screen") { // 全屏
+    } else if (key === "full_screen") {
+      // 全屏
       this.onFullScreenCenter();
-    } else if (key === "point_select") { // 画点
+    } else if (key === "point_select") {
+      // 画点
       console.log("画点");
       this.pointSelect();
     } else if (key === "time_loop") {
       this.timeLoop();
     }
   };
-  changeCollapse = (is_collapse_tool) => {
+  changeCollapse = is_collapse_tool => {
     this.setState({
       is_collapse_tool
     });
@@ -446,7 +472,7 @@ class MapTool extends Component<any, any> {
   //   return list
   // }
 
-  moreSelectClick = (e) => {
+  moreSelectClick = e => {
     const { moreMenu } = this.state;
     // console.log(e);
     const target = e.currentTarget;
@@ -468,19 +494,10 @@ class MapTool extends Component<any, any> {
       is_server_render,
       is_translucent // 半透明
     } = this.props;
-    const {
-      is_collapse_tool,
-      noTool
-    } = this.state;
+    const { is_collapse_tool, noTool } = this.state;
     // console.log(maptools, "maptools");
 
-    let {
-      show,
-      moreMenu,
-      pauseStyle,
-      is_point_select_status
-    } = this.state;
-
+    let { show, moreMenu, pauseStyle, is_point_select_status } = this.state;
 
     console.log(maptools, "maptools");
     // 没有选中项，不展示 直接返回null
@@ -489,23 +506,26 @@ class MapTool extends Component<any, any> {
       return null;
     }
     // 获取初始化能显示的list
-    let list = filter(maptools, (t) => {
-      return ((t.fold === false && t.checked) || t.key.indexOf("line") > -1);
+    let list = filter(maptools, t => {
+      return (t.fold === false && t.checked) || t.key.indexOf("line") > -1;
     });
     while (size(list) > 0 && list[0].key.indexOf("line") > -1) {
       list.splice(0, 1);
     }
-    if (is_collapse_tool) { // 收起状态
+    if (is_collapse_tool) {
+      // 收起状态
       return (
-        <div className={cls("mc_map_tool_collapse", {
-          is_translucent: is_translucent
-        })}
-             style={{ display: noTool ? "none" : "" }}
-             onClick={() => {
-               this.changeCollapse(false);
-             }}>
+        <div
+          className={cls("mc_map_tool_collapse", {
+            is_translucent: is_translucent
+          })}
+          style={{ display: noTool ? "none" : "" }}
+          onClick={() => {
+            this.changeCollapse(false);
+          }}
+        >
           <Tooltip placement="right" title={`展开工具栏`}>
-            <div className='mc_map_tool_container'>
+            <div className="mc_map_tool_container">
               <div className="mc_map_tool"></div>
             </div>
           </Tooltip>
@@ -521,7 +541,8 @@ class MapTool extends Component<any, any> {
           changeMapStyle={changeMapStyle}
           map_style={map_style}
           is_server_render={is_server_render}
-          goBack={this.showPop}/>
+          goBack={this.showPop}
+        />
       );
     }
     return (
@@ -531,40 +552,43 @@ class MapTool extends Component<any, any> {
         })}
         style={{ display: noTool ? "none" : "" }}
       >
-        <div className={cls("mc_map_tool_btn_wrap", {
-          is_translucent: is_translucent
-        })}>
-          {
-            map(list, (mt) => {
-              if (mt.key.indexOf("line") > -1) {
-                if (mt.checked || mt.checked === undefined) {
-                  return (
-                    <div className="mc_map_tool_dividing_line"></div>
-                  );
-                } else {
-                  return null;
-                }
+        <div
+          className={cls("mc_map_tool_btn_wrap", {
+            is_translucent: is_translucent
+          })}
+        >
+          {map(list, (mt, index) => {
+            if (mt.key.indexOf("line") > -1) {
+              if (mt.checked || mt.checked === undefined) {
+                return (
+                  <div
+                    className="mc_map_tool_dividing_line"
+                    key={mt.key + index}
+                  ></div>
+                );
+              } else {
+                return null;
               }
-              let pS = "";
-              if (mt.key === "cursor_select" && !is_point_select_status) {
-                pS = pauseStyle ? "pauseStyle" : "";
-              }
-              if (mt.key === "point_select" && is_point_select_status) {
-                pS = pauseStyle ? "pauseStyle" : "";
-              }
-              const ele = [
-                <Tooltip placement="right" title={`${mt.label}`} key={mt.key}>
-                  <div className={cls(`mc_map_tool_btn_container ${pS}`)}
-                       onClick={() => this.menuClick(mt.key)}>
-                    <div
-                      className={cls(`mc_map_left_btn ${mt.key}`, {})}
-                    />
-                  </div>
-                </Tooltip>
-              ];
-              return ele;
-            })
-          }
+            }
+            let pS = "";
+            if (mt.key === "cursor_select" && !is_point_select_status) {
+              pS = pauseStyle ? "pauseStyle" : "";
+            }
+            if (mt.key === "point_select" && is_point_select_status) {
+              pS = pauseStyle ? "pauseStyle" : "";
+            }
+            const ele = [
+              <Tooltip placement="right" title={`${mt.label}`} key={mt.key}>
+                <div
+                  className={cls(`mc_map_tool_btn_container ${pS}`)}
+                  onClick={() => this.menuClick(mt.key)}
+                >
+                  <div className={cls(`mc_map_left_btn ${mt.key}`, {})} />
+                </div>
+              </Tooltip>
+            ];
+            return ele;
+          })}
           <div className="mc_map_tool_btn_container" style={{ height: 12 }}>
             <div
               className={cls("mc_map_left_btn more_select")}
