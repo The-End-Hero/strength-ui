@@ -17,8 +17,6 @@ class MoreMenu extends PureComponent<any, any> {
     countDownNum: 60,
     allowClear: false  // 显示清除图标，并且可以删除内容
   };
-  static propTypes = {};
-
 
   timeId: any = null;
   countDownTimeId: any;
@@ -79,7 +77,7 @@ class MoreMenu extends PureComponent<any, any> {
     onBlur && onBlur();
   };
   getVcode = () => {
-    console.log("getvcode");
+    // console.log("getvcode");
   };
   focusSelectInput = () => {
     this.selectInputRefs.focus();
@@ -181,8 +179,5 @@ class MoreMenu extends PureComponent<any, any> {
     return input;
   }
 }
-
-MoreMenu.propTypes = {
-};
 
 export default MoreMenu;

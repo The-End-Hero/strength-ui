@@ -47,18 +47,18 @@ class MapTool extends Component<any, any> {
     ]
   };
   static propTypes = {
-    is_server_render: PropTypes.bool.isRequired,
-    onFullScreenCenter: PropTypes.func.isRequired,
-    fullscreencenter: PropTypes.bool.isRequired, //是否全屏
-    hasCustomDraw: PropTypes.bool.isRequired, //是否有自定义围栏
-    selectMapStyle: PropTypes.func.isRequired,
-    saveAsJpeg: PropTypes.func.isRequired,
-    turnOnRangingTool: PropTypes.func.isRequired,
-    pauseState: PropTypes.func.isRequired, // 点选状态回调
-    selfSelect: PropTypes.func.isRequired, // 画圆回调
-    disSelect: PropTypes.func.isRequired, // 画多边形回调
-    emptySelect: PropTypes.func.isRequired, // 清空
-    getMap: PropTypes.func.isRequired // 返回地图实例
+    is_server_render: PropTypes.bool,
+    onFullScreenCenter: PropTypes.func,
+    fullscreencenter: PropTypes.bool, //是否全屏
+    hasCustomDraw: PropTypes.bool, //是否有自定义围栏
+    selectMapStyle: PropTypes.func,
+    saveAsJpeg: PropTypes.func,
+    turnOnRangingTool: PropTypes.func,
+    pauseState: PropTypes.func, // 点选状态回调
+    selfSelect: PropTypes.func, // 画圆回调
+    disSelect: PropTypes.func, // 画多边形回调
+    emptySelect: PropTypes.func, // 清空
+    getMap: PropTypes.func // 返回地图实例
   };
   map: any;
   poiMarker: any;
@@ -449,7 +449,7 @@ class MapTool extends Component<any, any> {
       this.onFullScreenCenter();
     } else if (key === "point_select") {
       // 画点
-      console.log("画点");
+      // console.log("画点");
       this.pointSelect();
     } else if (key === "time_loop") {
       this.timeLoop();
@@ -499,7 +499,7 @@ class MapTool extends Component<any, any> {
 
     let { show, moreMenu, pauseStyle, is_point_select_status } = this.state;
 
-    console.log(maptools, "maptools");
+    // console.log(maptools, "maptools");
     // 没有选中项，不展示 直接返回null
     let hasChecked = some(maptools, ["checked", true]);
     if (!hasChecked) {

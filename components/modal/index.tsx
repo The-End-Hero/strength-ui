@@ -139,7 +139,7 @@ export default class Modal extends PureComponent <any, any> {
     const prefixCls = defaultProps.prefixCls;
     const iconType = options.iconType || type;
     const { title, content, ...otherOpts } = options;
-    console.log(options,'options')
+    // console.log(options,'options')
     const _modal = render(
       <Modal
         className={cls(`${prefixCls}-method`, `${prefixCls}-${iconType}`)}

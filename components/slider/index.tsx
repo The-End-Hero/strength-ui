@@ -50,8 +50,8 @@ class MCSlider extends PureComponent<any, any> {
       ...attr
     } = this.props;
     const {} = this.state;
-    console.log(leftIcon, "leftIcon");
-    console.log(rightIcon, "rightIcon");
+    // console.log(leftIcon, "leftIcon");
+    // console.log(rightIcon, "rightIcon");
     let slider = (
       <div className={`${prefixCls} ${className}`} style={style}>
         {leftIcon}

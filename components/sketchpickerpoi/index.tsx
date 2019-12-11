@@ -95,7 +95,7 @@ class SketchpickerPoi extends Component<any, any> {
   };
 
   close = (...args) => {
-    console.log("close");
+    // console.log("close");
     const { openColorPicker, from_to } = this.props;
     if (openColorPicker) {
       if (from_to) {
@@ -107,7 +107,7 @@ class SketchpickerPoi extends Component<any, any> {
   };
 
   finish = (...args) => {
-    console.log("finish");
+    // console.log("finish");
     const { openColorPicker, from_to } = this.props;
     if (openColorPicker) {
       if (from_to) {
@@ -124,7 +124,7 @@ class SketchpickerPoi extends Component<any, any> {
     this.startMove = true;
     let { clientX, clientY } = e;
     const ref = this.popover;
-    console.log(ref, "ref");
+    // console.log(ref, "ref");
     const $center = $(ReactDOM.findDOMNode(ref));
     let { left, top } = $center.offset();
     this.offLeft = clientX - left;
@@ -153,7 +153,7 @@ class SketchpickerPoi extends Component<any, any> {
   render() {
     let { color, selectIcon } = this.state;
     let { className, style, ...props } = this.props;
-    console.log(poi_icons, "poi_icons");
+    // console.log(poi_icons, "poi_icons");
     return (
       <div
         ref={ref => (this.popover = ref)}
