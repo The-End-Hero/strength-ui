@@ -12,6 +12,7 @@ import {
   WarningIcon,
   CloseIcon
 } from "../icon";
+import {  MdClose } from "react-icons/md";
 
 const typeConfig = {
   info: "info",
@@ -380,7 +381,9 @@ export default class Modal extends PureComponent <any, any> {
             <section className={`${prefixCls}-header`}>
               <h2 className={`${prefixCls}-title`}>{title}</h2>
               {closable && (
-                <CloseIcon
+                <MdClose
+                  color='#fff'
+                  size={24}
                   className={`${prefixCls}-close`}
                   onClick={this._onCancel}
                 />
