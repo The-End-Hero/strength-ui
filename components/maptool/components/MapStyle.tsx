@@ -60,6 +60,15 @@ export default class MapStyle extends PureComponent<any, any> {
               <div>浅色(label)</div>
             </div>
           }
+          {
+            is_server_render &&
+            <div className="mc_map_tool_style_select_li" onClick={() => {
+              this.changeMapStyle("whitefresh");
+            }}>
+              <div className={cls("mc_map_tool_style_img light", { selected: map_style === "whitefresh" })}></div>
+              <div>浅色(fresh)</div>
+            </div>
+          }
           <div className="mc_map_tool_style_select_li" style={{ marginRight: 0 }} onClick={() => {
             this.changeMapStyle("wxt");
           }}>

@@ -1,6 +1,6 @@
 {
   "name": "strength-ui",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "A React.js UI/Map components for Web",
   "repository": "https://",
   "homepage": "https://",
@@ -224,10 +224,6 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
-    "@deck.gl/core": "^6.4.7",
-    "@deck.gl/experimental-layers": "^6.4.7",
-    "@deck.gl/layers": "^6.4.7",
-    "@deck.gl/mapbox": "^6.4.7",
     "@mapbox/mapbox-gl-draw": "^1.1.1",
     "@mapbox/mapbox-gl-draw-static-mode": "^1.0.1",
     "@mapbox/mapbox-gl-language": "^0.10.0",
@@ -241,7 +237,6 @@
     "classnames": "^2.2.6",
     "coordtransform": "^2.1.2",
     "d3-interpolate": "^1.3.2",
-    "deck.gl": "^7.0.0-rc.1",
     "del": "^4.1.0",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.1",
