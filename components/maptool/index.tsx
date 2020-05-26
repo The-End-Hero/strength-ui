@@ -242,19 +242,19 @@ class MapTool extends Component<any, any> {
           "https://mapsv0.bdimg.com/tile/?udt=20180726&qt=tile&styles=pl&x={x}&y={y}&z={z}"
       }).addTo(mapIns);
     let streetscapeMap = new window.BMap.Panorama("streetscapeMap");
-    let center = mapIns.getCenter();
-    let coordinate = { lng: center.x, lat: center.y };
-    if (!center.x) {
-      //amap
-      coordinate = gcj02tobd09(center.lng, center.lat);
-    }
-    streetscapeMap.setPosition(
-      new window.BMap.Point(coordinate.lng, coordinate.lat)
-    );
-    streetscapeMap.setPov({
-      heading: -40,
-      pitch: 6
-    });
+    // let center = mapIns.getCenter();
+    // let coordinate = { lng: center.x, lat: center.y };
+    // if (!center.x) {
+    //   //amap
+    //   coordinate = gcj02tobd09(center.lng, center.lat);
+    // }
+    // streetscapeMap.setPosition(
+    //   new window.BMap.Point(coordinate.lng, coordinate.lat)
+    // );
+    // streetscapeMap.setPov({
+    //   heading: -40,
+    //   pitch: 6
+    // });
     streetscapeMap.addEventListener("position_changed", t => {
       let pos = streetscapeMap.getPosition();
       let center = is_server_render
@@ -265,10 +265,12 @@ class MapTool extends Component<any, any> {
       // console.log(this.poiMarker,'this.poiMarker')
       if (!this.poiMarker) {
         if (is_server_render) {
-          this.vectorLayer = new maptalks.VectorLayer(
-            "streetscape_map_vector",
-            { zIndex: 999999 }
-          ).addTo(mapIns);
+          if (!this.vectorLayer) {
+            this.vectorLayer = new maptalks.VectorLayer(
+              "streetscape_map_vector",
+              { zIndex: 999999 }
+            ).addTo(mapIns);
+          }
           this.poiMarker = new maptalks.Marker(center, {
             symbol: {
               markerFile: require("../../static/images/other/streetimg.png"), //`${window.location.origin}/images/other/streetimg.png`,
@@ -517,7 +519,7 @@ class MapTool extends Component<any, any> {
       return (
         <div
           className={cls("mc_map_tool_collapse", {
-            is_translucent: is_translucent
+            is_translucent
           })}
           style={{ display: noTool ? "none" : "" }}
           onClick={() => {
@@ -554,7 +556,7 @@ class MapTool extends Component<any, any> {
       >
         <div
           className={cls("mc_map_tool_btn_wrap", {
-            is_translucent: is_translucent
+            is_translucent
           })}
         >
           {map(list, (mt, index) => {
