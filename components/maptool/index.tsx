@@ -573,19 +573,26 @@ class MapTool extends Component<any, any> {
               }
             }
             let pS = "";
+            let title = mt.label;
+            let key = mt.key;
             if (mt.key === "cursor_select" && !is_point_select_status) {
               pS = pauseStyle ? "pauseStyle" : "";
             }
             if (mt.key === "point_select" && is_point_select_status) {
               pS = pauseStyle ? "pauseStyle" : "";
             }
+            if(mt.key === 'full_screen' && fullscreencenter){
+              pS = 'exit_full_screen'
+              key = 'exit_full_screen'
+              title = '退出全屏'
+            }
             const ele = [
-              <Tooltip placement="right" title={`${mt.label}`} key={mt.key}>
+              <Tooltip placement="right" title={`${title}`} key={mt.key}>
                 <div
                   className={cls(`mc_map_tool_btn_container ${pS}`)}
                   onClick={() => this.menuClick(mt.key)}
                 >
-                  <div className={cls(`mc_map_left_btn ${mt.key}`, {})} />
+                  <div className={cls(`mc_map_left_btn ${key}`, {})} />
                 </div>
               </Tooltip>
             ];

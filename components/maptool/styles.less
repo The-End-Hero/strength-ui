@@ -52,7 +52,7 @@
 }
 
 .E0E3E8 {
-  .search_map, .self_select, .cursor_select, .time_loop, .clear_custom_drow, .dis_select, .map_style, .more_select, .full_screen, .save_as_jpeg, .street_view, .ranging, .reset_map, .point_select, .mc_map_tool {
+  .search_map, .self_select, .cursor_select, .time_loop, .clear_custom_drow, .dis_select, .map_style, .more_select, .full_screen, .exit_full_screen, .save_as_jpeg, .street_view, .ranging, .reset_map, .point_select, .mc_map_tool {
     background-color: #E0E3E8;
   }
 }
@@ -208,6 +208,12 @@
   }
   &.full_screen {
     mask: url("../../static/images/map_visual/full_screen.svg") no-repeat 50% 50%;
+    mask-size: contain;
+    background-color: #A5ABBE;
+    transition: all 0.3s;
+  }
+  &.exit_full_screen {
+    mask: url("../../static/images/map_visual/exit_full_screen.svg") no-repeat 50% 50%;
     mask-size: contain;
     background-color: #A5ABBE;
     transition: all 0.3s;
